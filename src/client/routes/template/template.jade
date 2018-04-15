@@ -1,0 +1,28 @@
+.template
+  h1 {{type==='email'?'Email':'Sms'}} template
+  form(name='myForm', ng-submit='save()')
+    .row
+      section
+        label Name
+        input(type='text', ng-model='template.item.name')
+        .subject(ng-show='type==="email"')
+          label Subject
+          input(type='text', ng-model='template.item.subject')
+        .from(ng-show='type==="email"')
+          label From
+          input(type='text', ng-model='template.item.from')
+        div
+          input(type='submit', value='Save')
+          button.button(ng-click='cancel()') Cancel
+      section
+        label Body
+        code-mirror(ng-model='template.item.body', options='{mode:lang, lineWrapping:true}')
+        small(ng-show="type==='sms'") {{template.item.body.length || 0}} / 130
+    .row
+      section.email-preview(ng-if="type==='email'")
+        .preview-title Preview
+        template-render(ng-model='template.item.subject', data='defaultData')
+        jade-render(ng-model='template.item.body', data='defaultData')
+      section.sms-preview(ng-if="type==='sms'")
+        .preview-title Preview
+        template-render(ng-model='template.item.body', data='defaultData')

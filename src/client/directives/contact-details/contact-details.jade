@@ -1,0 +1,25 @@
+.contact-details.col-sm-6
+  h4 {{title}}
+  .card
+    a.edit-btn(href='', ng-click='edit()', ng-hide='editing')
+      i.fa.fa-pencil-square-o(aria-hidden='true')
+    div(ng-show='data().name || editing')
+      .role
+        i.fa.fa-university(aria-hidden='true', ng-show='data().role')
+        span(ng-hide='editing') {{data().role}}
+        input(type='text', ng-model='data().role', ng-show='editing', placeholder='Role')
+      .name
+        span(ng-hide='editing') {{data().name}}
+        input(type='text', ng-model='data().name', ng-show='editing', placeholder='Name')
+      .communication
+        .telephone(ng-show='data().telephone || editing')
+          span(ng-hide='editing') {{data().telephone}}
+          input(type='text', ng-model='data().telephone', ng-show='editing', placeholder='Telephone')
+        .email(ng-show='data().email || editing')
+          span(ng-hide='editing') 
+            a.mail-link(href='mailto:{{data().email}}') {{data().email}}
+          input(type='email', ng-model='data().email', ng-show='editing', placeholder='Email')
+      .controls(ng-show='editing')
+        button(ng-click='confirm()') OK
+    div(ng-hide='data().name || editing')
+      .role No details set

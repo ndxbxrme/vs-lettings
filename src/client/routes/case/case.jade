@@ -1,0 +1,82 @@
+.case
+  h1 Case 
+    span.address - {{property.item.displayAddress}}
+      span.right {{property.item.$case.item.offer.Value | currency : "£" : 0}}
+  h2(ng-show='property.item.$case.item.override.reason==="fallenThrough"') Fallen through
+  .advance-request(ng-repeat='request in property.item.$case.item.advanceRequests | filter:{dismissed:"!true",applied:"!true"}')
+    .left Requested to be advanced to {{request.advanceTo | date:'mediumDate'}} by 
+      img(gravatar-src='request.user.local.email')
+      | {{request.user.displayName || request.user.local.email}}
+    .admin-request(ng-show='auth.checkRoles(["superadmin", "admin"])')
+      button(ng-click='applyRequest(request)') Apply
+      button(ng-click='request.dismissed=true;property.item.$case.save()') Dismiss
+  progression(ng-repeat='progression in property.item.$case.item.progressions', data='progression')
+  button.has-dropdown(ng-focus='progBtnFocussed=true', ng-blur='hideDropdown("progBtnFocussed")', ng-show='auth.checkRoles(["superadmin", "admin"])') Add Progression
+  ul.dropdown(ng-show='progBtnFocussed')
+    li(ng-repeat='progression in progressions.items')
+      a(href='', ng-click='addProgression(progression)') {{progression.name}}, {{progression.side}}
+  button(ng-hide='auth.checkRoles(["superadmin", "admin"])', ng-click='advanceProgression()') Advance all milestones
+  button(ng-show='auth.checkRoles(["superadmin", "admin"])', ng-click='fallenThrough()') Fallen through
+  h2 Chain
+  button.view-chain(ng-click='showChain = !showChain') {{showChain?'Hide':'View'}} Chain
+  .chain(ng-show='showChain')
+    button.add-chain(ng-click='addChain(property.item.$case.item.chainBuyer, "buyer")') Add to chain
+    .connector
+    chain-item(ng-repeat='item in property.item.$case.item.chainBuyer | orderBy:"-"')
+    .current-property 
+      .image
+        img(ng-src='{{property.item.Images[0].Url}}')
+      .details
+        .address {{property.item.displayAddress}}
+        .price {{property.item.$case.item.offer.Value | currency: '£': 0}}
+    .connector
+    chain-item(ng-repeat='item in property.item.$case.item.chainSeller')
+    button.add-chain(ng-click='addChain(property.item.$case.item.chainSeller, "seller")') Add to chain
+  h2 Documents
+    sup(ng-show='property.item.$case.item.documents.length') {{property.item.$case.item.documents.length}}
+  button.view-documents(ng-click='showDocuments = !showDocuments') {{showDocuments?'Hide':'View'}} Documents
+  .documents(ng-show='showDocuments')
+    .drop-box(ngf-drop='uploadFiles($files)', ngf-drag-over-class="'dragover'", ngf-multiple='true')
+      h3 Drop files here to upload
+      button.file-upload(type='file', ngf-select='uploadFiles($file, $invalidFiles)') Or click here to choose
+    .document-list(ng-show='property.item.$case.item.documents.length')
+      .document(ng-repeat='document in property.item.$case.item.documents')
+        a.document-link(ng-href='{{makeDownloadUrl(document)}}', target='_self')
+          img(ng-src='{{makeDownloadUrl(document)}}', ng-if='document.basetype==="image"')
+          .document-icon(ng-hide='document.basetype==="image"', class='{{document.basetype}}')
+            img.logo(src="public/img/icons/vs-document.png")
+        .filename 
+          label Name: 
+          span(ng-show='!document.editing') &nbsp;{{document.name || document.originalFilename}}
+          input(type='text', ng-model='document.name', ng-show='document.editing', placeholder='Name')
+        .by 
+          label Created by: 
+          | {{document.user.local.email}}
+        .on 
+          label Created on: 
+          | {{document.date | date:'mediumDate'}}, {{document.date | date:'shortTime'}}
+        .controls(ng-show='auth.checkRoles(["superadmin", "admin"])')
+          a.edit(href='', ng-click='document.editing=!document.editing', ng-show='!document.editing') Edit
+          a.save(href='', ng-click='saveDocument(document)', ng-show='document.editing') Save
+          a.delete(href='', ng-click='deleteDocument(document)') Delete
+  .contacts.row
+    contact-details(title="Vendor's Solicitor")
+    contact-details(title="Vendor's Contact")
+    contact-details(title="Purchaser's Solicitor")
+    contact-details(title="Purchaser's Contact")
+  .case-notes
+    h2.orange Case Notes
+    .case-note(ng-repeat='note in notesData = ( getNotes() | orderBy:"-date" ) | limitTo:notesLimit:notesLimit*(notesPage-1)')
+      .date {{note.date | date:'mediumDate'}}, {{note.date | date:'shortTime'}} | 
+        img(gravatar-src='note.user.local.email')  
+        span {{note.user.displayName || note.user.local.email}}
+        a.delete(href='', ng-click='deleteNote(note)', ng-show='auth.checkRoles(["admin", "superadmin"]) && !note.advanceTo') Delete
+        a.edit(href='', ng-click='editNote(note)', ng-show='auth.checkRoles(["admin","superadmin"]) && !note.advanceTo') Edit
+      .note 
+        .details
+          span(ng-show='note.side') - {{note.side}}
+          .note-body(ng-bind-html='note.text | markdown:true')
+    pagination.pagination-sm.pagination(total='notesData.length', ng-model='notesPage', page-size='notesLimit')
+    .add-note
+        code-mirror(ng-model='note.text', options='{mode:markdown, lineWrapping:true}')
+        button(ng-click='addNote()') {{note.date?'Update':'Add'}} Note

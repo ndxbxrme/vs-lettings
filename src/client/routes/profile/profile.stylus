@@ -1,0 +1,12 @@
+@import '../../variables'
+.profile-page
+  form
+    display flex
+    flex-direction column
+    max-width 320px
+    input[type='text'], input[type='email']
+      vs-input()
+    input[type='submit']
+      vs-button()
+    input
+      margin-bottom 2rem

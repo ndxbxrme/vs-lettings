@@ -1,0 +1,81 @@
+.setup
+  h1 Setup
+  .cleanup
+    button.cleanup(ui-sref='cleanup') Clean up
+  .progressions
+    h2 Progressions
+    progression(ng-repeat='progression in progressions.items', data='progression')
+    .progressions-controls
+      button.add-progression(ng-click='addProgression()') Add Progression
+      button.reset-progressions(ng-click='resetProgressions()', ng-show="auth.checkRoles('superadmin')") Reset Property Progressions
+  .row
+    .email-templates
+      h2 Email templates
+      .email-template(ng-repeat='template in emailTemplates.items')
+        a.name(ui-sref="template({id:template._id,type:'email'})") {{template.name}}
+        .delete
+          a(href='', ng-click='emailTemplates.delete(template)')
+            i.fa.fa-times-circle-o(aria-hidden='true')
+      div
+        a.add-email-template(ui-sref="template({id:'new',type:'email'})") Add email template
+    .sms-templates
+      h2 Sms templates
+      .sms-template(ng-repeat='template in smsTemplates.items')
+        a.name(ui-sref="template({id:template._id,type:'sms'})") {{template.name}}
+        .delete
+          a(href='', ng-click='smsTemplates.delete(template)')
+            i.fa.fa-times-circle-o(aria-hidden='true')
+      div
+        a.add-sms-template(ui-sref="template({id:'new',type:'sms'})") Add sms template
+  .dashboard
+    h2 Dashboard
+    .row
+      .overview
+        h3 Overview
+        .dashboard-item(ng-repeat='item in dashboard.items | filter:{type:"overview"}')
+          a.name(ui-sref="dashboardItem({id:item._id,type:'overview'})") {{item.name}}
+          .controls(ng-show='auth.checkRoles(["admin","superadmin"])')
+            a(href='', ng-click='moveDIUp(item)')
+              i.fa.fa-arrow-circle-o-up(aria-hidden='true')
+            a(href='', ng-click='moveDIDown(item)')
+              i.fa.fa-arrow-circle-o-down(aria-hidden='true')
+            a(href='', ng-click='removeDI(item)')
+              i.fa.fa-times-circle-o(aria-hidden='true')
+        div
+          a.add-dashboard-overview(ui-sref="dashboardItem({id:'new',type:'overview'})") Add overview item
+      .income
+        h3 Income
+        .dashboard-item(ng-repeat='item in dashboard.items | filter:{type:"income"} | orderBy:"i"')
+          a.name(ui-sref="dashboardItem({id:item._id,type:'income'})") {{item.name}}
+          .controls(ng-show='auth.checkRoles(["admin","superadmin"])')
+            a(href='', ng-click='moveDIUp(item)')
+              i.fa.fa-arrow-circle-o-up(aria-hidden='true')
+            a(href='', ng-click='moveDIDown(item)')
+              i.fa.fa-arrow-circle-o-down(aria-hidden='true')
+            a(href='', ng-click='removeDI(item)')
+              i.fa.fa-times-circle-o(aria-hidden='true')
+        div
+          a.add-dashboard-income(ui-sref="dashboardItem({id:'new',type:'income'})") Add income item
+  .users
+    h2 Users
+    .row
+      .users
+        .user(ng-repeat='user in myusers = (users.items | filter:"!superadmin" | filter:"!cors")') 
+          img(gravatar-src='user.local.email') 
+          span {{user.displayName || user.local.email}}
+      .add-user
+        h3 Invite user
+        form(name='addUserForm', ng-submit='addUser()')
+          .row
+            input(type='email', ng-model='newUser.local.email', placeholder='Email address')
+            select(ng-model='newUser.role')
+              option(value='agency', selected) Agency
+              option(value='admin') Admin
+          input(type='submit', value='Invite')
+        .invite-error {{inviteError}}
+        .invite-url(ng-show='inviteUrl')
+          p An email has been sent or you can copy and paste the url below
+          .row
+            input(type='text', ng-model='inviteUrl')
+            button(ng-click='copyInviteToClipboard()') Copy
+    

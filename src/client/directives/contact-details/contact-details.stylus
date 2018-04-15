@@ -1,0 +1,59 @@
+@import '../../variables'
+.contact-details
+  width 49%
+  display flex
+  flex-direction column
+  h4
+    margin-bottom 5px
+    line-height 1.6rem
+  .card
+    display flex
+    flex 1
+    background #eee
+    padding 20px 
+    position relative
+    border-radius 3px
+    min-height 80px
+    box-shadow 0px 2px 0px 0px rgba(50, 50, 50, 0.5)
+    .edit-btn, .controls
+      position absolute
+      top 20px
+      right 20px
+    .edit-btn
+      display none
+    .communication
+      display flex
+      flex-wrap wrap
+    .role
+      i
+        margin-right 5px
+        color #999
+    .name, .telephone, .email
+      position relative
+      margin-right 1rem
+      &:before
+        font-family FontAwesome
+        background none
+        margin-right 5px
+        display inline-block
+        width 15px
+        color #999
+    .name:before
+      content '\f007'
+    .telephone:before
+      content '\f095'
+    .email:before
+      content '\f003'
+    .mail-link
+      color vs-orange
+    &:hover
+      .edit-btn
+        display block
+        color vs-orange
+  @media screen and (max-width: 620px)
+    width 100%
+.mobile
+  .contact-details
+    .card
+      .edit-btn
+        display block

@@ -1,0 +1,4 @@
+.menu-dir
+  ul
+    li(ng-show='auth.isAuthorized("dashboard")')
+      a(ui-sref='dashboard', ng-class='{selected:state("dashboard")}') {{ m('menu-dashboard') }}

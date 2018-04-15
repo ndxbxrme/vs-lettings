@@ -1,0 +1,27 @@
+.chain-item 
+  .inner
+    .chain-edit(ng-if='$parent.chainEdit===item.side+$index')
+      form(name='chainForm', ng-submit='saveChain(item)')
+        label Reference
+        input(type='text', ng-model='item.reference')
+        select(ng-model='item.property')
+          option(ng-repeat='property in properties.items | orderBy:"Address.Street"', value='{{property.RoleId}}') {{property.displayAddress}}
+        label Notes
+        code-mirror(ng-model='item.note', options='{mode:"markdown"}')
+        .chain-controls
+          input(type='submit', value=' Save ')
+          button(ng-click='deleteChainItem(item, item.side)') Delete
+        
+    .chain-content(ng-hide='$parent.chainEdit===item.side+$index')
+      h1 {{item.reference}}
+      a.chain-property(ng-show='item.property', ui-sref='case({roleId:item.property})')
+        .image
+          img(ng-src='{{item.propDetails.image}}')
+        .details
+          .address {{item.propDetails.address}}
+          .price {{item.propDetails.price | currency: '£': 0}}
+      .chain-notes(ng-bind-html='item.note | markdown')
+      .chain-controls
+        div
+        button(ng-click='$parent.chainEdit=item.side+$index') Edit
+  .connector

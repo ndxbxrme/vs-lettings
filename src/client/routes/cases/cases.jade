@@ -1,0 +1,64 @@
+.cases
+  h1 Cases 
+  .controls
+    .left
+      .sort Order By:
+        a.order-item(href='', ng-click='sort="-$case.item.modifiedAt";page=1', ng-class='{selected:sort==="-LastUpdated"}') Last updated
+        a.order-item(href='', ng-click='sort="-$case.item.offer.DateTime";page=1', ng-class='{selected:sort==="-$case.item.offer.DateTime"}') Offer accepted date
+      .show Show:
+        a.filter-item.icon-green(href='', ng-click='filter="completed";page=1', ng-class='{selected:filter==="completed"}') Up-to-date
+        a.filter-item.icon-orange(href='', ng-click='filter="progressing";page=1', ng-class='{selected:filter==="progressing"}') In Progress
+        a.filter-item.icon-red(href='', ng-click='filter="overdue";page=1', ng-class='{selected:filter==="overdue"}') Overdue
+        a.filter-item(href='', ng-click='filter="";page=1', ng-class='{selected:!filter}') All
+    .right
+      .search
+        input(type='text', ng-model='search', placeholder='Search Cases', ng-change='page=1')
+      .showing Showing {{filterData.length}} of {{totalProps = properties.items.length - nodeleted}} case{{totalProps!==1?'s':''}}
+  table.table.table-responsive.small-mobile-hide(ng-show='filterData.length > 0')
+    thead
+      tr
+        th(width='5%') Status
+        th(width='30%') Property Address
+        th(width='20%') Vendor
+        th(width='20%') Purchaser
+        th(width='10%') Offer
+        th(width='5%') Options
+    tbody(ng-repeat='property in filterData =(properties.items | filter:{"deleted":false} | filter:{"search":search} | filter:{"milestoneStatus":filter}  | orderBy:sort) | limitTo:limit:limit*(page-1)')
+      tr(ng-click='property.open = !property.open')
+        td(ng-class='{"has-request animated pulse infinite":hasRequest(property)}')
+          .milestone(ng-class='property.$case.item.cssMilestone', title='{{property.$case.item.milestone.title}}')
+            .icon(class='{{ property.$case.item.milestone.icon || "house"}}')
+            .title {{property.$case.item.milestone.title}}
+        td
+          .address {{property.$case.item.override.address || property.displayAddress}}
+          .dates(ng-show='property.open')
+            .date Last Updated: 
+              strong {{property.$case.item.modifiedAt | timeAgo}} 
+              | -- {{property.$case.item.modifiedAt | date:'mediumDate'}}, {{property.$case.item.modifiedAt | date:'shortTime'}}
+            .date(ng-show='needsDate') Date added to the Case: {{property.$case.item.estCompletedTime}}
+            .date(ng-show='property.$case.item.offer.DateTime') Start Date: {{property.$case.item.offer.DateTime | date:'mediumDate'}}
+        td.vendor {{property.$case.item.vendor}}
+        td.purchaser {{property.$case.item.purchaser}}
+        td.offer {{property.$case.item.offer.Value | currency : "£" : 0}}
+          p(ng-show='property.Fees[0].FeeValueType.SystemName==="Absolute"') ({{ property.Fees[0].DefaultValue | currency : "£" : 0 }})
+          p(ng-show='property.Fees[0].FeeValueType.SystemName==="Percentage"') ({{ property.$case.item.offer.Value * (property.Fees[0].DefaultValue / 100) | currency : "£" : 0 }})
+        td.options
+          a.button(ui-sref='case({roleId:property.RoleId})') View Case
+  .mobile-table.small-mobile-show
+    .case-card(ng-repeat='property in filterData | limitTo:limit:limit*(page-1)')
+      .milestone(ng-class='property.$case.item.cssMilestone', title='{{property.$case.item.milestone.title}}')
+        .icon(class='{{ property.$case.item.milestone.icon || "house"}}')
+        .title {{property.$case.item.milestone.title}}
+      .address-row
+        .address {{property.displayAddress}}
+        .offer {{property.$case.item.offer.Value | currency : "£" : 0}}
+        .vendor Vendor: 
+          strong {{property.$case.item.vendor}}
+        .purchaser Purchaser: 
+          strong {{property.$case.item.purchaser}}
+        .options
+          a.button(ui-sref='case({roleId:property.RoleId})') View Case
+  pagination.pagination-sm.pagination(total='filterData.length', ng-model='page', page-size='limit', page-change='pageChange', show-first-last='true')
+  .nothing-to-show(ng-show='filterData.length===0')
+    h3 Nothing to show
+  

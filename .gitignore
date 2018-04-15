@@ -1,0 +1,15 @@
+node_modules/
+bower_components/
+data/
+backup/
+uploads/
+logs/
+.tmp/
+build/
+server/
+!src/server
+dist/
+env.bat
+env.sh
+key.pem
+cert.pem

@@ -1,0 +1,139 @@
+@import '../../variables'
+.case
+  sup
+    background vs-orange
+    border-radius 50%
+    padding 4px 7px 2px 7px
+    color white
+  .dropdown
+    box-shadow 2px 2px 25px rgba(200,200,200,0.8)
+    a
+      color vs-grey
+  .address
+    font-size 1.8rem
+    font-weight 100
+    span.right
+      float right
+      font-size 2rem
+      font-weight 800
+      color #999
+  .contacts
+    display flex
+    flex-wrap wrap
+    justify-content space-between
+  button
+    vs-button()
+  .orange
+    color vs-orange
+    font-weight 500
+  .case-notes
+    border 1px solid vs-lightgrey
+    border-radius 5px
+    margin 20px 0
+    padding 10px 20px 20px 20px
+    .case-note
+      border 1px solid #f1f1f1
+      padding 10px
+      border-radius 5px
+      margin-bottom 10px
+      .date 
+        font-weight 600
+        .edit, .delete
+          display inline
+          float right
+          color vs-orange
+          margin-left 1rem
+      p, h1, h2, h3, h4, h5, h6
+        margin 0 0 0px 0
+      img
+        margin-right 5px
+  .add-note
+    .CodeMirror
+      border 1px solid vs-lightgrey
+      border-radius 5px
+      background #f1f1f1
+      padding-left 15px
+      height 120px
+      pre
+        font-size 1.8rem
+    button
+      margin-top 15px
+      background vs-orange
+      color white
+      border vs-orange
+      &:hover
+        background vs-grey
+  .chain, .documents
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+    padding 1rem
+    background #fdfdfd
+    margin-top 1rem
+    box-shadow inset 0 0 6px rgba(0,0,0,0.2)
+    .connector
+      height 3rem
+      border none
+      width 8rem
+      background url(/public/img/icons/commercial-chain.jpg)
+      background-size cover
+    .current-property, .chain-property
+      chain-box()
+      max-width 420px
+      display flex
+      color vs-grey
+      img
+        max-width 160px
+      .details
+        margin-left 1rem
+    .add-chain
+      z-index 10
+    .drop-box
+      border 3px dashed #ccc
+      border-radius 1rem
+      background #f1f1f1
+      width 100%
+      text-align center
+      padding-bottom 1rem
+      &.dragover
+        h3
+          color vs-orange
+    .document-list
+      width 100%
+      display flex
+      justify-content flex-start
+      flex-wrap wrap
+      .document
+        width calc(25% - 2rem)
+        display flex
+        flex-direction column
+        justify-content center
+        box-sizing border-box
+        border 2px solid vs-lightgrey
+        padding 1rem
+        margin 1rem
+        font-size 1.2rem
+        .document-link
+          flex 1
+        .filename
+          margin-top 0.5rem
+          display flex
+          input
+            flex 1
+            margin-left 1rem
+        .controls
+          display flex
+          justify-content space-between
+          a
+            color vs-orange
+        img
+          max-width 100%
+          display block
+          margin 10px auto
+        @media screen and (max-width: 1080px)
+          width calc(33% - 2rem)
+        @media screen and (max-width: 800px)
+          width calc(50% - 2rem)
+        @media screen and (max-width: 590px)
+          width calc(100%)

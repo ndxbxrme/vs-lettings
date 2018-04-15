@@ -1,0 +1,69 @@
+@import '../../variables'
+.setup
+  padding-bottom 4rem
+  .add-user
+    width 100%
+    border 1px solid vs-lightgrey
+    border-radius 5px
+    background #f1f1f1
+    padding 1rem
+    .row
+      display flex
+    input, select, h3, p, button
+      margin 0.25rem
+    input[type=email]
+      flex 1
+      vs-input()
+    select
+      height 37px
+      width 100px
+    input[type=submit]
+      padding 10px 30px
+      width 100px
+      color white
+      background vs-orange
+      border none
+      border-radius 3px
+      margin-top 0.5rem
+      float right
+    .invite-url
+      input
+        vs-input()
+        flex 1
+      button
+        vs-button()
+  .row
+    display flex
+    flex-wrap wrap
+    justify-content space-between
+    .email-templates, .sms-templates, .users, .add-user, .overview, .income
+      width 49%
+      min-width 300px
+      display flex
+      flex-direction column
+      box-sizing border-box
+      @media screen and (max-width: 680px)
+        width 100%
+        min-width 50px
+    .users
+      img
+        margin-right 5px
+    .email-template, .sms-template, .dashboard-item
+      display flex
+      border-bottom 1px solid vs-lightgrey
+      padding 0.5rem
+      align-items center
+      .name
+        flex 1
+      &:last-of-type
+        background green
+      a
+        color inherit
+        &:hover
+          color vs-orange
+  .progressions-controls
+    display flex
+    justify-content space-between
+  .add-email-template, .add-sms-template, .add-dashboard-overview, .add-dashboard-income
+    vs-button()
+    margin-top 1rem

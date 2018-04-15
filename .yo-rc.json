@@ -1,0 +1,118 @@
+{
+  "generator-ndx": {
+    "filters": {
+      "settings": {
+        "appType": "web",
+        "encryptionKey": "16281e0236c9dceef9353794",
+        "dbType": "Ndxdb",
+        "userTable": "users",
+        "dbTables": "properties, progressions, emailtemplates, smstemplates, dashboard, targets, shorttoken",
+        "emails": "Mailgun",
+        "emailApiKey": "key-c9e69683f15708403c5e93d52a2342bb",
+        "emailBaseUrl": "https://api.mailgun.net/v3/mg.vitalspace.co.uk",
+        "emailFrom": "lettings@vitalspace.co.uk",
+        "emailOverride": "lewis_the_cat@hotmail.com",
+        "rest": true,
+        "cors": true,
+        "localServer": false,
+        "anonymousUser": false,
+        "profiler": true,
+        "loginMethods": [
+          "Local"
+        ],
+        "userSignUp": true,
+        "directives": [
+          "Menu",
+          "Header",
+          "Footer"
+        ],
+        "extras": [
+          "Invites",
+          "Forgot password",
+          "Form extras",
+          "Message service",
+          "Pagination",
+          "Sorting",
+          "File upload",
+          "Server permissions",
+          "Server decorator",
+          "Server templates"
+        ],
+        "makeRoutesForEndpoints": false,
+        "undefined": true,
+        "description": "ndx-framework web app",
+        "hasSocial": false,
+        "endpoints": [
+          "users",
+          "properties",
+          "progressions",
+          "emailtemplates",
+          "smstemplates",
+          "dashboard",
+          "targets",
+          "shorttoken"
+        ],
+        "Local": true,
+        "Menu": true,
+        "Header": true,
+        "Footer": true,
+        "Invites": true,
+        "ForgotPassword": true,
+        "FormExtras": true,
+        "MessageService": true,
+        "Pagination": true,
+        "Sorting": true,
+        "FileUpload": true,
+        "ServerPermissions": true,
+        "ServerDecorator": true,
+        "ServerTemplates": true,
+        "myEndpoints": [
+          {
+            "name": "users",
+            "plural": "users",
+            "single": "user"
+          },
+          {
+            "name": "properties",
+            "plural": "properties",
+            "single": "property"
+          },
+          {
+            "name": "progressions",
+            "plural": "progressions",
+            "single": "progression"
+          },
+          {
+            "name": "emailtemplates",
+            "plural": "emailtemplates",
+            "single": "emailtemplate"
+          },
+          {
+            "name": "smstemplates",
+            "plural": "smstemplates",
+            "single": "smstemplate"
+          },
+          {
+            "name": "dashboard",
+            "plural": "dashboards",
+            "single": "dashboard"
+          },
+          {
+            "name": "targets",
+            "plural": "targets",
+            "single": "target"
+          },
+          {
+            "name": "shorttoken",
+            "plural": "shorttokens",
+            "single": "shorttoken"
+          }
+        ],
+        "appName": "vs-lettings",
+        "gitname": "ndxbxrme",
+        "gitemail": "lewis_the_cat@hotmail.com"
+      }
+    },
+    "appname": "github"
+  }
+}

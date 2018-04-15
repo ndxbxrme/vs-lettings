@@ -1,0 +1,26 @@
+doctype strict
+html
+  head
+    base(href='/')
+    meta(charset='utf-8')
+    title vs-lettings
+    meta(name='description', content='ndx-framework web app')
+    meta(name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1")
+  body(ng-app='vs-lettings', ng-click='mobileMenuOut=false;hidePopup()')
+    header
+    mobile-menu
+    .holder(ng-class='{"mobile-menu-out":mobileMenuOut}')
+      .body
+        .container
+          login
+          .view(ui-view='', ng-if='auth.getUser() || state("invited")')
+    footer
+    progression-popup
+    date-swiper(config='{prefix:"swiper", modifier:1.5, show:false}')
+    script(src='https://use.fontawesome.com/7cf3591d99.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/codemirror/4.8.0/mode/javascript/javascript.min.js', delay='true')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/codemirror/4.8.0/mode/css/css.min.js', delay='true')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/codemirror/4.8.0/mode/htmlmixed/htmlmixed.min.js', delay='true')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/codemirror/4.8.0/mode/jade/jade.min.js', delay='true')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/codemirror/4.8.0/mode/markdown/markdown.min.js', delay='true')
+    script(src='env.js', delay='true', ndx-ignore='true')

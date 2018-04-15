@@ -1,0 +1,38 @@
+@import '../../variables'
+.template-page
+  form
+    .row
+      display flex
+      flex-wrap wrap
+      section
+        flex 1
+        display flex
+        flex-direction column
+        margin 0.5rem
+        .subject, .from
+          display flex
+          flex-direction column
+        input
+          margin-bottom 2rem
+        input[type='submit'], .button
+          vs-button()
+        input[type='text']
+          vs-input()
+        .CodeMirror
+          min-width 200px
+          border 1px solid vs-lightgrey
+          border-radius 5px
+          background #f1f1f1
+          padding-left 15px
+          line-height normal
+        small
+          text-align right
+      .email-preview, .sms-preview
+        border 1px solid vs-lightgrey
+        border-radius 5px
+        padding 1rem
+        iframe
+          border 1px solid vs-lightgrey
+          min-height 600px
+        .preview-title
+          color vs-lightgrey

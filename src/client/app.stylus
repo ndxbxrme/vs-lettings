@@ -1,0 +1,118 @@
+@import 'variables'
+input, textarea, button
+  -webkit-appearance none
+  -moz-appearance none
+  -ms-appearance none
+  -o-appearance none
+  appearance none
+  --webkit-border-radius 0
+input[type=checkbox]
+  -webkit-appearance checkbox
+  -moz-appearance checkbox
+  -ms-appearance checkbox
+  -o-appearance checkbox
+  appearance checkbox
+  --webkit-border-radius 0
+html
+  font-size 62.5%
+body
+  font-family ProximaNova-Light, sans-serif
+  margin 0
+  color #333
+  min-height 100%
+  background #fff!important
+  position relative
+  display flex
+  flex-direction column
+  font-size 1.4rem
+  line-height 2.52rem
+  -webkit-text-size-adjust 100%
+  sub
+    bottom auto
+  a
+    text-decoration none
+  th
+    vertical-align top
+    text-align left
+    font-size 1rem
+    &.shrink
+      width 1%
+  td
+    vertical-align top
+    font-size 1.4rem
+    padding 0.5rem
+  .holder
+    flex 1
+    width 100%
+    z-index 2
+    background #fff
+    transition 0.4s
+    transform translateX(0px)
+    &.mobile-menu-out
+      transform translateX(-180px)
+  .header, .body, .footer
+    display flex
+    justify-content center
+    width 100%
+    box-sizing border-box
+    .container
+      width 90%
+      max-width 1100px
+  .body
+    margin-top 72px
+    flex 1
+    z-index 10
+    background #fff
+    &:before
+      position absolute
+      top -100%
+      left 0
+      width 100%
+      height 100%
+      display flex
+      align-items center
+      justify-content center
+      content "y'allright there?"
+      background linear-gradient(0deg, white, vs-orange, black)
+  .has-dropdown
+    position relative
+  .dropdown
+    list-style-type none
+    margin 0
+    padding 1rem
+    position absolute
+    min-width 160px
+    border-radius 4px
+    background #fff
+    z-index 10
+    border 1px solid #ccc
+    box-shadow 2px 2px 2px rgba(0,0,0,0.3)
+  .search
+    input
+      padding 10px 15px
+      width 300px
+      border-radius 5px
+      border 1px solid vs-lightgrey
+      font-size 1.6rem
+.desktop-hide
+  display none!important
+.small-mobile-show
+  display none!important
+@media screen and (max-width: 992px)
+  .mobile-hide
+    display none
+  .desktop-hide
+    display block!important
+@media screen and (max-width: 700px)
+  .small-mobile-hide
+    display none
+  .small-mobile-show
+    display block!important
+.lt-1024
+  body
+    background vs-grey!important
+.mobile
+  body
+    display block!important
+    .body
+      min-height 100vh

@@ -1,0 +1,29 @@
+.solicitors-route 
+  h1 Solicitors
+  .solicitors
+    .solicitor(ng-repeat='solicitor in solicitors | orderBy:"name"')
+      .inner
+        .row
+          .solicitors-name {{solicitor.name}}
+          .cases
+            label Cases
+            span {{solicitor.properties.length}}
+        hr
+        .row
+          a.button(ng-click='open(solicitor)')
+            span(ng-hide='solicitor.open') View List
+            span(ng-show='solicitor.open') Close List
+        .properties(ng-show='solicitor.open')
+          hr
+          .row
+            h5 Address
+            h5 Date
+          hr
+          .property(ng-repeat='property in solicitor.properties | orderBy:"date"')
+            .default(ui-sref='case({roleId:property.RoleId})')
+              .number {{$index + 1}}
+              .address {{property.address}}
+              .p(ng-show='property.purchaser===solicitor.id') P
+              .v(ng-show='property.vendor===solicitor.id') V
+              .fees(ng-bind-html="property.commission | currency:'£' | currencyFormat")
+              .date {{property.date | date:'mediumDate'}}

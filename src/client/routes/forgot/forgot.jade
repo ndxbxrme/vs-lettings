@@ -1,0 +1,29 @@
+include ../../mixins/form.jade
+.forgot-dir
+  h1 forgot password
+  .forgot-request(ng-if='!token')
+    +form({data:'forgotUser', name:'$parent.myForm', submit:'submitEmail()', ignore:true})(ng-hide='codeRequested')
+      +input({name:'email', icon:'email', errors:{required:true, email:true}})
+      .controls
+        input.btn(type='submit', value='{{m("newUser-button-next")}}')
+    .code-requested(ng-show='codeRequested') {{ m('forgot-codeRequested-message') }}
+  .forgot-update(ng-if='token')
+    +form({data:'newUser', name:'$parent.myForm', submit:'submitPass()', ignore:true})
+      +input({name:'password',type:'password',model:'newUser.local.password',icon:'lock',nolabel:true,readonly,onfocus:'this.removeAttribute("readonly")',errors:{required:true,strength:true}})(password)
+        .tooltip(ng-hide='myForm.password.$valid')
+          .invalid(ng-show='myForm.password.$invalid')
+            p {{m('newUser-password-popup-pre')}}
+            ul
+              li(ng-show='myForm.password.$error.length') {{m('newUser-password-error-length')}}
+              li(ng-show='myForm.password.$error.number') {{m('newUser-password-error-number')}}
+              li(ng-show='myForm.password.$error.lower') {{m('newUser-password-error-lower')}}
+              li(ng-show='myForm.password.$error.upper') {{m('newUser-password-error-upper')}}
+              li(ng-show='myForm.password.$error.special') {{m('newUser-password-error-special')}}
+            p {{m('newUser-password-popup-post')}}
+        i.valid(ng-show='$parent.myForm.password.$valid') ✔
+      +input({name:'repeatPassword',type:'password',model:'$parent.repeatPassword',icon:'lock',nolabel:true,readonly,onfocus:'this.removeAttribute("readonly")',errors:{required:true}})
+        i.valid(ng-show='$parent.repeatPassword && $parent.repeatPassword===newUser.local.password') ✔
+        p.error(ng-show='submitted && $parent.repeatPassword && $parent.repeatPassword !== newUser.local.password') {{m('newUser-repeatPassword-error-mismatch')}}
+      .controls
+        input.btn(type='submit', value='{{m("newUser-button-submit")}}') 
+  

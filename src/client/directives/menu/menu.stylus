@@ -1,0 +1,11 @@
+@import '../../variables'
+.menu-dir
+  ul
+    list-style-type none
+    display flex
+    li
+      a
+        text-decoration none
+        padding .5rem 1rem
+        &.selected
+          border-bottom 2px solid
