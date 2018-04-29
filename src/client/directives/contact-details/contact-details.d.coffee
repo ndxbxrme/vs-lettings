@@ -9,7 +9,7 @@ angular.module 'vs-agency'
     title: '@'
   link: (scope, elem, attrs) ->
     scope.editing = false
-    fieldName = _.str.camelize(_.str.slugify(scope.title))
+    fieldName = scope.title
     scope.edit = ->
       scope.editing = true
     scope.data = ->

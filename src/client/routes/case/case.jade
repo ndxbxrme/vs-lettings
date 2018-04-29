@@ -60,10 +60,8 @@
           a.save(href='', ng-click='saveDocument(document)', ng-show='document.editing') Save
           a.delete(href='', ng-click='deleteDocument(document)') Delete
   .contacts.row
-    contact-details(title="Vendor's Solicitor")
-    contact-details(title="Vendor's Contact")
-    contact-details(title="Purchaser's Solicitor")
-    contact-details(title="Purchaser's Contact")
+    contact-details(title="Landlord")
+    contact-details(title="Tenant")
   .case-notes
     h2.orange Case Notes
     .case-note(ng-repeat='note in notesData = ( getNotes() | orderBy:"-date" ) | limitTo:notesLimit:notesLimit*(notesPage-1)')

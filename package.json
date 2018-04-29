@@ -1,6 +1,6 @@
 {
   "name": "vs-lettings",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "server/app.js",
   "scripts": {
@@ -57,6 +57,7 @@
     "ndx-superadmin": "^0.1.6",
     "ndx-user-roles": "^0.4.0",
     "ndx-zensend": "0.0.7",
+    "objtrans": "0.0.15",
     "progress": "^2.0.0",
     "superagent": "^3.8.2"
   }

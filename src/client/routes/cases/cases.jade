@@ -37,11 +37,9 @@
               | -- {{property.$case.item.modifiedAt | date:'mediumDate'}}, {{property.$case.item.modifiedAt | date:'shortTime'}}
             .date(ng-show='needsDate') Date added to the Case: {{property.$case.item.estCompletedTime}}
             .date(ng-show='property.$case.item.offer.DateTime') Start Date: {{property.$case.item.offer.DateTime | date:'mediumDate'}}
-        td.vendor {{property.$case.item.vendor}}
-        td.purchaser {{property.$case.item.purchaser}}
-        td.offer {{property.$case.item.offer.Value | currency : "£" : 0}}
-          p(ng-show='property.Fees[0].FeeValueType.SystemName==="Absolute"') ({{ property.Fees[0].DefaultValue | currency : "£" : 0 }})
-          p(ng-show='property.Fees[0].FeeValueType.SystemName==="Percentage"') ({{ property.$case.item.offer.Value * (property.Fees[0].DefaultValue / 100) | currency : "£" : 0 }})
+        td.vendor {{property.$case.item.LandlordName}}
+        td.purchaser {{property.$case.item.TenantName}}
+        td.offer {{property.$case.item.Price.PriceValue | currency : "£" : 0}}
         td.options
           a.button(ui-sref='case({roleId:property.RoleId})') View Case
   .mobile-table.small-mobile-show

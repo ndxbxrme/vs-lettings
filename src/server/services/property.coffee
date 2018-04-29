@@ -1,6 +1,6 @@
 'use strict'
 superagent = require 'superagent'
-async = require 'async'
+objtrans = require 'objtrans'
 
 module.exports = (ndx) ->
   getDefaultProgressions = (property) ->
@@ -9,15 +9,9 @@ module.exports = (ndx) ->
       isdefault: true
     , (progressions) ->
       for progression in progressions
-        ###
-        for milestone in progression.milestones[0]
-          milestone.progressing = false
-          milestone.completed = true
-          milestone.startTime = new Date().valueOf()
-          milestone.completedTime = new Date().valueOf()
-        ###
         property.progressions.push JSON.parse JSON.stringify progression
   calculateMilestones = (property) ->
+    console.log 'calculate milestones', property.PropertyId
     if property.progressions and property.progressions.length
       updateEstDays = (progressions) ->
         aday = 24 * 60 * 60 * 1000
@@ -104,146 +98,75 @@ module.exports = (ndx) ->
           completed: property.milestone.completed
           progressing: property.milestone.progressing
           overdue: property.milestoneStatus is 'overdue'
+  fetchCurrentProps = ->
+    new Promise (resolve, reject) ->
+      opts = 
+        RoleStatus: 'OfferAccepted'
+        RoleType: 'Letting'
+        IncludeStc: true
+      superagent.post "#{process.env.PROPERTY_URL}/search"
+      .set 'Authorization', 'Bearer ' + process.env.PROPERTY_TOKEN
+      .send opts
+      .end (err, res) ->
+        if not err and res.body.Collection
+          resolve res.body.Collection
+        else
+          reject err      
   checkNew = ->
-    opts = 
-      RoleStatus: 'OfferAccepted'
-      RoleType: 'Letting'
-      IncludeStc: true
-    superagent.post "#{process.env.PROPERTY_URL}/search"
-    .set 'Authorization', 'Bearer ' + process.env.PROPERTY_TOKEN
-    .send opts
-    .end (err, res) ->
-      if not err and res.body.Collection
-        async.eachSeries res.body.Collection, (property, callback) ->
-          console.log 'roleid', property.RoleId.toString()
-          ndx.property.fetch property.RoleId.toString(), (mycase) ->
-            if not mycase
-              return callback()
-            if not mycase.progressions or not mycase.progressions.length
-              ndx.property.getDefaultProgressions mycase
-              ndx.database.update 'properties', 
-                progressions: mycase.progressions
-              ,
-                _id:mycase._id
-              , ->
-                callback()
-            else
-              #if deleted or completed then check for new offer id
-              #check for progression updates
-              propClone = JSON.stringify mycase
-              calculateMilestones mycase
-              if propClone isnt JSON.stringify mycase
-                mycase.modifiedAt = new Date().valueOf()
-                ndx.database.update 'properties', mycase,
-                  _id: mycase._id
-              callback()
-        , ->
-          ndx.database.select 'properties',
-            delisted: false
-          , (properties) ->
-            if properties and properties.length
-              async.eachSeries properties, (property, propCallback) ->
-                foundRole = false
-                for prop in res.body.Collection
-                  if +property.roleId is +prop.RoleId
-                    foundRole = true
-                    break
-                if not foundRole
-                  ndx.database.update 'properties',
-                    delisted: true
-                  ,
-                    _id: property._id.toString()
-                propCallback()
+    currentProps = await fetchCurrentProps()
+    for prop in currentProps
+      prop.uId = prop.RoleId + '_' + new Date(prop.AvailableDate).valueOf()
+      dbProperty = await ndx.property.fetch prop.uId
+      if dbProperty
+        console.log 'this one'
+        calculateMilestones property
+      else
+        prop.lettingData = await ndx.dezrez.get 'role/{id}', null, id:prop.RoleId
+        prop.tenantData = await ndx.dezrez.get 'role/{id}', null, id:prop.lettingData.TenantRoleId
+        property = objtrans prop,
+          uId: true
+          Address: true
+          AvailableDate: true
+          DateInstructed: true
+          Fees: true
+          Images: true
+          Price: true
+          PropertyId: true
+          RoleId: true
+          SearchField: true
+          Term: true
+          displayAddress: true
+          Id: '_id'
+          Deposit: 'lettingData.Deposit'
+          Landlord: 'lettingData.LandlordInfo[0].Person'
+          LandlordName: 'lettingData.LandlordInfo[0].Person.ContactName'
+          OfferAcceptedPriceDataContract: 'lettingData.OfferAcceptedPriceDataContract'
+          ServiceLevel: 'lettingData.ServiceLevel'
+          TenancyReference: 'tenantData.TenancyReference'
+          TenancyStatus: 'tenantData.TenancyStatus'
+          TenancyType: 'tenantData.TenancyType'
+          TenantBaseDeposit: 'tenantData.TenantBaseDeposit'
+          Tenant: 'tenantData.TenantInfo[0].Person'
+          TenantName: 'tenantData.TenantInfo[0].Person.ContactName'
+        getDefaultProgressions property
+        calculateMilestones property
+        property.delisted = false
+        property.milestone = ''
+        property.milestoneStatus = ''
+        property.milestoneIndex = null
+        property.notes = []
+        property.chainBuyer = []
+        property.chainSeller = []
+        property.delisted = false
+        ndx.database.insert 'properties', property
   setInterval checkNew, 10 * 60 * 1000
   checkNew()
-  ndx.database.on 'preUpdate', (args, cb) ->
-    if args.table is 'properties'
-      property = args.obj
-      calculateMilestones property
-    cb()
-  ndx.property =
-    getDefaultProgressions: getDefaultProgressions
+  
+  ndx.property = 
+    getDefaultProgressions: 'getDefaultProgressions'
     checkNew: checkNew
-    fetch: (roleId, cb) ->
-      ndx.database.select 'properties',
-        roleId: roleId.toString()
-      , (property) ->
-        fetchPropertyRole = (roleId, property, propcb) ->
-          ndx.dezrez.get 'role/{id}', null, id:roleId, (err, body) ->
-            if not err
-              return propcb? property
-              ndx.dezrez.get 'role/{id}', null, id:body.PurchasingRoleId, (err, body) ->
-                if not err
-                  if property.role and JSON.stringify(property.role) is JSON.stringify(body)
-                    property.delisted = false
-                    return propcb? property
-                  else
-                    property.delisted = false
-                    property.role = body
-                    property.offer = body.AcceptedOffer
-                    property.purchaser = body.AcceptedOffer.ApplicantGroup.Name
-                    property.purchasersContact =
-                      role: ''
-                      name: body.AcceptedOffer.ApplicantGroup.PrimaryMember?.ContactName
-                      email: body.AcceptedOffer.ApplicantGroup.PrimaryMember?.PrimaryEmail?.Value
-                      telephone: body.AcceptedOffer.ApplicantGroup.PrimaryMember?.PrimaryTelephone?.Value
-                    for contact in body.Contacts
-                      property["#{contact.ProgressionRoleType.SystemName.toLowerCase()}sSolicitor"] =
-                        role: contact.GroupName
-                        name: contact.CaseHandler.ContactName
-                        email: contact.CaseHandler.PrimaryEmail?.Value
-                        telephone: contact.CaseHandler.PrimaryTelephone?.Value
-                    property.vendor = body.AcceptedOffer.VendorGroup.Name
-                    property.vendorsContact =
-                      role: ''
-                      name: body.AcceptedOffer.VendorGroup.PrimaryMember?.ContactName
-                      email: body.AcceptedOffer.VendorGroup.PrimaryMember?.PrimaryEmail?.Value
-                      telephone: body.AcceptedOffer.VendorGroup.PrimaryMember?.PrimaryTelephone?.Value
-                    propcb? property
-                else
-                  return propcb? null
-            else
-              return propcb? null
-        
-        if property and property.length
-          #offerId = property[0].offer.Id
-          cb? property[0]
-          if true is false and property[0].override?.deleted and property[0].roleId.toString().indexOf('_') is -1
-            ndx.database.update 'properties',
-              roleId: property[0].roleId + '_' + property[0].offer.Id
-            ,
-              roleId: property[0].roleId
-          else if property[0].modifiedAt + (60 * 60 * 1000) < new Date().valueOf()
-            fetchPropertyRole property[0].roleId, property[0], (prop) ->
-              if prop
-                if true is false and prop.offer.Id isnt offerId
-                  if property[0].delisted
-                    ndx.database.update 'properties',
-                      roleId: property[0].roleId + '_' + offerId
-                    ,
-                      roleId: property[0].roleId
-                  else
-                    ndx.database.update 'properties',
-                      offer: prop.offer
-                    ,
-                      roleId: property[0].roleId
-                else
-                  ndx.database.update 'properties', prop,
-                    _id: prop._id
-        else
-          property =
-            roleId: roleId.toString()
-            startDate: new Date().valueOf()
-          fetchPropertyRole roleId, property, (property) ->
-            if property
-              getDefaultProgressions property
-              property.delisted = false
-              property.milestone = ''
-              property.milestoneStatus = ''
-              property.milestoneIndex = null
-              property.notes = []
-              property.chainBuyer = []
-              property.chainSeller = []
-              property.delisted = false
-              ndx.database.insert 'properties', property
-            cb? property
+    fetch: (uId, cb) ->
+      new Promise (resolve, reject) ->
+        property = await ndx.database.selectOne 'properties', uId: uId
+        resolve property
+        cb? property

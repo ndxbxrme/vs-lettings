@@ -37,55 +37,59 @@ module.exports = (ndx) ->
       else
         return cb()
     get = (route, query, params, callback) ->
-      doCallback = (err, body) ->
-        if Object.prototype.toString.call(params) is '[object Function]'
-          return params err, body
-        else if Object.prototype.toString.call(callback) is '[object Function]'
-          return callback err, body
-      refreshToken (err) ->
-        if not err
-          if params
-            route = route.replace /\{([^\}]+)\}/g, (all, key) ->
-              params[key]
-          console.log 'ROUTE', route
-          query = query or {}
-          query.agencyId = process.env.AGENCY_ID or 37
-          superagent.get urls.api + route
-          .set 'Rezi-Api-Version', '1.0'
-          .set 'Content-Type', 'application/json'
-          .set 'Authorization', 'Bearer ' + accessToken
-          .query query
-          .send()
-          .end (err, response) ->
-            if err
-              doCallback err
-            else
-              doCallback null, response.body
-        else
-          return doCallback err, []
+      new Promise (resolve, reject) ->
+        doCallback = (err, body) ->
+          resolve body
+          if Object.prototype.toString.call(params) is '[object Function]'
+            return params err, body
+          else if Object.prototype.toString.call(callback) is '[object Function]'
+            return callback err, body
+        refreshToken (err) ->
+          if not err
+            if params
+              route = route.replace /\{([^\}]+)\}/g, (all, key) ->
+                params[key]
+            console.log 'ROUTE', route
+            query = query or {}
+            query.agencyId = process.env.AGENCY_ID or 37
+            superagent.get urls.api + route
+            .set 'Rezi-Api-Version', '1.0'
+            .set 'Content-Type', 'application/json'
+            .set 'Authorization', 'Bearer ' + accessToken
+            .query query
+            .send()
+            .end (err, response) ->
+              if err
+                doCallback err
+              else
+                doCallback null, response.body
+          else
+            return doCallback err, []
     post = (route, data, params, callback) ->
-      doCallback = (err, body) ->
-        if Object.prototype.toString.call(params) is '[object Function]'
-          return params err, body
-        else if Object.prototype.toString.call(callback) is '[object Function]'
-          return callback err, body
-      refreshToken (err) ->
-        if not err
-          if params
-            route = route.replace /\{([^\}]+)\}/g, (all, key) ->
-              params[key]
-          data = data or {}
-          superagent.post urls.api + route
-          .set 'Rezi-Api-Version', '1.0'
-          .set 'Content-Type', 'application/json'
-          .set 'Authorization', 'Bearer ' + accessToken
-          .query
-            agencyId: process.env.AGENCY_ID or 37
-          .send data
-          .end (err, response) ->
-            doCallback err, response?.body
-        else
-          return doCallback err, []
+      new Promise (resolve, reject) ->
+        doCallback = (err, body) ->
+          resolve body
+          if Object.prototype.toString.call(params) is '[object Function]'
+            return params err, body
+          else if Object.prototype.toString.call(callback) is '[object Function]'
+            return callback err, body
+        refreshToken (err) ->
+          if not err
+            if params
+              route = route.replace /\{([^\}]+)\}/g, (all, key) ->
+                params[key]
+            data = data or {}
+            superagent.post urls.api + route
+            .set 'Rezi-Api-Version', '1.0'
+            .set 'Content-Type', 'application/json'
+            .set 'Authorization', 'Bearer ' + accessToken
+            .query
+              agencyId: process.env.AGENCY_ID or 37
+            .send data
+            .end (err, response) ->
+              doCallback err, response?.body
+          else
+            return doCallback err, []
     ndx.dezrez =
       get: get
       post: post
