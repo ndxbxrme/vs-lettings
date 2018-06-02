@@ -129,7 +129,7 @@ module.exports = (grunt) ->
     file_append:
       main:
         files: [{
-          append: "<script src=\"http://localhost:#{process.env.LIVERELOAD_PORT or 35729}/livereload.js\" type=\"text/javascript\"></script>"
+          append: "<script src=\"http://#{process.env.LIVERELOAD_SERVER or 'localhost'}:#{process.env.LIVERELOAD_PORT or 35729}/livereload.js\" type=\"text/javascript\"></script>"
           input: 'build/client/index.html'
           output: 'build/client/index.html'
         }]

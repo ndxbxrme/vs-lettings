@@ -7,7 +7,7 @@ angular.module 'vs-agency'
     templateUrl: 'routes/template/template.html'
     controller: 'TemplateCtrl'
     data:
-      title: 'Vitalspace Conveyancing - Template'
+      title: 'Vitalspace Lettings - Template'
     resolve:
       user: (Auth) ->
         Auth.getPromise(['admin', 'superadmin'])

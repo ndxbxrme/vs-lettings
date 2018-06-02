@@ -1,6 +1,6 @@
 {
   "name": "vs-lettings",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "server/app.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-jade": "^1.0.0",
     "grunt-contrib-stylus": "^1.2.0",
-    "grunt-contrib-watch": "^1.0.0",
+    "grunt-contrib-watch": "^1.1.0",
     "grunt-express-server": "^0.5.4",
     "grunt-file-append": "0.0.7",
     "grunt-filerev": "^2.3.1",
@@ -36,7 +36,7 @@
     "load-grunt-tasks": "^3.5.2"
   },
   "dependencies": {
-    "async": "^2.6.0",
+    "async": "^2.6.1",
     "crypto-js": "^3.1.9-1",
     "marked": "^0.3.19",
     "ndx-auth": "^0.1.13",
@@ -50,15 +50,16 @@
     "ndx-permissions": "^0.3.4",
     "ndx-profiler": "^0.1.5",
     "ndx-rest": "^0.6.5",
-    "ndx-server": "^0.15.8",
+    "ndx-server": "^0.15.18",
     "ndx-short-token": "0.0.6",
     "ndx-socket": "0.0.14",
     "ndx-static-routes": "0.0.13",
     "ndx-superadmin": "^0.1.6",
     "ndx-user-roles": "^0.4.0",
     "ndx-zensend": "0.0.7",
+    "ndxdb": "^1.10.9",
     "objtrans": "0.0.15",
     "progress": "^2.0.0",
-    "superagent": "^3.8.2"
+    "superagent": "^3.8.3"
   }
 }

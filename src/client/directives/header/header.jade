@@ -1,7 +1,26 @@
-.header-dir
+.header
   .container
-    a(ui-sref='dashboard')
-      h1 vs-lettings
-    menu.main-menu
-    button.lines-btn(ng-click='toggleMobileMenu($event)')
+    .branding
+      a.logo(href="/")
+        img.logo(src="public/img/VitalSpaceLogo-2016.svg")
+    nav.main-menu.mobile-hide(ng-show='auth.getUser()')
+      ul.menu
+        li(ng-class="{selected:state('dashboard')}")
+          a(href='/')
+            span Dashboard
+        li(ng-class="{selected:state(['cases', 'case'])}")
+          a(ui-sref='cases')
+            span Cases
+        li(ng-class="{selected:state('agreed')}")
+          a(ui-sref='agreed')
+            span Agreed
+        li(ng-class="{selected:state('setup')}", ng-show="auth.checkRoles(['admin', 'superadmin'])")
+          a(ui-sref='setup')
+            span Setup
+    .user.mobile-hide
+      a(ui-sref='profile') {{auth.getUser().displayName || auth.getUser().local.email}} 
+      a(href='/api/logout', target='_self') 
+        img.logo(src="public/img/icons/logout.svg")
+    button#click-me.lines-button.x2.desktop-hide(type='button', role='button', aria-label='Toggle Navigation', ng-show='auth.getUser()', ng-click='toggle($event); hide(); $event.stopPropagation()')
       span.lines
+    

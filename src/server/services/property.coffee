@@ -11,7 +11,8 @@ module.exports = (ndx) ->
       for progression in progressions
         property.progressions.push JSON.parse JSON.stringify progression
   calculateMilestones = (property) ->
-    console.log 'calculate milestones', property.PropertyId
+    if not property
+      return
     if property.progressions and property.progressions.length
       updateEstDays = (progressions) ->
         aday = 24 * 60 * 60 * 1000
@@ -121,6 +122,7 @@ module.exports = (ndx) ->
         console.log 'this one'
         calculateMilestones property
       else
+        console.log 'prop uid', prop.uId
         prop.lettingData = await ndx.dezrez.get 'role/{id}', null, id:prop.RoleId
         prop.tenantData = await ndx.dezrez.get 'role/{id}', null, id:prop.lettingData.TenantRoleId
         property = objtrans prop,

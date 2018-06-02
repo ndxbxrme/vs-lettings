@@ -1,0 +1,20 @@
+FROM node:8
+WORKDIR /
+COPY env.sh env.sh
+RUN if test -e env-enc.sh; then openssl aes-256-cbc -d -in env-enc.sh -out env.sh -k $KEY; fi
+RUN if test -e key-enc.pem; then openssl aes-256-cbc -d -in key-enc.pem -out key.pem -k $KEY; fi
+RUN if test -e cert-enc.pem; then openssl aes-256-cbc -d -in cert-enc.pem -out cert.pem -k $KEY; fi
+COPY package.json /package.json
+COPY package-lock.json /package-lock.json
+RUN npm install
+RUN npm install -g bower grunt-cli
+COPY Gruntfile.coffee /Gruntfile.coffee
+COPY bower.json /bower.json
+RUN bower install --allow-root
+VOLUME src
+VOLUME public
+VOLUME templates
+VOLUME data
+EXPOSE 4010
+EXPOSE 35800
+CMD . /env.sh && export NODE_ENV=dev && export EMAIL_OVERRIDE=lewis_the_cat@hotmail.com && export SSL_PORT= && export LIVERELOAD_SERVER=192.168.99.100 && export LIVERELOAD_PORT=35800 && ls && printenv
