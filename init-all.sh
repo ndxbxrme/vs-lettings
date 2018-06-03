@@ -4,7 +4,7 @@ npm install
 npm install -g grunt-cli
 bower install
 grunt build
-#groupadd -r vsagency && useradd -m -r -g vsagency vsagency
-su vsagency -c ". env.sh
-screen -X -S VSAGENCY quit || true
-screen -S VSAGENCY node --expose-gc server/app.js"
+#groupadd -r vslettings && useradd -m -r -g vslettings vslettings
+su vslettings -c ". env.sh
+screen -X -S VSLETTINGS quit || true
+screen -S VSLETTINGS node --expose-gc server/app.js"
