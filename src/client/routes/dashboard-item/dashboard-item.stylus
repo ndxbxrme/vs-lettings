@@ -1,0 +1,15 @@
+@import '../../variables'
+.dashboardItem-page
+  form
+    display flex
+    flex-direction column
+    max-width 300px
+    .col
+      display flex
+      flex-direction column
+    input[type='text'], select
+      vs-input()
+      margin-bottom 2rem
+    .controls
+      input, button
+        vs-button()

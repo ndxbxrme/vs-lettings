@@ -1,1 +1,63 @@
 @import '../../variables'
+
+.dashboard
+  .currency
+    width 8rem
+    display inline-block
+    text-align right
+  .overview, .income
+    width 100%
+    border 1px solid vs-grey
+    border-spacing 0
+    border-radius 3px
+    margin-bottom 30px
+    position relative
+    box-sizing border-box
+    .tr
+      display flex
+      .th, .td
+        flex 1
+        box-sizing border-box
+        label
+          display none
+      .th
+        padding 20px
+        background vs-grey
+        text-align center
+        color white
+        font-size 2rem
+        font-weight 100
+        border-bottom 1px solid vs-grey
+      .td
+        padding 15px
+        text-align center
+        font-size: 1.6rem
+        border-bottom 1px solid vs-grey
+        a
+          color vs-orange
+        &.clickable
+          cursor pointer
+          color vs-orange
+      &.head-two, &.total
+        background #f1f1f1
+        .td 
+          font-weight 600
+  @media screen and (max-width:720px)
+    .income
+      .tr
+        flex-direction column
+        &.head-two
+          display none
+        .td, .th
+          width 100%
+          .inner
+            display flex
+            label
+              display block
+              flex 1
+              text-align left
+              color vs-grey
+            span
+              flex 1
+              text-align right
+        

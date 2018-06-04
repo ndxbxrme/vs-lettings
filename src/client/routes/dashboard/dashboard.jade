@@ -1,1 +1,50 @@
-.dashboard-route welcome to ndx-framework
+.dashboard 
+  h1 Dashboard
+  .overview
+    .thead
+      .tr
+        .th(colspan='2') Overview of live cases
+    .tbody
+      .tr.head-two
+        .td Status
+        .td Sale Position
+      .tr(ng-repeat='di in items = (dashboard.items | filter:{type:"overview"})')
+        .td {{di.name}}
+        .td.clickable(ng-click='showInfo("count", di, month)') {{count(di)}}
+      .tr.total
+        .td Total
+        .td {{total(items)}}
+  .income
+    .thead
+      .tr
+        .th(colspan='{{incomeItems.length + 1}}') 
+          i.fa.fa-gbp(aria-hidden='true')
+          |  Income
+    .tbody
+      .tr.head-two
+        .td Month
+        .td(ng-repeat='di in incomeItems = (dashboard.items | filter:{type:"income"})') {{di.name}}
+      .tr(ng-repeat='month in months')
+        .td {{month.name}}
+        .td.clickable(ng-repeat='di in incomeItems', ng-click='showInfo("income", di, month)')
+          .inner
+            label {{di.name}}
+            span(ng-bind-html='income(di, month) | currencyFormat', ng-class='{currency:di.sumtype==="Income"}')
+      .tr.total
+        .td Total
+        .td.clickable(ng-repeat='di in incomeItems', ng-click='showInfo("income", di, allmonths)') 
+          .inner
+            label {{di.name}}
+            span(ng-bind-html='income(di, allmonths) | currencyFormat', ng-class='{currency:di.sumtype==="Income"}')
+  .progressions(ng-show='properties.total')
+    h1 something
+    table
+      thead
+        tr
+          th
+          th(ng-repeat='milestone in properties.items[0].progressions[0].milestones') {{milestone[0].title}}
+      tbody(ng-repeat='property in properties.items')
+        tr
+          td {{property.displayAddress}}
+          td(ng-repeat='milestone in property.progressions[0].milestones') {{milestone[0].completed ? 'Tick' : 'Cross'}}
+  
