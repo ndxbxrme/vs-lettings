@@ -1,6 +1,6 @@
 .invited-route
   h1 you've been invited
-  form(name='inviteForm', ng-submit='acceptInvite()')
+  form(name='inviteForm', ng-submit='acceptInvite()', ignore='true')
     label Display Name
     input(type='text', ng-model='newUser.displayName')
     label Telephone Number

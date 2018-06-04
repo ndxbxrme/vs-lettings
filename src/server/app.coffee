@@ -5,4 +5,13 @@ require 'ndx-server'
   database: 'db'
   tables: ['users', 'properties', 'progressions', 'emailtemplates', 'smstemplates', 'dashboard', 'targets', 'shorttoken']
   localStorage: './data'
+  hasInvite: true
+  hasForgot: true
+  softDelete: true
+  publicUser:
+    _id: true
+    displayName: true
+    local:
+      email: true
+    roles: true
 .start()
