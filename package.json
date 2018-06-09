@@ -1,6 +1,6 @@
 {
   "name": "vs-lettings",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "",
   "main": "server/app.js",
   "scripts": {
@@ -44,7 +44,7 @@
     "ndx-cors": "0.0.10",
     "ndx-database-backup": "^0.1.0",
     "ndx-file-upload": "^0.1.15",
-    "ndx-mailgun-api": "0.0.9",
+    "ndx-mailgun-api": "0.0.10",
     "ndx-modified": "^0.1.2",
     "ndx-passport": "^0.5.8",
     "ndx-permissions": "^0.3.4",
