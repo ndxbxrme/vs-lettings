@@ -3,14 +3,14 @@
     .login-form
       h2 Log in or Sign up
       form(name='loginForm', novalidate, ng-submit='login()', ignore='true')
-        div
+        .email
           input(type='email', name='email', required, ng-model='email', placeholder='Email address')
           span.error(ng-show='submitted && loginForm.email.$error.email') Please use a valid email address
           span.error(ng-show='submitted && loginForm.email.$error.required') Please use a valid email address
-          br
+        .password
           input(type='password', name='password', required, ng-model='password', placeholder='Password')
           small.error(ng-show='submitted && loginForm.password.$error.required') A password is required
-        div
+        .controls
           .error {{message}}
           input.button(type='submit', value='Login')
           input.button(type='button', ng-click='signup()', value='Sign Up')

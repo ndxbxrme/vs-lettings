@@ -1,9 +1,9 @@
-.header
+.header(ng-show='auth.getUser()')
   .container
     .branding
       a.logo(href="/")
         img.logo(src="public/img/VitalSpaceLogo-2016.svg")
-    nav.main-menu.mobile-hide(ng-show='auth.getUser()')
+    nav.main-menu.mobile-hide
       ul.menu
         li(ng-class="{selected:state('dashboard')}")
           a(href='/')

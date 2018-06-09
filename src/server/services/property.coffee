@@ -125,6 +125,7 @@ module.exports = (ndx) ->
         console.log 'prop uid', prop.uId
         prop.lettingData = await ndx.dezrez.get 'role/{id}', null, id:prop.RoleId
         prop.tenantData = await ndx.dezrez.get 'role/{id}', null, id:prop.lettingData.TenantRoleId
+        console.log prop.tenantData.EstimatedStartDate
         property = objtrans prop,
           uId: true
           Address: true
@@ -150,6 +151,7 @@ module.exports = (ndx) ->
           TenantBaseDeposit: 'tenantData.TenantBaseDeposit'
           Tenant: 'tenantData.TenantInfo[0].Person'
           TenantName: 'tenantData.TenantInfo[0].Person.ContactName'
+          EstimatedStartDate: 'tenantData.EstimatedStartDate'
         getDefaultProgressions property
         calculateMilestones property
         property.delisted = false

@@ -4,7 +4,7 @@
     .left
       .sort Order By:
         a.order-item(href='', ng-click='sort="-$case.item.modifiedAt";page=1', ng-class='{selected:sort==="-LastUpdated"}') Last updated
-        a.order-item(href='', ng-click='sort="-$case.item.offer.DateTime";page=1', ng-class='{selected:sort==="-$case.item.offer.DateTime"}') Offer accepted date
+        a.order-item(href='', ng-click='sort="-$case.item.EstimatedStartDate";page=1', ng-class='{selected:sort==="-$case.item.EstimatedStartDate"}') Estimated start date
       .show Show:
         a.filter-item.icon-green(href='', ng-click='filter="completed";page=1', ng-class='{selected:filter==="completed"}') Up-to-date
         a.filter-item.icon-orange(href='', ng-click='filter="progressing";page=1', ng-class='{selected:filter==="progressing"}') In Progress

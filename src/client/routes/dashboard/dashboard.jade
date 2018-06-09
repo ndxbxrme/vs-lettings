@@ -1,4 +1,4 @@
-.dashboard 
+.dashboard-route
   h1 Dashboard
   .overview
     .thead
@@ -14,30 +14,8 @@
       .tr.total
         .td Total
         .td {{total(items)}}
-  .income
-    .thead
-      .tr
-        .th(colspan='{{incomeItems.length + 1}}') 
-          i.fa.fa-gbp(aria-hidden='true')
-          |  Income
-    .tbody
-      .tr.head-two
-        .td Month
-        .td(ng-repeat='di in incomeItems = (dashboard.items | filter:{type:"income"})') {{di.name}}
-      .tr(ng-repeat='month in months')
-        .td {{month.name}}
-        .td.clickable(ng-repeat='di in incomeItems', ng-click='showInfo("income", di, month)')
-          .inner
-            label {{di.name}}
-            span(ng-bind-html='income(di, month) | currencyFormat', ng-class='{currency:di.sumtype==="Income"}')
-      .tr.total
-        .td Total
-        .td.clickable(ng-repeat='di in incomeItems', ng-click='showInfo("income", di, allmonths)') 
-          .inner
-            label {{di.name}}
-            span(ng-bind-html='income(di, allmonths) | currencyFormat', ng-class='{currency:di.sumtype==="Income"}')
   .progressions(ng-show='properties.total')
-    h1 something
+    h2 Progression
     table
       thead
         tr

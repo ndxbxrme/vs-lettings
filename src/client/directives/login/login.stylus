@@ -1,0 +1,86 @@
+@import '../../variables'
+.login-dir
+  position absolute
+  top 0
+  left 0
+  z-index 9000
+  pointer-events none
+  display flex
+  justify-content center
+  align-items center
+  min-height 100vh
+  height 100%
+  width 100%
+  padding 3.12rem
+  background vs-silver
+  box-sizing border-box
+  form
+    display flex
+    flex-direction column
+  input
+    margin .6rem 0
+  .login-form
+    display flex
+    flex-direction column
+    pointer-events all
+    width 100%
+    max-width 46.45rem
+    padding 0 2.59rem
+    border-radius .4rem
+    background-color vs-white
+    box-shadow 0 0.61rem 1.28rem rgba(57,74,88,.382)
+    .controls
+      display flex
+      justify-content flex-end
+      input
+        vs-button()
+    h1
+      text-align center
+      font-size 3.12rem
+    div.email, .password
+      margin-bottom .5rem
+      position relative
+      i.icon
+        position absolute
+        line-height 5.18rem
+        left 1.6rem
+        z-index 1
+      input
+        width 100%
+        box-sizing border-box
+        padding .5rem
+      &.required
+        &:before
+          top 1.6rem
+          right 1.6rem
+          z-index 3
+    .hint-text
+      color rgba(57,74,88,.618)
+    .forgot-pass
+      font-size 0.8em
+      margin-bottom 1.6rem
+    .btn
+      width 100%
+      text-align center
+      display block
+    .error
+      color vs-warning
+      margin 0
+  .version
+    position absolute
+    bottom 1.6rem
+    right 2.59rem
+    color vs-text
+    font-size 1.28rem
+  .user
+    border 1px solid #ccc
+    border-radius .3rem
+    padding 1.02rem
+    margin-bottom 1.02rem
+    .type, .role
+      font-size 1.3rem
+      color vs-text
+.mobile
+  .login-dir
+    .version
+      display none!important

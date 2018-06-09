@@ -1,6 +1,6 @@
 @import '../../variables'
 
-.dashboard
+.dashboard-route 
   .currency
     width 8rem
     display inline-block
