@@ -1,0 +1,46 @@
+.agreed-route
+  .row
+    h1 Monthly Sales Agreed
+    .search
+      input(type='text', ng-model='search', placeholder='Search...')
+  .row.years
+    a(href='', ng-click='setDateRange(year)', ng-repeat='year in years', ng-class='{selected:year===currentYear}') {{year}}
+  .months
+    .month(ng-repeat='month in months | filter:search | orderBy:"date"', ng-class='{disabled:month.date > now}')
+      .inner
+        .row
+          .month-name {{month.month}} 
+          .target(ng-click="auth.checkRoles(['admin', 'superadmin']) && (month.editing = !month.editing)", title="{{auth.checkRoles(['admin', 'superadmin']) ? 'Edit target' : ''}}")
+            label Target 
+            .editor(ng-show='month.editing')
+              input(type='text', ng-model='month.target.value', ng-click='$event.stopPropagation()', ng-blur='saveTarget(month)')
+            .default(ng-hide='month.editing') {{month.target.value}}
+          .actual {{month.properties.length}}
+        hr
+        .row 
+          a.button(ng-click='open(month)') 
+            span(ng-hide='month.open') View List
+            span(ng-show='month.open') Close List
+          .commission(ng-bind-html="month.commission | currency:'£' | currencyFormat")
+        .properties(ng-show='month.open')
+          hr
+          .row
+            h5 Address
+            h5 Date
+          hr
+          .property(ng-repeat='property in month.properties') 
+            .editor(ng-show='property.$editing')
+              .address
+                input(type='text', ng-model='property.$override.address')
+              .fees
+                input(type='text', ng-model='property.$override.commission')
+              input.save(type='button', ng-click='save(property)', value='Save')
+              input.cancel(type='button', ng-click='cancel(property)', value='Cancel')
+            .default(ng-class='{delisted:property.delisted}')
+              .controls(ng-show="auth.checkRoles(['admin', 'superadmin'])")
+                a.edit(href='', ng-click='edit(property)') Edit
+                a.delete(href='', ng-click='delete(property)') Delete
+              .number {{$index + 1}}
+              .address {{property.address}}
+              .fees(ng-bind-html="property.commission | currency:'£' | currencyFormat")
+              .date {{property.date | date:'mediumDate'}}
