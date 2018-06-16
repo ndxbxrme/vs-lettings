@@ -8,6 +8,9 @@
         li(ng-class="{selected:state('dashboard')}")
           a(href='/')
             span Dashboard
+        li(ng-class="{selected:state('available')}")
+          a(ui-sref='available')
+            span Available
         li(ng-class="{selected:state(['cases', 'case'])}")
           a(ui-sref='cases')
             span Cases

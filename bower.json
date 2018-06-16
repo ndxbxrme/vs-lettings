@@ -47,6 +47,7 @@
     "ndx-modal": "^0.0.5",
     "ndx-alert": "^0.0.2",
     "interpret-date": "^0.0.3",
-    "angular-multi-check": "^0.4.1"
+    "angular-multi-check": "^0.4.1",
+    "angular-timeago": "^0.4.6"
   }
 }

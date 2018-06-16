@@ -26,10 +26,11 @@
           th(ng-repeat='milestone in properties.items[0].progressions[0].milestones') {{milestone[0].title}}
       tbody(ng-repeat='property in properties.items')
         tr
-          td {{property.Address.Number}} {{property.Address.Street}}
+          td 
+            a(ui-sref='case({roleId:property.RoleId})') {{property.Address.Number}} {{property.Address.Street}}
           td {{property.ServiceLevel.Name}}
           td {{property.AvailableDate | date:'MMM d, yyyy'}}
-          td {{property.ProposedMoving | date:'MMM d, yyyy'}}
+          td {{property.item.proposedMoving | date:'MMM d, yyyy'}}
           td(ng-repeat='milestone in property.progressions[0].milestones')
             i.fal(ng-class='milestone[0].completed ? "fa-check" : "fa-times"')
   

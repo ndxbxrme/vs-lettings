@@ -60,10 +60,21 @@
         background vs-lightgrey
         border 1px solid vs-grey
         text-align left
+        padding 0 5px
+      a 
+        color vs-orange
   i.fa-times
-    color vs-red
+    background-color vs-red
+    color white
+    line-height 1
+    padding 7px 10px
+    border-radius 5px
   i.fa-check
-    color vs-green
+    background-color vs-green
+    color white
+    line-height 1
+    padding 7px 8px
+    border-radius 5px
     
   @media screen and (max-width:720px)
     .income

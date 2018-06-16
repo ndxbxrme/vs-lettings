@@ -15,8 +15,9 @@
     span.right
       float right
       font-size 2rem
-      font-weight 800
       color #999
+      span
+        color vs-orange
   .contacts
     display flex
     flex-wrap wrap
@@ -137,3 +138,22 @@
           width calc(50% - 2rem)
         @media screen and (max-width: 590px)
           width calc(100%)
+  .rental-terms
+    .fifth
+      width 19.5%
+      display inline-block
+    label
+      display block
+    input[type=text], input[type=date]
+      vs-input()
+      width 95%
+      margin-bottom 30px
+    input[type=submit]
+      clear both
+      vs-button()
+      background vs-orange
+      color white
+    select
+      height 37px
+      width 95%
+      margin-bottom 30px

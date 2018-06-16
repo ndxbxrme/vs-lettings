@@ -4,7 +4,7 @@
     .left
       .sort Order By:
         a.order-item(href='', ng-click='sort="-$case.item.modifiedAt";page=1', ng-class='{selected:sort==="-LastUpdated"}') Last updated
-        a.order-item(href='', ng-click='sort="-$case.item.EstimatedStartDate";page=1', ng-class='{selected:sort==="-$case.item.EstimatedStartDate"}') Estimated start date
+        a.order-item(href='', ng-click='sort="-$case.item.EstimatedStartDate";page=1', ng-class='{selected:sort==="-$case.item.EstimatedStartDate"}') Move in date
       .show Show:
         a.filter-item.icon-green(href='', ng-click='filter="completed";page=1', ng-class='{selected:filter==="completed"}') Up-to-date
         a.filter-item.icon-orange(href='', ng-click='filter="progressing";page=1', ng-class='{selected:filter==="progressing"}') In Progress
@@ -18,10 +18,10 @@
     thead
       tr
         th(width='5%') Status
-        th(width='30%') Property Address
-        th(width='20%') Vendor
-        th(width='20%') Purchaser
-        th(width='10%') Offer
+        th(width='25%') Property Address
+        th(width='20%') Landlord
+        th(width='20%') Tenant
+        th(width='15%') Move In Date
         th(width='5%') Options
     tbody(ng-repeat='property in filterData =(properties.items | filter:{"deleted":false} | filter:{"search":search} | filter:{"milestoneStatus":filter}  | orderBy:sort) | limitTo:limit:limit*(page-1)')
       tr(ng-click='property.open = !property.open')
@@ -39,7 +39,7 @@
             .date(ng-show='property.$case.item.offer.DateTime') Start Date: {{property.$case.item.offer.DateTime | date:'mediumDate'}}
         td.vendor {{property.$case.item.LandlordName}}
         td.purchaser {{property.$case.item.TenantName}}
-        td.offer {{property.$case.item.Price.PriceValue | currency : "£" : 0}}
+        td.movein {{property.$case.item.proposedMoving | date:'MMM d, yyyy'}}
         td.options
           a.button(ui-sref='case({roleId:property.RoleId})') View Case
   .mobile-table.small-mobile-show

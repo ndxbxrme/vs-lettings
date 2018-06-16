@@ -1,0 +1,125 @@
+@import '../../variables'
+
+.available
+  .controls
+    display flex
+    flex-wrap wrap
+    justify-content space-between
+    margin-bottom 1rem
+    .order-item
+      display inline-block
+      position relative
+      color vs-orange
+      margin-left 2rem
+      margin-bottom 1rem
+      &.selected
+        text-decoration underline
+    .showing
+        text-align right
+  table
+    border-collapse: collapse;
+    thead
+      tr
+        th
+          padding 10px
+          background vs-orange
+          text-align left
+          color white
+          font-size 2rem
+          font-weight 100
+          border-bottom 1px solid vs-grey
+    td
+      border-bottom 1px solid vs-lightgrey
+      vertical-align middle
+      padding 15px
+      .image 
+        float left
+        margin-right 10px
+      .address
+        color vs-orange
+        font-weight bold
+        line-height 1.8rem
+      .rental-price 
+        font-size 1.8rem
+        font-weight bold
+        margin-top 10px
+      &.viewing-next
+        label
+          display block
+        input[type=time], input[type=date]
+          padding 5px 10px
+          border-radius 3px
+          border 1px solid #ccc
+          box-sizing border-box
+          width 95%
+        .viewing-from, .viewing-to
+          width 50%
+          float left
+        input[type=submit]
+          color vs-orange
+          border none
+      &.listed
+        a
+          color vs-orange
+  .mobile-table
+    border 1px solid #ccc
+    .case-card
+      border-bottom 1px solid #ccc
+      padding 1rem
+      display flex
+      .address-row
+        display flex
+        flex-direction column
+        .address
+          color vs-orange
+          font-weight bold
+        .offer
+          font-weight bold
+          font-size 1.8rem
+      .milestone
+        flex 0
+        margin-right 2rem
+        .title
+          min-height 0!important
+  .pagination-holder
+    display flex
+    justify-content center
+    .pagination
+      a
+        color vs-orange
+      a:hover
+        color vs-orange
+      li.active
+        a
+          background vs-orange
+          border-color vs-orange
+          color #fff
+  .pagination
+    justify-content center
+    margin 20px 0
+    text-align center
+    .page
+      padding 5px 10px 3px 10px
+      border 1px solid vs-lightgrey
+      border-left none
+      transition all 0.4s ease-in-out
+      &:first-of-type 
+        border-left: 1px solid vs-lightgrey
+        border-bottom-left-radius 5px
+        border-top-left-radius 5px
+      &:last-of-type 
+        border-bottom-right-radius 5px
+        border-top-right-radius 5px
+      &.last, &.first 
+        padding 5px 20px 3px 20px
+      &.selected, &:hover
+        background vs-orange
+        color white
+.mobile
+  .cases
+    .controls
+      .order-item, .filter-item
+        margin-left 1rem
+    .mobile-table
+      .address-row
+        flex 1

@@ -1,0 +1,46 @@
+.available
+  h1 Available Properties 
+  .controls
+    .left
+      .sort Order By:
+        a.order-item(href='', ng-click='', ng-class='') First Listed
+        a.order-item(href='', ng-click='', ng-class='') Viewings
+        a.order-item(href='', ng-click='', ng-class='') Asking Price
+    .right
+      .search
+        input(type='text', ng-model='search', placeholder='Search Cases', ng-change='page=1')
+      .showing Showing {{filterData.length}} of {{totalProps = properties.items.length - nodeleted}} case{{totalProps!==1?'s':''}}
+  table.table.table-responsive.small-mobile-hide(ng-show='filterData.length > 0')
+    thead
+      tr
+        th(width='40%') Property Address
+        th(width='20%') Landlord
+        th(width='20%') Next Viewings
+        th(width='20%') Listed
+    tbody(ng-repeat='property in filterData =(properties.items | filter:{"deleted":false} | filter:{"search":search} | filter:{"milestoneStatus":filter}  | orderBy:sort) | limitTo:limit:limit*(page-1)')
+      tr(ng-click='property.open = !property.open')
+        td
+          img.image(src='{{property.$case.item.Images[0].Url}}', width='100') 
+          .address {{property.$case.item.override.address || property.displayAddress}}
+          .rental-price {{property.$case.item.Price.PriceValue | currency : "£" : 0}} {{property.$case.item.Price.PriceType.DisplayName}}
+        td.vendor {{property.$case.item.LandlordName}}
+        td.viewing-next 
+          form(name='viewingNext')
+            .viewing-date
+              input(type='date')
+            .viewing-from
+              label Start time
+              input(type='time')
+            .viewing-to
+              label End
+              input(type='time')
+            input(type='submit', value="Save")
+        td.listed 
+          .instructed Instructed on: {{property.$case.item.DateInstructed | date:'dd/MM/yy'}}
+          .time-ago ({{property.$case.item.DateInstructed | timeAgo}})
+          .viewings-count Viewings: {{property.$case.viewings.length}}
+          a(ui-sref='case({roleId:property.RoleId})') View Case
+  pagination.pagination-sm.pagination(total='filterData.length', ng-model='page', page-size='limit', page-change='pageChange', show-first-last='true')
+  .nothing-to-show(ng-show='filterData.length===0')
+    h3 Nothing to show
+  
