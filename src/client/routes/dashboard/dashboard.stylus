@@ -1,6 +1,6 @@
 @import '../../variables'
 
-.dashboard-route 
+.dashboard-route
   .currency
     width 8rem
     display inline-block
@@ -42,6 +42,29 @@
         background #f1f1f1
         .td 
           font-weight 600
+	.summary
+		border-spacing 0
+		border-collapse collapse
+		margin-bottom 30px
+		th 
+			text-align center
+			line-height 1.2rem
+			background vs-grey
+			color white
+			padding 10px
+		tr td
+      border 1px solid vs-lightgrey
+      text-align center
+      vertical-align middle
+      &:first-child
+        background vs-lightgrey
+        border 1px solid vs-grey
+        text-align left
+  i.fa-times
+    color vs-red
+  i.fa-check
+    color vs-green
+    
   @media screen and (max-width:720px)
     .income
       .tr

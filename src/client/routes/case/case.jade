@@ -17,21 +17,54 @@
       a(href='', ng-click='addProgression(progression)') {{progression.name}}, {{progression.side}}
   button(ng-hide='auth.checkRoles(["superadmin", "admin"])', ng-click='advanceProgression()') Advance all milestones
   button(ng-show='auth.checkRoles(["superadmin", "admin"])', ng-click='fallenThrough()') Fallen through
-  h2 Chain
-  button.view-chain(ng-click='showChain = !showChain') {{showChain?'Hide':'View'}} Chain
-  .chain(ng-show='showChain')
-    button.add-chain(ng-click='addChain(property.item.$case.item.chainBuyer, "buyer")') Add to chain
-    .connector
-    chain-item(ng-repeat='item in property.item.$case.item.chainBuyer | orderBy:"-"')
-    .current-property 
-      .image
-        img(ng-src='{{property.item.Images[0].Url}}')
-      .details
-        .address {{property.item.displayAddress}}
-        .price {{property.item.$case.item.offer.Value | currency: '£': 0}}
-    .connector
-    chain-item(ng-repeat='item in property.item.$case.item.chainSeller')
-    button.add-chain(ng-click='addChain(property.item.$case.item.chainSeller, "seller")') Add to chain
+  h2 Rental Terms
+  form(name='rentalTerms', submit='save("property")')
+    .agreed-rent.fifth
+      label Agreed Monthly Rent
+      input(type='text', ng-model='property.item.agreedRent')
+    .deposit.fifth
+      label Deposit
+      input(type='text', ng-model='property.item.deposit')
+    .tenancy-terms.fifth
+      label Tenancy Terms
+      select(ng-model='property.item.tenancyTerms')
+        option(value='6', selected) 6 Months
+        option(value='12') 12 months
+        option(value='28') 12 months
+    .proposed-moving.fifth
+      label Proposed Moving in Date
+      input(type='date', ng-model='property.item.proposedMoving')
+    .pet-deposit.fifth
+      label Pet Deposit
+      select(ng-model='property.item.petDeposit')
+        option(value='no', selected) No
+        option(value='yes') Yes
+    .agent-request.fifth
+      label Landlord/Agent Request
+      select(ng-model='property.item.agentRequest')
+        option(value='no', selected) No
+        option(value='yes') Yes
+    .employer-ref.fifth
+      label Employer Reference
+      select(ng-model='property.item.employerRef')
+        option(value='no', selected) No
+        option(value='yes') Yes
+    .pet-deposit.fifth
+      label Self Employed Application
+      select(ng-model='property.item.selfEmployed')
+        option(value='no', selected) No
+        option(value='yes') Yes
+    .pet-deposit.fifth
+      label Guarantor Required
+      select(ng-model='property.item.guarantor')
+        option(value='no', selected) No
+        option(value='yes') Yes
+    .pet-deposit.fifth
+      label Special Clauses
+      select(ng-model='property.item.specialClauses')
+        option(value='no', selected) No
+        option(value='yes') Yes
+    input(type='submit', value='Save')
   h2 Documents
     sup(ng-show='property.item.$case.item.documents.length') {{property.item.$case.item.documents.length}}
   button.view-documents(ng-click='showDocuments = !showDocuments') {{showDocuments?'Hide':'View'}} Documents

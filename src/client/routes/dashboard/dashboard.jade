@@ -16,13 +16,20 @@
         .td {{total(items)}}
   .progressions(ng-show='properties.total')
     h2 Progression
-    table
+    table.summary
       thead
         tr
           th
+          th Service Level
+          th DOA
+          th Move In (est)
           th(ng-repeat='milestone in properties.items[0].progressions[0].milestones') {{milestone[0].title}}
       tbody(ng-repeat='property in properties.items')
         tr
-          td {{property.displayAddress}}
-          td(ng-repeat='milestone in property.progressions[0].milestones') {{milestone[0].completed ? 'Tick' : 'Cross'}}
+          td {{property.Address.Number}} {{property.Address.Street}}
+          td {{property.ServiceLevel.Name}}
+          td {{property.AvailableDate | date:'MMM d, yyyy'}}
+          td {{property.ProposedMoving | date:'MMM d, yyyy'}}
+          td(ng-repeat='milestone in property.progressions[0].milestones')
+            i.fal(ng-class='milestone[0].completed ? "fa-check" : "fa-times"')
   
