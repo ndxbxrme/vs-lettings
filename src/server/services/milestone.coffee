@@ -52,9 +52,10 @@ module.exports = (ndx) ->
         .end (err, res) ->
           if not err
             property = res.body
-            ndx.property.fetch roleId, (mycase) ->
-              property.case = mycase
-              processActions actionOn, actions, roleId, property
+            uId = property.RoleId + '_' + new Date(property.AvailableDate).valueOf()
+            mycase = await ndx.property.fetch uId
+            property.case = mycase
+            processActions actionOn, actions, roleId, property
           else
             throw err
       else

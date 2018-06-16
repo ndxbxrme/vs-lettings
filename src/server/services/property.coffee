@@ -119,13 +119,10 @@ module.exports = (ndx) ->
       prop.uId = prop.RoleId + '_' + new Date(prop.AvailableDate).valueOf()
       dbProperty = await ndx.property.fetch prop.uId
       if dbProperty
-        console.log 'this one'
         calculateMilestones property
       else
-        console.log 'prop uid', prop.uId
         prop.lettingData = await ndx.dezrez.get 'role/{id}', null, id:prop.RoleId
         prop.tenantData = await ndx.dezrez.get 'role/{id}', null, id:prop.lettingData.TenantRoleId
-        console.log prop.tenantData.EstimatedStartDate
         property = objtrans prop,
           uId: true
           Address: true
