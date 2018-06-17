@@ -119,7 +119,9 @@ module.exports = (ndx) ->
       prop.uId = prop.RoleId + '_' + new Date(prop.AvailableDate).valueOf()
       dbProperty = await ndx.property.fetch prop.uId
       if dbProperty
-        calculateMilestones property
+        calculateMilestones dbProperty
+        ndx.database.update 'properties', dbProperty,
+          _id: dbProperty._id
       else
         prop.lettingData = await ndx.dezrez.get 'role/{id}', null, id:prop.RoleId
         prop.tenantData = await ndx.dezrez.get 'role/{id}', null, id:prop.lettingData.TenantRoleId
@@ -162,6 +164,7 @@ module.exports = (ndx) ->
         ndx.database.insert 'properties', property
   ndx.database.on 'ready', ->
     setInterval checkNew, 1 * 60 * 1000
+    checkNew()
   
   ndx.property = 
     getDefaultProgressions: 'getDefaultProgressions'
