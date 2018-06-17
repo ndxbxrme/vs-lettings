@@ -59,6 +59,7 @@
         background green
       a
         color inherit
+        padding 0 5px
         &:hover
           color vs-orange
   .progressions-controls
