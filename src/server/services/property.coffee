@@ -114,7 +114,7 @@ module.exports = (ndx) ->
         else
           reject err      
   checkNew = ->
-    for status in ['OfferAccepted', 'InstructionToLet']
+    for status in ['OfferAccepted']
       currentProps = await fetchCurrentProps status
       for prop in currentProps
         prop.uId = prop.RoleId + '_' + new Date(prop.AvailableDate).valueOf()
