@@ -20,52 +20,52 @@
   button(ng-show='auth.checkRoles(["superadmin", "admin"])', ng-click='fallenThrough()') Fallen through
   .rental-terms  
     h2 Rental Terms
-    form(name='rentalTerms', ng-submit='save("property")')
+    form(name='rentalTerms', ng-submit='submitRT()')
       .row
         .agreed-rent.fifth
           label Agreed Monthly Rent
-          input(type='text', ng-model='property.item.agreedRent')
+          input(type='text', ng-model='property.item.$case.item.agreedRent')
         .deposit.fifth
           label Deposit
-          input(type='text', ng-model='property.item.deposit')
+          input(type='text', ng-model='property.item.$case.item.deposit')
         .tenancy-terms.fifth
           label Tenancy Terms
-          select(ng-model='property.item.tenancyTerms')
+          select(ng-model='property.item.$case.item.tenancyTerms')
             option(value='6', selected) 6 Months
             option(value='12') 12 months
             option(value='28') 12 months
         .proposed-moving.fifth
           label Proposed Moving in Date
-          input(type='date', ng-model='property.item.proposedMoving')
+          input(type='date', ng-model='property.item.$case.item.proposedMoving')
         .pet-deposit.fifth
           label Pet Deposit
-          select(ng-model='property.item.petDeposit')
+          select(ng-model='property.item.$case.item.petDeposit')
             option(value='no', selected) No
             option(value='yes') Yes
       .row
         .agent-request.fifth
           label Landlord/Agent Request
-          select(ng-model='property.item.agentRequest')
+          select(ng-model='property.item.$case.item.agentRequest')
             option(value='no', selected) No
             option(value='yes') Yes
         .employer-ref.fifth
           label Employer Reference
-          select(ng-model='property.item.employerRef')
+          select(ng-model='property.item.$case.item.employerRef')
             option(value='no', selected) No
             option(value='yes') Yes
         .self-employed.fifth
           label Self Employed Application
-          select(ng-model='property.item.selfEmployed')
+          select(ng-model='property.item.$case.item.selfEmployed')
             option(value='no', selected) No
             option(value='yes') Yes
         .guarantor.fifth
           label Guarantor Required
-          select(ng-model='property.item.guarantor')
+          select(ng-model='property.item.$case.item.guarantor')
             option(value='no', selected) No
             option(value='yes') Yes
         .special.fifth
           label Special Clauses
-          select(ng-model='property.item.specialClauses')
+          select(ng-model='property.item.$case.item.specialClauses')
             option(value='no', selected) No
             option(value='yes') Yes
       input(type='submit', value='Save')

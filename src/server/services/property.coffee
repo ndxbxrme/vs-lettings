@@ -99,10 +99,10 @@ module.exports = (ndx) ->
           completed: property.milestone.completed
           progressing: property.milestone.progressing
           overdue: property.milestoneStatus is 'overdue'
-  fetchCurrentProps = ->
+  fetchCurrentProps = (status) ->
     new Promise (resolve, reject) ->
       opts = 
-        RoleStatus: 'OfferAccepted'
+        RoleStatus: status
         RoleType: 'Letting'
         IncludeStc: true
       superagent.post "#{process.env.PROPERTY_URL}/search"
@@ -114,54 +114,55 @@ module.exports = (ndx) ->
         else
           reject err      
   checkNew = ->
-    currentProps = await fetchCurrentProps()
-    for prop in currentProps
-      prop.uId = prop.RoleId + '_' + new Date(prop.AvailableDate).valueOf()
-      dbProperty = await ndx.property.fetch prop.uId
-      if dbProperty
-        calculateMilestones dbProperty
-        ndx.database.update 'properties', dbProperty,
-          _id: dbProperty._id
-      else
-        prop.lettingData = await ndx.dezrez.get 'role/{id}', null, id:prop.RoleId
-        prop.tenantData = await ndx.dezrez.get 'role/{id}', null, id:prop.lettingData.TenantRoleId
-        property = objtrans prop,
-          uId: true
-          Address: true
-          AvailableDate: true
-          DateInstructed: true
-          Fees: true
-          Images: true
-          Price: true
-          PropertyId: true
-          RoleId: true
-          SearchField: true
-          Term: true
-          displayAddress: true
-          Id: '_id'
-          Deposit: 'lettingData.Deposit'
-          Landlord: 'lettingData.LandlordInfo[0].Person'
-          LandlordName: 'lettingData.LandlordInfo[0].Person.ContactName'
-          OfferAcceptedPriceDataContract: 'lettingData.OfferAcceptedPriceDataContract'
-          ServiceLevel: 'lettingData.ServiceLevel'
-          TenancyReference: 'tenantData.TenancyReference'
-          TenancyStatus: 'tenantData.TenancyStatus'
-          TenancyType: 'tenantData.TenancyType'
-          TenantBaseDeposit: 'tenantData.TenantBaseDeposit'
-          Tenant: 'tenantData.TenantInfo[0].Person'
-          TenantName: 'tenantData.TenantInfo[0].Person.ContactName'
-          EstimatedStartDate: 'tenantData.EstimatedStartDate'
-        getDefaultProgressions property
-        calculateMilestones property
-        property.delisted = false
-        property.milestone = ''
-        property.milestoneStatus = ''
-        property.milestoneIndex = null
-        property.notes = []
-        property.chainBuyer = []
-        property.chainSeller = []
-        property.delisted = false
-        ndx.database.insert 'properties', property
+    for status in ['OfferAccepted', 'InstructionToLet']
+      currentProps = await fetchCurrentProps status
+      for prop in currentProps
+        prop.uId = prop.RoleId + '_' + new Date(prop.AvailableDate).valueOf()
+        dbProperty = await ndx.property.fetch prop.uId
+        if dbProperty
+          calculateMilestones dbProperty
+          ndx.database.update 'properties', dbProperty,
+            _id: dbProperty._id
+        else
+          prop.lettingData = await ndx.dezrez.get 'role/{id}', null, id:prop.RoleId
+          prop.tenantData = await ndx.dezrez.get 'role/{id}', null, id:prop.lettingData.TenantRoleId
+          property = objtrans prop,
+            uId: true
+            Address: true
+            AvailableDate: true
+            DateInstructed: true
+            Fees: true
+            Images: true
+            Price: true
+            PropertyId: true
+            RoleId: true
+            SearchField: true
+            Term: true
+            displayAddress: true
+            Id: '_id'
+            Deposit: 'lettingData.Deposit'
+            Landlord: 'lettingData.LandlordInfo[0].Person'
+            LandlordName: 'lettingData.LandlordInfo[0].Person.ContactName'
+            OfferAcceptedPriceDataContract: 'lettingData.OfferAcceptedPriceDataContract'
+            ServiceLevel: 'lettingData.ServiceLevel'
+            TenancyReference: 'tenantData.TenancyReference'
+            TenancyStatus: 'tenantData.TenancyStatus'
+            TenancyType: 'tenantData.TenancyType'
+            TenantBaseDeposit: 'tenantData.TenantBaseDeposit'
+            Tenant: 'tenantData.TenantInfo[0].Person'
+            TenantName: 'tenantData.TenantInfo[0].Person.ContactName'
+            EstimatedStartDate: 'tenantData.EstimatedStartDate'
+          getDefaultProgressions property
+          calculateMilestones property
+          property.delisted = false
+          property.milestone = ''
+          property.milestoneStatus = ''
+          property.milestoneIndex = null
+          property.notes = []
+          property.chainBuyer = []
+          property.chainSeller = []
+          property.delisted = false
+          ndx.database.insert 'properties', property
   ndx.database.on 'ready', ->
     setInterval checkNew, 1 * 60 * 1000
     checkNew()

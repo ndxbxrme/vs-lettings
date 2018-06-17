@@ -26,6 +26,8 @@ angular.module 'vs-agency'
     property.displayAddress = "#{property.Address.Number} #{property.Address.Street }, #{property.Address.Locality }, #{property.Address.Town}, #{property.Address.Postcode}"
     property.$case = $scope.single 'properties', property.RoleId + '_' + new Date(property.AvailableDate).valueOf(), (item) ->
       item.parent.search = "#{item.parent.displayAddress}||#{item.vendor}||#{item.purchaser}"
+      item.item.proposedMoving = new Date(item.item.proposedMoving)
+      console.log item
     property.$case.parent = property
     Property.set property
   $scope.progressions = $scope.list 'progressions',
@@ -36,6 +38,14 @@ angular.module 'vs-agency'
     show: false
   $scope.date = 
     date: 'today'
+  $scope.submitRT = ->
+    if $scope.rentalTerms.$valid
+      $scope.rentalTerms.$setPristine()
+      $scope.property.item.$case.save()
+      .then ->
+        alert.log 'Rental terms saved'
+      , ->
+        alert.error 'Error saving rental terms'
   $scope.addNote = ->
     if $scope.note
       property = $scope.property.item
