@@ -33,8 +33,8 @@
           td 
             a(ui-sref='case({roleId:property.RoleId})') {{property.Address.Number}} {{property.Address.Street}}
           td {{property.ServiceLevel.Name}}
-          td {{property.AvailableDate | date:'MMM d, yyyy'}}
+          td {{property.Tenant.Addresses[0].CreatedDate | date:'MMM d, yyyy'}}
           td {{property.proposedMoving | date:'MMM d, yyyy'}}
           td(ng-repeat='milestone in property.progressions[0].milestones')
-            i.fa(ng-class='milestone[0].completed ? "fa-check" : "fa-times"')
+            i.fal(ng-class='milestone[0].completed ? "fa-check" : "fa-times"')
   

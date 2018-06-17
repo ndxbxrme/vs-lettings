@@ -15,7 +15,7 @@
         a.name(ui-sref="template({id:template._id,type:'email'})") {{template.name}}
         .delete
           a(href='', ng-click='emailTemplates.delete(template)')
-            i.fa.fa-times-circle-o(aria-hidden='true')
+            i.far.fa-times-circle(aria-hidden='true')
       div
         a.add-email-template(ui-sref="template({id:'new',type:'email'})") Add email template
     .sms-templates
@@ -24,7 +24,7 @@
         a.name(ui-sref="template({id:template._id,type:'sms'})") {{template.name}}
         .delete
           a(href='', ng-click='smsTemplates.delete(template)')
-            i.fa.fa-times-circle-o(aria-hidden='true')
+            i.far.fa-times-circle(aria-hidden='true')
       div
         a.add-sms-template(ui-sref="template({id:'new',type:'sms'})") Add sms template
   .dashboard
@@ -36,11 +36,11 @@
           a.name(ui-sref="dashboardItem({id:item._id,type:'overview'})") {{item.name}}
           .controls(ng-show='auth.checkRoles(["admin","superadmin"])')
             a(href='', ng-click='moveDIUp(item)')
-              i.fa.fa-arrow-circle-o-up(aria-hidden='true')
+              i.far.fa-sort-up(aria-hidden='true')
             a(href='', ng-click='moveDIDown(item)')
-              i.fa.fa-arrow-circle-o-down(aria-hidden='true')
+              i.far.fa-sort-down(aria-hidden='true')
             a(href='', ng-click='removeDI(item)')
-              i.fa.fa-times-circle-o(aria-hidden='true')
+              i.far.fa-times-circle(aria-hidden='true')
         div
           a.add-dashboard-overview(ui-sref="dashboardItem({id:'new',type:'overview'})") Add overview item
   .users
