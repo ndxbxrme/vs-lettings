@@ -18,6 +18,17 @@ angular.module 'vs-lettings'
         milestone = progression.milestones[progression.milestones.length-1]
         completeBeforeDelisted = (not milestone[0].completed && property.delisted) || not property.delisted
       property.completeBeforeDelisted = completeBeforeDelisted
+  $scope.availableOpts = 
+    where:
+      RoleStatus: 'InstructionToLet'
+      RoleType: 'Letting'
+      IncludeStc: true
+    transform:
+      items: 'Collection'
+      total: 'TotalCount'
+  $scope.available= $scope.list
+    route: "#{env.PROPERTY_URL}/search"
+  , $scope.availableOpts
   $scope.dashboard = $scope.list 'dashboard',
     sort: 'i'
   $scope.progressions = $scope.list 'progressions'

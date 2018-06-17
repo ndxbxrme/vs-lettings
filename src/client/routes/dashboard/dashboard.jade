@@ -11,7 +11,7 @@
       .tr.available-props
         .td 
           a(href='/available') Available Properties
-        .td {{properties.total}}
+        .td {{available.total}}
       .tr(ng-repeat='di in items = (dashboard.items | filter:{type:"overview"})')
         .td {{di.name}}
         .td.clickable(ng-click='showInfo("count", di, month)') {{count(di)}}
@@ -34,7 +34,7 @@
             a(ui-sref='case({roleId:property.RoleId})') {{property.Address.Number}} {{property.Address.Street}}
           td {{property.ServiceLevel.Name}}
           td {{property.AvailableDate | date:'MMM d, yyyy'}}
-          td {{property.item.proposedMoving | date:'MMM d, yyyy'}}
+          td {{property.proposedMoving | date:'MMM d, yyyy'}}
           td(ng-repeat='milestone in property.progressions[0].milestones')
-            i.fal(ng-class='milestone[0].completed ? "fa-check" : "fa-times"')
+            i.fa(ng-class='milestone[0].completed ? "fa-check" : "fa-times"')
   

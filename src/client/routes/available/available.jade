@@ -15,7 +15,7 @@
       tr
         th(width='40%') Property Address
         th(width='20%') Landlord
-        th(width='20%') Next Viewings
+        th(width='20%') Next Viewing
         th(width='20%') Listed
     tbody(ng-repeat='property in filterData =(properties.items | filter:{"deleted":false} | filter:{"search":search} | filter:{"milestoneStatus":filter}  | orderBy:sort) | limitTo:limit:limit*(page-1)')
       tr(ng-click='property.open = !property.open')

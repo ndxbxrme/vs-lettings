@@ -36,11 +36,11 @@
           a.name(ui-sref="dashboardItem({id:item._id,type:'overview'})") {{item.name}}
           .controls(ng-show='auth.checkRoles(["admin","superadmin"])')
             a(href='', ng-click='moveDIUp(item)')
-              i.far.fa-sort-up(aria-hidden='true')
+              i.fa.fa-arrow-circle-o-up(aria-hidden='true')
             a(href='', ng-click='moveDIDown(item)')
-              i.far.fa-sort-down(aria-hidden='true')
+              i.fa.fa-arrow-circle-o-down(aria-hidden='true')
             a(href='', ng-click='removeDI(item)')
-              i.far.fa-times-circle(aria-hidden='true')
+              i.fa.fa-times-circle-o(aria-hidden='true')
         div
           a.add-dashboard-overview(ui-sref="dashboardItem({id:'new',type:'overview'})") Add overview item
   .users

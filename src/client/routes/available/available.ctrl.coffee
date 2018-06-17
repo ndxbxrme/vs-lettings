@@ -11,7 +11,7 @@ angular.module 'vs-agency'
   $scope.nodeleted = 0
   $scope.propsOpts = 
     where:
-      RoleStatus: 'InstructionToLet'
+      RoleStatus: 'OfferAccepted'
       RoleType: 'Letting'
       IncludeStc: true
     transform:
