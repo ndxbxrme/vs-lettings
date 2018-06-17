@@ -160,8 +160,9 @@ module.exports = (ndx) ->
         property.chainSeller = []
         property.delisted = false
         ndx.database.insert 'properties', property
-  setInterval checkNew, 10 * 60 * 1000
-  checkNew()
+  ndx.database.on 'ready', ->
+    setInterval checkNew, 10 * 60 * 1000
+    checkNew()
   
   ndx.property = 
     getDefaultProgressions: 'getDefaultProgressions'

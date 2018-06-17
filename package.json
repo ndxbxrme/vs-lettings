@@ -1,6 +1,6 @@
 {
   "name": "vs-lettings",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "",
   "main": "server/app.js",
   "scripts": {
@@ -29,7 +29,7 @@
     "grunt-injector": "^1.1.0",
     "grunt-keepalive": "^1.0.0",
     "grunt-ndx-script-inject": "0.0.9",
-    "grunt-ndxmin": "0.0.6",
+    "grunt-ndxmin": "0.0.18",
     "grunt-ngmin": "0.0.3",
     "grunt-usemin": "^3.1.1",
     "grunt-wiredep": "^3.0.1",
