@@ -143,7 +143,7 @@ module.exports = (grunt) ->
       options:
         base: 'build/client'
         dest: '.tmp'
-        ignoreExternal: false
+        ignoreExternal: true
       all:
         html: ['build/client/index.html']
     'ndx-script-inject':
