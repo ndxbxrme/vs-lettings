@@ -38,7 +38,7 @@
         td.listed 
           .instructed Instructed on: {{property.$case.item.DateInstructed | date:'dd/MM/yy'}}
           .time-ago ({{property.$case.item.DateInstructed | timeAgo}})
-          .viewings-count Viewings: {{property.$case.viewings.length}}
+          .viewings-count Viewings: {{property.$case.item.Viewings.length}}
           a(ui-sref='case({roleId:property.RoleId})') View Case
   pagination.pagination-sm.pagination(total='filterData.length', ng-model='page', page-size='limit', page-change='pageChange', show-first-last='true')
   .nothing-to-show(ng-show='filterData.length===0')

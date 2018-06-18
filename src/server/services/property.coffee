@@ -113,45 +113,56 @@ module.exports = (ndx) ->
           resolve res.body.Collection
         else
           reject err      
+  fetchPropertyData = (prop) ->
+    new Promise (resolve, reject) ->
+      prop.lettingData = await ndx.dezrez.get 'role/{id}', null, id:prop.RoleId
+      prop.tenantData = await ndx.dezrez.get 'role/{id}', null, id:prop.lettingData.TenantRoleId
+      prop.viewings = await ndx.dezrez.get 'role/{id}/viewingsbasic', null, id:prop.RoleId
+      property = objtrans prop,
+        uId: true
+        Address: true
+        AvailableDate: true
+        DateInstructed: true
+        LastUpdated: true
+        Fees: true
+        Images: true
+        Price: true
+        PropertyId: true
+        RoleId: true
+        SearchField: true
+        Term: true
+        Status: 'RoleStatus.SystemName'
+        displayAddress: true
+        Id: '_id'
+        Deposit: 'lettingData.Deposit'
+        Landlord: 'lettingData.LandlordInfo[0].Person'
+        LandlordName: 'lettingData.LandlordInfo[0].Person.ContactName'
+        OfferAcceptedPriceDataContract: 'lettingData.OfferAcceptedPriceDataContract'
+        ServiceLevel: 'lettingData.ServiceLevel'
+        TenancyReference: 'tenantData.TenancyReference'
+        TenancyStatus: 'tenantData.TenancyStatus'
+        TenancyType: 'tenantData.TenancyType'
+        TenantBaseDeposit: 'tenantData.TenantBaseDeposit'
+        Tenant: 'tenantData.TenantInfo[0].Person'
+        TenantName: 'tenantData.TenantInfo[0].Person.ContactName'
+        EstimatedStartDate: 'tenantData.EstimatedStartDate'
+        Viewings: 'viewings'
+      resolve property
   checkNew = ->
-    for status in ['OfferAccepted']
+    for status in ['OfferAccepted', 'InstructionToLet']
       currentProps = await fetchCurrentProps status
       for prop in currentProps
         prop.uId = prop.RoleId + '_' + new Date(prop.AvailableDate).valueOf()
         dbProperty = await ndx.property.fetch prop.uId
         if dbProperty
+          if prop.LastUpdated isnt dbProperty.LastUpdated
+            property = await fetchPropertyData prop
+            Object.assign dbProperty, property
           calculateMilestones dbProperty
           ndx.database.update 'properties', dbProperty,
             _id: dbProperty._id
         else
-          prop.lettingData = await ndx.dezrez.get 'role/{id}', null, id:prop.RoleId
-          prop.tenantData = await ndx.dezrez.get 'role/{id}', null, id:prop.lettingData.TenantRoleId
-          property = objtrans prop,
-            uId: true
-            Address: true
-            AvailableDate: true
-            DateInstructed: true
-            Fees: true
-            Images: true
-            Price: true
-            PropertyId: true
-            RoleId: true
-            SearchField: true
-            Term: true
-            displayAddress: true
-            Id: '_id'
-            Deposit: 'lettingData.Deposit'
-            Landlord: 'lettingData.LandlordInfo[0].Person'
-            LandlordName: 'lettingData.LandlordInfo[0].Person.ContactName'
-            OfferAcceptedPriceDataContract: 'lettingData.OfferAcceptedPriceDataContract'
-            ServiceLevel: 'lettingData.ServiceLevel'
-            TenancyReference: 'tenantData.TenancyReference'
-            TenancyStatus: 'tenantData.TenancyStatus'
-            TenancyType: 'tenantData.TenancyType'
-            TenantBaseDeposit: 'tenantData.TenantBaseDeposit'
-            Tenant: 'tenantData.TenantInfo[0].Person'
-            TenantName: 'tenantData.TenantInfo[0].Person.ContactName'
-            EstimatedStartDate: 'tenantData.EstimatedStartDate'
+          property = await fetchPropertyData prop
           getDefaultProgressions property
           calculateMilestones property
           property.delisted = false
@@ -161,7 +172,6 @@ module.exports = (ndx) ->
           property.notes = []
           property.chainBuyer = []
           property.chainSeller = []
-          property.delisted = false
           ndx.database.insert 'properties', property
   ndx.database.on 'ready', ->
     setInterval checkNew, 1 * 60 * 1000
