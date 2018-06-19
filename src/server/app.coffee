@@ -14,13 +14,4 @@ require 'ndx-server'
     local:
       email: true
     roles: true
-.use (ndx) ->
-  ndx.email.send
-    to: 'lewis_the_cat@hotmail.com'
-    from: 'VitalSpace <progression@vitalspace.co.uk>'
-    subject: 'Vitalspace test'
-    body: 'it arrived'
-  , (err, response) ->
-    console.log 'ERROR', err
-  console.log 'sent email'
 .start()

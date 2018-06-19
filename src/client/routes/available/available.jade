@@ -3,9 +3,9 @@
   .controls
     .left
       .sort Order By:
-        a.order-item(href='', ng-click='', ng-class='') First Listed
-        a.order-item(href='', ng-click='', ng-class='') Viewings
-        a.order-item(href='', ng-click='', ng-class='') Asking Price
+        a.order-item(href='', ng-click='sort="-$case.item.DateInstructed";page=1', ng-class='{selected:sort==="-DateInstructed"}') First Listed
+        a.order-item(href='', ng-click='sort="-$case.item.Viewings.length";page=1', ng-class='{selected:sort==="-Viewings"}') Viewings
+        a.order-item(href='', ng-click='sort="-$case.item.Price.PriceValue";page=1', ng-class='{selected:sort==="-PriceValue"}') Asking Price
     .right
       .search
         input(type='text', ng-model='search', placeholder='Search Cases', ng-change='page=1')

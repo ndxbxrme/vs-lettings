@@ -25,7 +25,10 @@
         tr
           th
           th Service Level
-          th DOA
+          th 
+            a(href='', ng-click='sortType = "Tenant.Addresses[0].CreatedDate"; sortReverse = !sortReverse') DOA
+              span.far.fa-sort-down(ng-show="sortType == 'name' && !sortReverse")
+              span.far.fa-sort-up(ng-show="sortType == 'name' && sortReverse")
           th Move In (est)
           th(ng-repeat='milestone in properties.items[0].progressions[0].milestones') {{milestone[0].title}}
       tbody(ng-repeat='property in properties.items')
