@@ -26,12 +26,11 @@
           th
           th Service Level
           th 
-            a(href='', ng-click='sortType="Tenant.Addresses[0].CreatedDate"; sortReverse = !sortReverse') DOA
-              span.far.fa-sort-down(ng-show="sortType == 'name' && !sortReverse")
-              span.far.fa-sort-up(ng-show="sortType == 'name' && sortReverse")
-          th Move In (est)
+            a.sort(href='', ng-click='sort="-Tenant.Addresses[0].CreatedDate"', ng-class='{selected:sort==="-CreatedDate"}') DOA
+          th 
+            a.sort(href='', ng-click='sort="proposedMoving"', ng-class='{selected:sort==="proposedMoving"}') Move In (est)
           th(ng-repeat='milestone in properties.items[0].progressions[0].milestones') {{milestone[0].title}}
-      tbody(ng-repeat='property in properties.items')
+      tbody(ng-repeat='property in properties.items | orderBy:sort')
         tr
           td 
             a(ui-sref='case({roleId:property.RoleId})') {{property.Address.Number}} {{property.Address.Street}}

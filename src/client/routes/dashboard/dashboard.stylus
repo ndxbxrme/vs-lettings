@@ -65,6 +65,8 @@
         padding 0 5px
       a 
         color vs-orange
+    a.sort
+      color vs-orange
   i.fa-times
     background-color vs-red
     color white
