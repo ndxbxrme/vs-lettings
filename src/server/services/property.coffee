@@ -118,6 +118,7 @@ module.exports = (ndx) ->
       prop.lettingData = await ndx.dezrez.get 'role/{id}', null, id:prop.RoleId
       prop.tenantData = await ndx.dezrez.get 'role/{id}', null, id:prop.lettingData.TenantRoleId
       prop.viewings = await ndx.dezrez.get 'role/{id}/viewingsbasic', null, id:prop.RoleId
+      prop.extendedData = await ndx.dezrez.get 'property/{id}', null, id:prop.PropertyId
       property = objtrans prop,
         uId: true
         Address: true
@@ -147,6 +148,7 @@ module.exports = (ndx) ->
         TenantName: 'tenantData.TenantInfo[0].Person.ContactName'
         EstimatedStartDate: 'tenantData.EstimatedStartDate'
         Viewings: 'viewings'
+        SpecialArrangements: 'extendedData.SpecialArrangements'
       resolve property
   checkNew = ->
     for status in ['OfferAccepted', 'InstructionToLet']
@@ -174,7 +176,7 @@ module.exports = (ndx) ->
           property.chainSeller = []
           ndx.database.insert 'properties', property
   ndx.database.on 'ready', ->
-    setInterval checkNew, 1 * 60 * 1000
+    setInterval checkNew, 5 * 60 * 1000
     checkNew()
   
   ndx.property = 
