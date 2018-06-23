@@ -26,7 +26,7 @@
           th
           th Service Level
           th 
-            a.sort(href='', ng-click='sort="-Tenant.Addresses[0].CreatedDate"', ng-class='{selected:sort==="-CreatedDate"}') DOA
+            a.sort(href='', ng-click='sort="-milestone.startTime"', ng-class='{selected:sort==="-startTime"}') DOA
           th 
             a.sort(href='', ng-click='sort="proposedMoving"', ng-class='{selected:sort==="proposedMoving"}') Move In (est)
           th(ng-repeat='milestone in properties.items[0].progressions[0].milestones') {{milestone[0].title}}
@@ -35,7 +35,7 @@
           td 
             a(ui-sref='case({roleId:property.RoleId})') {{property.Address.Number}} {{property.Address.Street}}
           td {{property.ServiceLevel.Name}}
-          td {{property.Tenant.Addresses[0].CreatedDate | date:'MMM d, yyyy'}}
+          td {{property.milestone.startTime | date:'MMM d, yyyy'}}
           td {{property.proposedMoving | date:'MMM d, yyyy'}}
           td(ng-repeat='milestone in property.progressions[0].milestones')
             i.fal(ng-class='milestone[0].completed ? "fa-check" : "fa-times"')
