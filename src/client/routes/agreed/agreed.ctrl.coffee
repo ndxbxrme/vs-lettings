@@ -16,7 +16,7 @@ angular.module 'vs-agency'
         month: $filter('date')(testDate, 'MMMM')
         properties: []
         target:
-          type: 'salesAgreed'
+          type: 'letAgreed'
           value: 0
           date: testDate
         search: ''
