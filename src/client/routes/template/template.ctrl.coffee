@@ -20,9 +20,9 @@ angular.module 'vs-agency'
     $state.go 'setup'
     
   $scope.defaultData = 
-    displayAddress: "Apt 19 St Lawrence Street, Hulme, Manchester, M15 4DY"
+    displayAddress: "26 Chervil Close, Fallowfield, Manchester, M14 7DP"
     text: marked "## Advance Progression Request  \n#### Milestone  \n`Searches Completed`  \n#### Advance to  \n`Wed May 24 2017`  \n#### Requested by  \n`Dawn Wetherill`  \n#### Reason  \nA reason  \n"
-    link: "https://conveyancing.vitalspace.co.uk/case/4653108"
+    link: "https://lettings.vitalspace.co.uk/case/10993717"
   fetchDefaultProp = ->
     $http.post "#{env.PROPERTY_URL}/search",
       RoleStatus: 'OfferAccepted'
