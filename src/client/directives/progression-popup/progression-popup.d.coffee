@@ -30,11 +30,8 @@ angular.module 'vs-agency'
       'completion'
     ]
     scope.contactOptions = [
-      {id:'purchasersContact',name:'Purchaser'}
-      {id:'vendorsContact',name:'Vendor'}
-      {id:'purchasersSolicitor',name:'Purchaser\'s solicitor'}
-      {id:'vendorsSolicitor',name:'Vendor\'s solicitor'}
-      {id:'negotiator',name:'Negotiator'}
+      {id:'purchasersContact',name:'Tenant'}
+      {id:'vendorsContact',name:'Landlord'}
       {id:'allagency',name:'All agency users'}
       {id:'alladmin',name:'All admin users'}
     ]
