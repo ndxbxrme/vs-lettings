@@ -40,6 +40,8 @@ angular.module 'vs-lettings'
     count = 0
     minIndex = 0
     maxIndex = 100
+    where:
+      Status: 'OfferAccepted'
     if $scope.properties and $scope.properties.items and $scope.progressions and $scope.progressions.items
       for progression in $scope.progressions.items
         if progression._id is di.progression

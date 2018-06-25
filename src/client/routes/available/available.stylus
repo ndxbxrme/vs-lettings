@@ -44,20 +44,15 @@
         font-weight bold
         margin-top 10px
       &.viewing-next
-        label
-          display block
-        input[type=time], input[type=date]
-          padding 5px 10px
-          border-radius 3px
-          border 1px solid #ccc
-          box-sizing border-box
-          width 95%
-        .viewing-from, .viewing-to
-          width 50%
-          float left
-        input[type=submit]
-          color vs-orange
-          border none
+        p
+          margin 0 0 5px 0
+          padding 0
+          line-height 1
+          font-size 1.2rem
+          &.title
+            font-weight 700
+            font-size 1.4rem
+          
       &.listed
         a
           color vs-orange
