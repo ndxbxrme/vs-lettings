@@ -157,7 +157,8 @@ module.exports = (ndx) ->
         prop.uId = prop.RoleId + '_' + new Date(prop.AvailableDate).valueOf()
         dbProperty = await ndx.property.fetch prop.uId
         if dbProperty
-          if prop.LastUpdated isnt dbProperty.LastUpdated
+          #if prop.LastUpdated isnt dbProperty.LastUpdated
+          if true
             property = await fetchPropertyData prop
             Object.assign dbProperty, property
           calculateMilestones dbProperty
@@ -176,7 +177,7 @@ module.exports = (ndx) ->
           property.chainSeller = []
           ndx.database.insert 'properties', property
   ndx.database.on 'ready', ->
-    setInterval checkNew, 5 * 60 * 1000
+    setInterval checkNew, 10 * 60 * 1000
     checkNew()
   
   ndx.property = 
