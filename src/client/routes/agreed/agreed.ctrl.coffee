@@ -50,7 +50,7 @@ angular.module 'vs-agency'
         i = $scope.months.length
         while i-- > 0
           month = $scope.months[i]
-          if $scope.endDate.startDate > new Date(property.EstimatedStartDate) > month.date
+          if $scope.endDate.startDate > new Date(property.proposedMoving) > month.date
             completeBeforeDelisted = false
             if property.progressions and property.progressions.length
               progression = property.progressions[0]
@@ -61,9 +61,9 @@ angular.module 'vs-agency'
               month.commission += +property.override.commission or property.Fees.DefaultValue
               month.properties.push
                 _id: property._id
-                address: property.override.address or ("#{property.offer.Property.Address.Number} #{property.offer.Property.Address.Street}, #{property.offer.Property.Address.Locality}")
+                address: property.override.address or property.displayAddress
                 commission: property.override.commission or property.Fees.DefaultValue
-                date: property.override.date or property.EstimatedStartDate
+                date: property.override.date or property.proposedMoving
                 roleId: property.roleId
                 delisted: property.delisted
                 completeBeforeDelisted: completeBeforeDelisted
@@ -73,7 +73,7 @@ angular.module 'vs-agency'
       type: 'salesAgreed'
   , updateTargets
   $scope.properties = $scope.list 'properties',
-    sort: 'EstimatedStartDate'
+    sort: 'proposedMoving'
     sortDir: 'ASC'
   , updateProperties
   console.log $scope.properties.args
