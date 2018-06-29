@@ -176,6 +176,17 @@ module.exports = (ndx) ->
           property.chainBuyer = []
           property.chainSeller = []
           ndx.database.insert 'properties', property
+      oldProps = await ndx.database.select 'properties',
+        Status: status
+        modifiedAt:
+          $lt: new Date().valueOf() - 60000
+      for prop in oldProps
+        property = await fetchPropertyData prop
+        Object.assign prop, property
+        console.log 'Old prop:', prop.displayAddress, ':', prop.Status
+        calculateMilestones prop
+        ndx.database.update 'properties', prop,
+          _id: prop._id
   ndx.database.on 'ready', ->
     setInterval checkNew, 10 * 60 * 1000
     checkNew()
