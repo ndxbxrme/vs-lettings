@@ -102,7 +102,6 @@ module.exports = (ndx) ->
   fetchCurrentProps = (status) ->
     new Promise (resolve, reject) ->
       opts = 
-        RoleStatus: status
         RoleType: 'Letting'
         IncludeStc: true
       superagent.post "#{process.env.PROPERTY_URL}/search"
@@ -151,42 +150,32 @@ module.exports = (ndx) ->
         SpecialArrangements: 'extendedData.SpecialArrangements'
       resolve property
   checkNew = ->
-    for status in ['OfferAccepted', 'InstructionToLet']
-      currentProps = await fetchCurrentProps status
-      for prop in currentProps
-        prop.uId = prop.RoleId + '_' + new Date(prop.AvailableDate).valueOf()
-        dbProperty = await ndx.property.fetch prop.uId
-        if dbProperty
-          #if prop.LastUpdated isnt dbProperty.LastUpdated
-          if true
-            property = await fetchPropertyData prop
-            Object.assign dbProperty, property
-          calculateMilestones dbProperty
-          ndx.database.update 'properties', dbProperty,
-            _id: dbProperty._id
-        else
+    currentProps = await fetchCurrentProps()
+    for prop in currentProps
+      prop.uId = prop.RoleId + '_' + new Date(prop.AvailableDate).valueOf()
+      dbProperty = await ndx.property.fetch prop.uId
+      if dbProperty
+        #if prop.LastUpdated isnt dbProperty.LastUpdated
+        if ['OfferAccepted', 'InstructionToLet'].includes prop.RoleStatus.SystemName
           property = await fetchPropertyData prop
-          getDefaultProgressions property
-          calculateMilestones property
-          property.delisted = false
-          property.milestone = ''
-          property.milestoneStatus = ''
-          property.milestoneIndex = null
-          property.notes = []
-          property.chainBuyer = []
-          property.chainSeller = []
-          ndx.database.insert 'properties', property
-      oldProps = await ndx.database.select 'properties',
-        Status: status
-        modifiedAt:
-          $lt: new Date().valueOf() - 60000
-      for prop in oldProps
+          Object.assign dbProperty, property
+        else
+          dbProperty.Status = prop.RoleStatus.SystemName
+        calculateMilestones dbProperty
+        ndx.database.update 'properties', dbProperty,
+          _id: dbProperty._id
+      else
         property = await fetchPropertyData prop
-        Object.assign prop, property
-        console.log 'Old prop:', prop.displayAddress, ':', prop.Status
-        calculateMilestones prop
-        ndx.database.update 'properties', prop,
-          _id: prop._id
+        getDefaultProgressions property
+        calculateMilestones property
+        property.delisted = false
+        property.milestone = ''
+        property.milestoneStatus = ''
+        property.milestoneIndex = null
+        property.notes = []
+        property.chainBuyer = []
+        property.chainSeller = []
+        ndx.database.insert 'properties', property
   ndx.database.on 'ready', ->
     setInterval checkNew, 10 * 60 * 1000
     checkNew()
