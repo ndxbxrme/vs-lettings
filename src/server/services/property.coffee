@@ -176,6 +176,26 @@ module.exports = (ndx) ->
         property.chainBuyer = []
         property.chainSeller = []
         ndx.database.insert 'properties', property
+    allProps = await ndx.database.select 'properties',
+      where:
+        $or: [
+          Status: 'OfferAccepted'
+        ,
+          Status: 'InstructionToLet'
+        ]
+    for prop in allProps
+      foundit = false
+      for cProp in currentProps
+        if cProp.RoleId is prop.RoleId
+          foundit = true
+          break
+      if not foundit
+        property = await fetchPropertyData prop
+        Object.assign prop, property
+        calculateMilestones prop
+        prop.delisted = true
+        ndx.database.update 'properties', prop,
+          _id: prop._id
   ndx.database.on 'ready', ->
     setInterval checkNew, 10 * 60 * 1000
     checkNew()
