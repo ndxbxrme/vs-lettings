@@ -29,7 +29,7 @@
             a.sort(href='', ng-click='sort="-milestone.startTime"', ng-class='{selected:sort==="-startTime"}') DOA
           th 
             a.sort(href='', ng-click='sort="proposedMoving"', ng-class='{selected:sort==="proposedMoving"}') Move In (est)
-          th(ng-repeat='milestone in properties.items[0].progressions[0].milestones') {{milestone[0].title}}
+          th(ng-repeat='milestone in buyerProgression.milestones') {{milestone[0].title}}
       tbody(ng-repeat='property in properties.items | orderBy:sort')
         tr
           td 

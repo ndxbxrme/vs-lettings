@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'vs-lettings'
-.controller 'DashboardCtrl', ($scope, $filter, env) ->
+.controller 'DashboardCtrl', ($scope, $filter, $timeout, env) ->
   $scope.propsOpts = 
     where:
       delisted: false
@@ -35,7 +35,11 @@ angular.module 'vs-lettings'
   , $scope.availableOpts
   $scope.dashboard = $scope.list 'dashboard',
     sort: 'i'
-  $scope.progressions = $scope.list 'progressions'
+  $scope.buyerProgression = null
+  $scope.progressions = $scope.list 'progressions', null, (progressions) ->
+    for progression in progressions.items
+      if progression.side is 'Buyer'
+        $scope.buyerProgression = progression
   $scope.count = (di, list) ->
     output = []
     count = 0
