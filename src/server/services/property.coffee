@@ -183,6 +183,7 @@ module.exports = (ndx) ->
         ,
           Status: 'InstructionToLet'
         ]
+        delisted: false
     for prop in allProps
       foundit = false
       for cProp in currentProps
