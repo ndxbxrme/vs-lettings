@@ -38,7 +38,8 @@
             .date(ng-show='needsDate') Date added to the Case: {{property.$case.item.estCompletedTime}}
             .date(ng-show='property.$case.item.offer.DateTime') Start Date: {{property.$case.item.offer.DateTime | date:'mediumDate'}}
         td.vendor {{property.$case.item.LandlordName}}
-        td.purchaser {{property.$case.item.TenantName}}
+        td.purchaser 
+          .tenant(ng-repeat='tenant in property.$case.item.Tenants') {{tenant.Person.ContactName}}
         td.movein {{property.$case.item.proposedMoving | date:'MMM d, yyyy'}}
         td.options
           a.button(ui-sref='case({roleId:property.RoleId})') View Case

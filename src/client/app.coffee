@@ -7,6 +7,7 @@ angular.module 'vs-lettings', [
   'ui.gravatar'
   'ngFileUpload'
   'vs-agency'
+  'date-swiper'
   'yaru22.angular-timeago'
 ]
 .config ($locationProvider, $urlRouterProvider, gravatarServiceProvider) ->

@@ -143,6 +143,7 @@ module.exports = (ndx) ->
         TenancyStatus: 'tenantData.TenancyStatus'
         TenancyType: 'tenantData.TenancyType'
         TenantBaseDeposit: 'tenantData.TenantBaseDeposit'
+        Tenants: 'tenantData.TenantInfo'
         Tenant: 'tenantData.TenantInfo[0].Person'
         TenantName: 'tenantData.TenantInfo[0].Person.ContactName'
         EstimatedStartDate: 'tenantData.EstimatedStartDate'

@@ -1,27 +1,28 @@
-.contact-details.col-sm-6
+.row
   h4 {{title}}
-  .card
-    a.edit-btn(href='', ng-click='edit()', ng-hide='editing')
-      i.fal.fa-edit(aria-hidden='true')
-    div(ng-show='data().ContactName || editing')
-      .name
-        span(ng-hide='editing') 
-          i.fal.fa-user-tie 
-          |  {{data().ContactName}}
-        input(type='text', ng-model='data().ContactName', ng-show='editing', placeholder='Name')
-      .communication
-        .telephone(ng-show='data().PrimaryTelephone.Value || editing')
+  .contact-details
+    .card
+      a.edit-btn(href='', ng-click='edit()', ng-hide='editing')
+        i.fal.fa-edit(aria-hidden='true')
+      div(ng-show='data().ContactName || editing')
+        .name
           span(ng-hide='editing') 
-            i.fal.fa-mobile
-            |  {{data().PrimaryTelephone.Value}}
-          input(type='text', ng-model='data().PrimaryTelephone.Value', ng-show='editing', placeholder='Telephone')
-        .email(ng-show='data().PrimaryEmail.Value || editing')
-          span(ng-hide='editing')
-            a.mail-link(href='mailto:{{data().PrimaryEmail.Value}}') 
-              i.fal.fa-at
-              |  {{data().PrimaryEmail.Value}}
-          input(type='email', ng-model='data().PrimaryEmail.Value', ng-show='editing', placeholder='Email')
-      .controls(ng-show='editing')
-        button(ng-click='confirm()') OK
-    div(ng-hide='data().ContactName || editing')
-      .role No details set
+            i.fal.fa-user-tie 
+            |  {{data().ContactName}}
+          input(type='text', ng-model='data().ContactName', ng-show='editing', placeholder='Name')
+        .communication
+          .telephone(ng-show='data().PrimaryTelephone.Value || editing')
+            span(ng-hide='editing') 
+              i.fal.fa-mobile
+              |  {{data().PrimaryTelephone.Value}}
+            input(type='text', ng-model='data().PrimaryTelephone.Value', ng-show='editing', placeholder='Telephone')
+          .email(ng-show='data().PrimaryEmail.Value || editing')
+            span(ng-hide='editing')
+              a.mail-link(href='mailto:{{data().PrimaryEmail.Value}}') 
+                i.fal.fa-at
+                |  {{data().PrimaryEmail.Value}}
+            input(type='email', ng-model='data().PrimaryEmail.Value', ng-show='editing', placeholder='Email')
+        .controls(ng-show='editing')
+          button(ng-click='confirm()') OK
+      div(ng-hide='data().ContactName || editing')
+        .role No details set

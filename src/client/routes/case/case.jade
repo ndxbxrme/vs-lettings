@@ -98,7 +98,7 @@
           a.delete(href='', ng-click='deleteDocument(document)') Delete
   .contacts.row
     contact-details(title="Landlord")
-    contact-details(title="Tenant")
+    tenant-details(title="Tenants")
   .case-notes
     h2.orange Case Notes
     .case-note(ng-repeat='note in notesData = ( getNotes() | orderBy:"-date" ) | limitTo:notesLimit:notesLimit*(notesPage-1)')

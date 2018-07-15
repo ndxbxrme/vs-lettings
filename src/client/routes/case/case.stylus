@@ -1,5 +1,7 @@
 @import '../../variables'
 .case
+  *
+    box-sizing border-box
   sup
     background vs-orange
     border-radius 50%
@@ -18,10 +20,6 @@
       color #999
       span
         color vs-orange
-  .contacts
-    display flex
-    flex-wrap wrap
-    justify-content space-between
   button
     vs-button()
   .orange
