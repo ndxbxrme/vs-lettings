@@ -20,9 +20,9 @@ angular.module 'vs-agency'
     $state.go 'setup'
     
   $scope.defaultData = 
-    displayAddress: "89 Canterbury Road, Davyhulme, Manchester, M41 0SF"
+    displayAddress: "26 Chervil Close, Fallowfield, Manchester, M14 7DP"
     text: marked "## Advance Progression Request  \n#### Milestone  \n`Searches Completed`  \n#### Advance to  \n`Wed May 24 2017`  \n#### Requested by  \n`Dawn Wetherill`  \n#### Reason  \nA reason  \n"
-    link: "https://lettings.vitalspace.co.uk/case/11491329"
+    link: "https://lettings.vitalspace.co.uk/case/10993717"
   fetchDefaultProp = ->
     $http.post "#{env.PROPERTY_URL}/search",
       RoleStatus: 'OfferAccepted'
@@ -32,7 +32,7 @@ angular.module 'vs-agency'
     .then (response) ->
       if response.data and response.data.Collection and response.data.Collection.length
         $scope.defaultData.property = response.data.Collection[0]
-        $http.get "/api/properties/#{$scope.defaultData.property.RoleId}"
+        $http.get "/api/properties/#{$scope.defaultData.property.RoleId + '_' + new Date($scope.defaultData.property.AvailableDate).valueOf()}"
         .then (response) ->
           if response.data
             $scope.defaultData.property.case = response.data

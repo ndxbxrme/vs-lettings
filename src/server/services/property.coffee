@@ -149,6 +149,17 @@ module.exports = (ndx) ->
         EstimatedStartDate: 'tenantData.EstimatedStartDate'
         Viewings: 'viewings'
         SpecialArrangements: 'extendedData.SpecialArrangements'
+        purchasersContact: (input) ->
+          if input.tenantData.TenantInfo
+            role: ''
+            name: input.tenantData.TenantInfo[0].Person.ContactName
+            email: input.tenantData.TenantInfo[0].Person.PrimaryEmail?.Value
+            telephone: input.tenantData.TenantInfo[0].Person.PrimaryTelephone?.Value
+        vendorsContact: (input) ->
+          role: ''
+          name: input.lettingData.LandlordInfo[0].Person.ContactName
+          email: input.lettingData.LandlordInfo[0].Person.PrimaryEmail?.Value
+          telephone: input.lettingData.LandlordInfo[0].Person.PrimaryTelephone?.Value
       resolve property
   checkNew = ->
     currentProps = await fetchCurrentProps()
