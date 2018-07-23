@@ -39,7 +39,6 @@ module.exports = (ndx) ->
     get = (route, query, params, callback) ->
       new Promise (resolve, reject) ->
         doCallback = (err, body) ->
-          console.log 'err', err
           resolve body
           if Object.prototype.toString.call(params) is '[object Function]'
             return params err, body
@@ -50,10 +49,8 @@ module.exports = (ndx) ->
             if params
               route = route.replace /\{([^\}]+)\}/g, (all, key) ->
                 params[key]
-            console.log 'ROUTE', route
             query = query or {}
             query.agencyId = process.env.AGENCY_ID or 37
-            console.log 'getting', urls.api + route
             superagent.get urls.api + route
             .set 'Rezi-Api-Version', '1.0'
             .set 'Content-Type', 'application/json'
