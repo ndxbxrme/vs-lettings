@@ -24,19 +24,21 @@
       thead
         tr
           th
-          th Service Level
           th 
-            a.sort(href='', ng-click='sort="-milestone.startTime"', ng-class='{selected:sort==="-startTime"}') DOA
+            a.sort.rotate(href='', ng-click='sort="-milestone.startTime"', ng-class='{selected:sort==="-startTime"}') DOA
           th 
-            a.sort(href='', ng-click='sort="proposedMoving"', ng-class='{selected:sort==="proposedMoving"}') Move In (est)
-          th(ng-repeat='milestone in buyerProgression.milestones') {{milestone[0].title}}
+            a.sort.rotate(href='', ng-click='sort="proposedMoving"', ng-class='{selected:sort==="proposedMoving"}') Move In (est)
+          th(ng-repeat='milestone in buyerProgression.milestones | flatten')
+            p.rotate {{milestone.title}}
       tbody(ng-repeat='property in properties.items | orderBy:sort')
         tr
           td 
             a(ui-sref='case({roleId:property.RoleId})') {{property.Address.Number}} {{property.Address.Street}}
-          td {{property.ServiceLevel.Name}}
-          td {{property.milestone.startTime | date:'MMM d, yyyy'}}
-          td {{property.proposedMoving | date:'MMM d, yyyy'}}
-          td(ng-repeat='milestone in property.progressions[0].milestones')
-            i.fal(ng-class='milestone[0].completed ? "fa-check" : "fa-times"')
+            p.service-level {{property.ServiceLevel.Name[0]}}
+          td
+            p.date {{property.milestone.startTime | date:'dd.MM.yy'}}
+          td
+            p.date {{property.proposedMoving | date:'dd.MM.yy'}}
+          td(ng-repeat='milestone in property.progressions[0].milestones | flatten')
+            i.fal(ng-class='milestone.completed ? "fa-check" : "fa-times"')
   
