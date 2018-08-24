@@ -34,7 +34,7 @@
         tr
           td 
             a(ui-sref='case({roleId:property.RoleId})') {{property.Address.Number}} {{property.Address.Street}}
-            p.service-level {{property.ServiceLevel.Name[0]}}
+            p.service-level {{property.ServiceLevel.Name==='Tenant Find' ? 'T' : 'M'}}
           td
             p.date {{property.milestone.startTime | date:'dd.MM.yy'}}
           td
