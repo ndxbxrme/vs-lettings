@@ -10,7 +10,9 @@ angular.module 'vs-agency'
   link: (scope, elem, attrs) ->
     scope.editing = false
     fieldName = scope.title
+    propCopy = null
     scope.edit = ->
+      propCopy = JSON.parse JSON.stringify scope.data()
       scope.editing = true
     scope.data = ->
       property = scope.$parent.property
@@ -22,4 +24,10 @@ angular.module 'vs-agency'
       #save to database
       scope.$parent.property.item.$case.save()
       alert.log 'Contact details updated'
+      scope.editing = false
+    scope.cancel = ->
+      if propCopy
+        property = scope.data()
+        Object.assign property, propCopy
+        propCopy = null
       scope.editing = false

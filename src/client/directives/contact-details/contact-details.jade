@@ -24,5 +24,6 @@
             input(type='email', ng-model='data().PrimaryEmail.Value', ng-show='editing', placeholder='Email')
         .controls(ng-show='editing')
           button(ng-click='confirm()') OK
+          button(ng-click='cancel()') Cancel
       div(ng-hide='data().ContactName || editing')
         .role No details set

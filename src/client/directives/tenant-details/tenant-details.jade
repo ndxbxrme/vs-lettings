@@ -2,27 +2,28 @@
   h4 {{title}}
   .tenant-details
     .card.col-sm-6(ng-repeat='tenant in data()')
-      a.edit-btn(href='', ng-click='edit()', ng-hide='editing')
+      a.edit-btn(href='', ng-click='edit(tenant)', ng-hide='tenant.editing')
         i.fal.fa-edit(aria-hidden='true')
-      div(ng-show='tenant.Person.ContactName || editing')
+      div(ng-show='tenant.Person.ContactName || tenant.editing')
         .name
-          span(ng-hide='editing') 
+          span(ng-hide='tenant.editing') 
             i.fal.fa-user-tie 
             |  {{tenant.Person.ContactName}}
-          input(type='text', ng-model='tenant.Person.ContactName', ng-show='editing', placeholder='Name')
+          input(type='text', ng-model='tenant.Person.ContactName', ng-show='tenant.editing', placeholder='Name')
         .communication
-          .telephone(ng-show='tenant.Person.PrimaryTelephone.Value || editing')
-            span(ng-hide='editing') 
+          .telephone(ng-show='tenant.Person.PrimaryTelephone.Value || tenant.editing')
+            span(ng-hide='tenant.editing') 
               i.fal.fa-mobile
               |  {{tenant.Person.PrimaryTelephone.Value}}
-            input(type='text', ng-model='tenant.Person.PrimaryTelephone.Value', ng-show='editing', placeholder='Telephone')
-          .email(ng-show='tenant.Person.PrimaryEmail.Value || editing')
-            span(ng-hide='editing')
+            input(type='text', ng-model='tenant.Person.PrimaryTelephone.Value', ng-show='tenant.editing', placeholder='Telephone')
+          .email(ng-show='tenant.Person.PrimaryEmail.Value || tenant.editing')
+            span(ng-hide='tenant.editing')
               a.mail-link(href='mailto:{{tenant.Person.PrimaryEmail.Value}}') 
                 i.fal.fa-at
                 |  {{tenant.Person.PrimaryEmail.Value}}
-            input(type='email', ng-model='tenant.Person.PrimaryEmail.Value', ng-show='editing', placeholder='Email')
-        .controls(ng-show='editing')
-          button(ng-click='confirm()') OK
-      div(ng-hide='tenant.Person.ContactName || editing')
+            input(type='email', ng-model='tenant.Person.PrimaryEmail.Value', ng-show='tenant.editing', placeholder='Email')
+        .controls(ng-show='tenant.editing')
+          button(ng-click='confirm(tenant)') OK
+          button(ng-click='cancel(tenant)') Cancel
+      div(ng-hide='tenant.Person.ContactName || tenant.editing')
         .role No details set
