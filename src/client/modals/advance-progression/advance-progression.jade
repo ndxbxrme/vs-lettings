@@ -1,0 +1,23 @@
+.modal.advance-progression
+  h1 Advance Progression
+  h2 Submit a request to advance overdue milestones
+  form(name='myForm', ng-submit='submit()')
+    .form-item
+      label Property:
+      .input {{data.property.displayAddress}}
+    .form-item(ng-hide='data.advanceTo')
+      label Advance by:
+      input(type='text', ng-model='data.noDays', placeholder='Number of days')
+    .form-item(ng-show='data.advanceTo')
+      label Advance to:
+      .input {{data.advanceTo | date:'mediumDate'}}
+    .form-item(ng-show='data.milestone')
+      label Milestone:
+      .input {{data.milestone.title}}
+    .form-item
+      label Reason:
+      code-mirror(ng-model='data.reason', options='{mode:"markdown"}')
+    .controls
+      label  
+      input.button(type='submit', value='Submit Request')
+  a.close-reveal-modal(ng-click='cancel()') &times;

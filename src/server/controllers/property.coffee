@@ -4,6 +4,20 @@ progress = require 'progress'
 marked = require 'marked'
 
 module.exports = (ndx) ->
+  ndx.app.get '/api/properties/send-request-email', ndx.authenticate(), (req, res, next) ->
+    template = await ndx.database.selectOne 'emailtemplates',
+      name: req.body.type + ' Request'
+    if not template
+      return res.end 'No template'
+    if not ndx.email
+      requre res.end 'No email package'
+    Object.assign template, req.body
+    template.toFirstName = template.toName.substr 0, template.toName.indexOf(' ')
+    template.refFirstName = template.refFirstName.substr 0, template.refName.indexOf(' ')
+    template.to = req.body.toMail
+    template.text = marked template.text
+    ndx.email.send template
+    res.end('OK')
   ndx.app.get '/api/properties/reset-progressions', ndx.authenticate(['admin','superadmin']), (req, res, next) ->
     ndx.database.select 'properties', null, (properties) ->
       if properties and properties.length

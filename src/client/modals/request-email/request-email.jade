@@ -1,0 +1,20 @@
+.modal.request-email
+  h1 Request {{data.type}} Reference
+  .flex-section
+    form(name='forms.myform', novalidate, ng-submit='submit()')
+      .row
+        .form-item
+          .form-icon
+            i(class='{{toNameClass}}') icon
+          input(type='text', ng-model='data.toName', ng-required='true')
+      .form-item
+        .form-icon
+          i(class='{{toMailClass}}') icon
+        input(type='email', ng-model='data.toMail', ng-required='true')
+      .form-item
+        .form-icon
+          i(class='{{refNameClass}}') icon
+        input(type='text', ng-model='data.refName', ng-required='true')
+      .controls
+        input(type='submit', value='Send {{data.type}} Request')
+        button(type='button', ng-click='cancel()') Cancel

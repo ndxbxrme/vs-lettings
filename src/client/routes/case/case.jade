@@ -18,6 +18,8 @@
       a(href='', ng-click='addProgression(progression)') {{progression.name}}, {{progression.side}}
   button(ng-hide='auth.checkRoles(["superadmin", "admin"])', ng-click='advanceProgression()') Advance all milestones
   button(ng-show='auth.checkRoles(["superadmin", "admin"])', ng-click='fallenThrough()') Fallen through
+  button(ng-click='requestEmail("Landlord")') Landlord Request
+  button(ng-click='requestEmail("Employer")') Employer Request
   .rental-terms  
     h2 Rental Terms
     form(name='rentalTerms', ng-submit='submitRT()')

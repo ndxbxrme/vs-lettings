@@ -215,6 +215,24 @@ angular.module 'vs-agency'
               milestone.userCompletedTime = advanceTo.valueOf()
     request.applied = true
     $scope.property.item.$case.save()
+  $scope.requestEmail = (to) ->
+    name = (ref) -> ref.FirstName + ' ' + ref.LastName
+    data = 
+      type: to
+    if to is 'Landlord'
+      data.toName = name $scope.property.item.$case.item.Landlord
+      data.toMail = $scope.property.item.$case.item.Landlord.PrimaryEmail?.Value
+      data.refName = name $scope.property.item.$case.item.Tenants[0].Person
+    else
+      data.toName = name $scope.property.item.$case.item.Tenants[0].Person
+      data.toMail = $scope.property.item.$case.item.Tenants[0].Person.PrimaryEmail?.Value
+      data.refName = name $scope.property.item.$case.item.Landlord
+    $scope.modal
+      template: 'request-email'
+      controller: 'RequestEmailCtrl'
+      data: data
+    .then ->
+    , ->
   $scope.fallenThrough = ->
     if window.confirm 'Are you sure you want to flag this property as Fallen through?'
       $scope.property.item.$case.item.override = $scope.property.item.$case.override or {}
