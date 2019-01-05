@@ -10,7 +10,7 @@
     width 100%
   input[type=submit], button
     vs-button()
-  i.fa 
+  i.fas 
     color vs-orange
     font-size 2rem
     padding-right 10px
