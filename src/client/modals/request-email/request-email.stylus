@@ -1,7 +1,7 @@
 @import '../../variables'
 
 .modal.request-email
-  padding 0 1.6rem 1.6rem 1.6rem
+  padding 1.6rem 3rem 3rem 3rem
   .form-item
     display flex
     margin-bottom 1.6rem
@@ -10,3 +10,8 @@
     width 100%
   input[type=submit], button
     vs-button()
+  i.fa 
+    color vs-orange
+    font-size 2rem
+    padding-right 10px
+    vertical-align bottom

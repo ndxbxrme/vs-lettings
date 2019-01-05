@@ -17,7 +17,7 @@
     li(ng-repeat='progression in progressions.items')
       a(href='', ng-click='addProgression(progression)') {{progression.name}}, {{progression.side}}
   button( ng-click='advanceProgression()') Advance all milestones
-  button(ng-show='auth.checkRoles(["superadmin", "admin"])', ng-click='fallenThrough()') Fallen through
+  //button(ng-show='auth.checkRoles(["superadmin", "admin"])', ng-click='fallenThrough()') Fallen through
   button(ng-click='requestEmail("Landlord")') Landlord Request
   button(ng-click='requestEmail("Employer")') Employer Request
   .rental-terms  
