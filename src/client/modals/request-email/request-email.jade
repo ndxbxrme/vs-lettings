@@ -5,15 +5,15 @@
       .row
         .form-item
           .form-icon
-            i.fas.fa-user(class='{{toNameClass}}')
+            i.fas.fa-fw.fa-user(class='{{toNameClass}}')
           input(type='text', ng-model='data.toName', ng-required='true')
       .form-item
         .form-icon
-          i.fas.fa-envelope(class='{{toMailClass}}')
+          i.fas.fa-fw.fa-envelope(class='{{toMailClass}}')
         input(type='email', ng-model='data.toMail', ng-required='true')
       .form-item
         .form-icon
-          i.fas.fa-users(class='{{refNameClass}}')
+          i.fas.fa-fw.fa-users(class='{{refNameClass}}')
         input(type='text', ng-model='data.refName', ng-required='true')
       .controls
         input(type='submit', value='Send {{data.type}} Request')
