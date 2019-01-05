@@ -66,9 +66,11 @@ module.exports = (ndx) ->
       reason: req.body.reason
       date: new Date()
     if ndx.email
+      console.log 'got email'
       ndx.database.select 'emailtemplates',
         name: 'Advance Progression'
       , (templates) ->
+        console.log 'got template'
         if templates and templates.length
           ndx.database.select 'users',
             roles:
@@ -76,10 +78,12 @@ module.exports = (ndx) ->
                 $nnull: true
           , (users) ->
             if users and users.length
+              console.log 'got user'
               for user in users
                 Object.assign templates[0], advanceRequest
                 templates[0].to = users[0].local.email
                 templates[0].text = marked templates[0].text
+                console.log templates[0]
                 ndx.email.send templates[0]
     if not req.body.property.advanceRequests
       req.body.property.advanceRequests = []
