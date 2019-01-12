@@ -4,6 +4,7 @@ angular.module 'vs-lettings'
 .controller 'RequestEmailCtrl', ($scope, $http, data, ndxModalInstance) ->
   $scope.forms = {}
   $scope.data = 
+    type: data.type
     toName: ''
     toMail: ''
     refName: ''
