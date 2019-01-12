@@ -20,7 +20,7 @@ require 'ndx-server'
     to: 'lewis_the_cat@hotmail.com'
     from: 'progression@vitalspace.co.uk'
     subject: 'this is a test'
-    body: 'i\'m testing'
+    body: 'p i\'m testing'
   , (response) ->
     console.log 'email response', response
 .start()
