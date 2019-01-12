@@ -92,7 +92,7 @@ module.exports = (ndx) ->
     ndx.database.update 'properties',
       advanceRequests: req.body.property.advanceRequests
     ,
-      roleId: req.body.property.roleId.toString()
+      RoleId: req.body.property.roleId
     , true
     res.end 'OK'
   ndx.app.get '/api/properties/:roleId', ndx.authenticate(), (req, res, next) ->
