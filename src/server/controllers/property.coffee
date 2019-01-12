@@ -93,7 +93,6 @@ module.exports = (ndx) ->
       advanceRequests: req.body.property.advanceRequests
     ,
       RoleId: req.body.property.roleId
-    , true
     res.end 'OK'
   ndx.app.get '/api/properties/:roleId', ndx.authenticate(), (req, res, next) ->
     ndx.property.fetch req.params.roleId, (property) ->
