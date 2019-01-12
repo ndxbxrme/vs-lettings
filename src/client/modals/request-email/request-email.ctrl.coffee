@@ -3,7 +3,11 @@
 angular.module 'vs-lettings'
 .controller 'RequestEmailCtrl', ($scope, $http, data, ndxModalInstance) ->
   $scope.forms = {}
-  $scope.data = JSON.parse JSON.stringify data
+  $scope.data = 
+    toName: ''
+    toMail: ''
+    refName: ''
+    refMail: ''
   $scope.submit = ->
     $scope.submitted = true
     if $scope.forms.myform.$valid
