@@ -86,12 +86,14 @@ module.exports = (ndx) ->
                 ndx.email.send templates[0]
     if not req.body.property.advanceRequests
       req.body.property.advanceRequests = []
-    req.body.property.advanceRequests.push advanceRequest
     console.log 'advance requests', req.body.property.advanceRequests
+    req.body.property.advanceRequests.push advanceRequest
     #save property
-    ndx.database.update 'properties', req.body.property
+    ndx.database.update 'properties',
+      advanceRequests: req.body.property.advanceRequests
     ,
-      _id: req.body.property._id
+      roleId: req.body.property.roleId.toString()
+    , true
     res.end 'OK'
   ndx.app.get '/api/properties/:roleId', ndx.authenticate(), (req, res, next) ->
     ndx.property.fetch req.params.roleId, (property) ->

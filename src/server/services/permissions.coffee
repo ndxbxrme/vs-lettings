@@ -4,6 +4,7 @@ module.exports = (ndx) ->
   select = (args, cb) ->
     cb true
   update = (args, cb) ->
+    console.log args
     cb true
   ndx.database.permissions.set
     all:
