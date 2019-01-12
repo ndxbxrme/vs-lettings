@@ -86,8 +86,8 @@ module.exports = (ndx) ->
                 ndx.email.send templates[0]
     if not req.body.property.advanceRequests
       req.body.property.advanceRequests = []
-    console.log 'advance requests', req.body.property.advanceRequests
     req.body.property.advanceRequests.push advanceRequest
+    console.log 'advance requests', req.body.property.advanceRequests
     #save property
     ndx.database.update 'properties', req.body.property
     ,
