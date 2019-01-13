@@ -3,3 +3,54 @@
 .accept
   h1 
     color vs-grey
+  .property, .applicant, .rental-terms, .employment
+    display flex
+    align-items center
+    margin-bottom 30px
+    padding-bottom 20px
+    border-bottom 1px solid #f1f1f1
+    h3 
+      width 25%
+    select
+      height 37px
+  .property
+    select
+      width 75%
+  .applicant, .rental-terms
+    flex-wrap wrap
+    .form-row
+      display flex
+      flex-direction row
+      flex-wrap wrap
+      width: 75%
+    .input-holder, .email-holder 
+      display flex
+      flex-direction column
+    .input-holder
+      width 33%
+      padding-left .3%
+    .email-holder
+      width 100%
+      margin-top 10px
+      input[type=email]
+        margin 0px
+  .employment
+    .input-holder
+      width 100%
+      ul
+        list-style-type none
+        li
+          display inline-block
+          padding 0 10px 0 20px
+          input[type=radio]
+            -webkit-appearance radio
+  .controls.right
+    float right
+  input[type=text], input[type=email], input[type=date]
+    vs-input()
+    height 37px
+  input[type=submit], button
+    vs-button()
+  input[type=submit]
+    background vs-orange
+    color white
