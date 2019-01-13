@@ -4,7 +4,7 @@ progress = require 'progress'
 marked = require 'marked'
 
 module.exports = (ndx) ->
-  ndx.app.get '/api/properties/send-request-email', ndx.authenticate(), (req, res, next) ->
+  ndx.app.post '/api/properties/send-request-email', ndx.authenticate(), (req, res, next) ->
     template = await ndx.database.selectOne 'emailtemplates',
       name: req.body.type + ' Request'
     if not template
@@ -17,7 +17,38 @@ module.exports = (ndx) ->
     template.to = req.body.toMail
     template.text = marked template.text
     ndx.email.send template
+    req.body.property.notes = req.body.property.notes or []
+    req.body.property.notes.push
+      date: new Date()
+      text: """
+        # Request #{req.body.to}
+        ### Date
+        #### #{new Date().toDateString()}
+        ### Requested by
+        #### #{ndx.user.displayName}
+        ### #{req.body.type} Name
+        #### #{req.body.toName}
+        ### Regarding
+        #### #{req.body.refName}
+      """
+      item: req.body.type + ' Request'
+      side: ''
+      user: ndx.user
+    ndx.database.update 'properties'
     res.end('OK')
+  ndx.app.post '/api/properties/send-accept-email', ndx.authenticate(), (req, res, next) ->
+    if ndx.email
+      user = ndx.user
+      ndx.database.select 'emailtemplates',
+        name: 'Application Accepted - ' + req.body.applicant.employmentStatus
+      , (templates) ->
+        if templates and templates.length
+          templates[0].applicant = req.body.applicant
+          templates[0].property = req.body.property
+          templates[0].user = user
+          templates[0].to = 'fill@inthisemail.address'
+          ndx.email.send templates[0]
+    res.end 'OK'
   ndx.app.get '/api/properties/reset-progressions', ndx.authenticate(['admin','superadmin']), (req, res, next) ->
     ndx.database.select 'properties', null, (properties) ->
       if properties and properties.length

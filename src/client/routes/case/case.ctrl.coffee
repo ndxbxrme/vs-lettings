@@ -219,6 +219,7 @@ angular.module 'vs-agency'
     name = (ref) -> ref.FirstName + ' ' + ref.LastName
     data = 
       type: to
+      property: $scope.property.item.$case.item
     if to is 'Landlord'
       data.toName = name $scope.property.item.$case.item.Landlord
       data.toMail = $scope.property.item.$case.item.Landlord.PrimaryEmail?.Value

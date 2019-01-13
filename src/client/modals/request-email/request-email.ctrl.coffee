@@ -5,6 +5,7 @@ angular.module 'vs-lettings'
   $scope.forms = {}
   $scope.data = 
     type: data.type
+    property: data.property
     toName: ''
     toMail: ''
     refName: ''
