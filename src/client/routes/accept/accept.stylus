@@ -1,0 +1,5 @@
+@import '../../variables'
+
+.accept
+  h1 
+    color vs-grey

@@ -1,0 +1,53 @@
+.accept
+  h1 Acceptance Confirmation Email
+  
+  form(name='acceptEmail', ng-submit='')
+    .property.row
+      h3.col-sm-3 Property
+      select.col-sm-9(ng-model='')
+        option(value='') Select Property
+    .applicant.row
+      h3.col-sm-3 Applicant
+      .col-sm-3
+        label Title
+        select(ng-model='')
+          option(value='mr') Mr.
+          option(value='mrs') Mrs.
+          option(value='miss') Miss.
+          option(value='dr') Dr.
+      .col-sm-3
+        label First Name
+        input(type='text', ng-model='')
+      .col-sm-3
+        label Last Name
+        input(type='text', ng-model='')
+      .col-sm-9.offset-sm-3
+        label Email
+        input(type='text', ng-model='')
+    .rental-terms.row
+      h3.col-sm-3 Rental Terms
+      .col-sm-3
+        label Tenancy Terms
+        select(ng-model='property.item.$case.item.tenancyTerms')
+          option(value='6', selected) 6 Months
+          option(value='12') 12 Months
+          option(value='24') 24 Months
+      .col-sm-3
+        label Proposed Moving in Date
+        input(type='date', ng-model='property.item.$case.item.proposedMoving')
+        label Agreed Monthly Rent
+        input(type='text', ng-model='property.item.$case.item.agreedRent')
+    .employment.row
+      h3.col-sm-3 Employment Status
+      .col-sm-9
+        ul.radio
+          li
+            input(type='radio', ng-modal='')
+            label Employed
+          li
+            input(type='radio', ng-modal='')
+            label Self-Employed
+    .controls.right
+      button(type='button', ng-click='cancel()') Cancel
+      input(type='submit', value='Submit')
+      
