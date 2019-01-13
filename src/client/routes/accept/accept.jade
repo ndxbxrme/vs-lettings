@@ -4,8 +4,8 @@
   form(name='acceptEmail', ng-submit='')
     .property
       h3 Property
-      select(ng-model='')
-        option(value='') Select Property
+      select(ng-model='properties.items')
+        option(ng-repeat='property in properties.items', value='property._id') {{property.displayAddress}}
     .applicant
       h3 Applicant
       .form-row
@@ -30,16 +30,16 @@
       .form-row
         .input-holder
           label Tenancy Terms
-          select(ng-model='property.item.$case.item.tenancyTerms')
+          select(ng-model='')
             option(value='6', selected) 6 Months
             option(value='12') 12 Months
             option(value='24') 24 Months
         .input-holder
           label Proposed Moving in Date
-          input(type='date', ng-model='property.item.$case.item.proposedMoving')
+          input(type='date', ng-model='')
         .input-holder
           label Agreed Monthly Rent
-          input(type='text', ng-model='property.item.$case.item.agreedRent')
+          input(type='text', ng-model='')
     .employment
       h3 Employment Status
       .input-holder
