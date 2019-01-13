@@ -1,6 +1,6 @@
 {
   "name": "vs-lettings",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "description": "",
   "main": "server/app.js",
   "scripts": {

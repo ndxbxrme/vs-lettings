@@ -34,7 +34,10 @@ module.exports = (ndx) ->
       item: req.body.type + ' Request'
       side: ''
       user: ndx.user
-    ndx.database.update 'properties'
+    ndx.database.update 'properties',
+      notes: req.body.property.notes
+    ,
+      _id: req.body.property._id
     res.end('OK')
   ndx.app.post '/api/properties/send-accept-email', ndx.authenticate(), (req, res, next) ->
     if ndx.email
