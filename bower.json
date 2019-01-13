@@ -50,5 +50,14 @@
     "angular-multi-check": "^0.4.1",
     "angular-timeago": "^0.4.6",
     "bootstrap": "^4.2.1"
+  },
+  "overrides":{
+    "bootstrap" : {
+         "main": [
+            "less/bootstrap.less",
+            "dist/css/bootstrap.css",
+            "dist/js/bootstrap.js"
+          ]
+    }
   }
 }
