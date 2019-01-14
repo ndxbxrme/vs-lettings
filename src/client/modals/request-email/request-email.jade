@@ -6,11 +6,11 @@
         .form-item
           .form-icon
             i.fas.fa-fw.fa-user(class='{{toNameClass}}')
-          input(type='text', ng-model='data.toName', ng-required='true', placeholder='{{type}} Name')
+          input(type='text', ng-model='data.toName', ng-required='true', placeholder='{{data.type}} Name')
       .form-item
         .form-icon
           i.fas.fa-fw.fa-envelope(class='{{toMailClass}}')
-        input(type='email', ng-model='data.toMail', ng-required='true', placeholder='{{type}} Email')
+        input(type='email', ng-model='data.toMail', ng-required='true', placeholder='{{data.type}} Email')
       .form-item
         .form-icon
           i.fas.fa-fw.fa-users(class='{{refNameClass}}')
