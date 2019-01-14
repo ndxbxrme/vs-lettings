@@ -1,64 +1,64 @@
 .accept
   h1 Acceptance Confirmation Email
   
-  form(name='acceptEmail', ng-submit='submit()')
+  form(name='acceptEmail', novalidate, ng-submit='submit()')
     .property
       h3 Property
-      select(name='property', ng-model='property', ng-required)
+      select(name='property', ng-model='property', required)
         option(ng-repeat='property in properties.items', ng-value='property') {{property.displayAddress}}
-      .error(ng-show='submitted && acceptEmail.property.$error') Please select a property
+      .error(ng-show='submitted && acceptEmail.property.$invalid') Please select a property
     .applicant
       h3 Applicant
       .form-row
         .input-holder
           label Title
-          select(name='title', ng-model='applicant.title', ng-required)
+          select(name='title', ng-model='applicant.title', required)
             option(value='mr') Mr.
             option(value='mrs') Mrs.
             option(value='miss') Miss.
             option(value='dr') Dr.
-          .error(ng-show='submitted && acceptEmail.title.$error') Please select a title
+          .error(ng-show='submitted && acceptEmail.title.$invalid') Please select a title
         .input-holder
           label First Name
-          input(type='text', name='firstName', ng-model='applicant.firstName', ng-required)
-          .error(ng-show='submitted && acceptEmail.firstName.$error') Please enter the first name
+          input(type='text', name='firstName', ng-model='applicant.firstName', required)
+          .error(ng-show='submitted && acceptEmail.firstName.$invalid') Please enter the first name
         .input-holder
           label Last Name
-          input(type='text', name='lastName', ng-model='applicant.lastName', ng-required)
-          .error(ng-show='submitted && acceptEmail.lastName.$error') Please enter the last name
+          input(type='text', name='lastName', ng-model='applicant.lastName', required)
+          .error(ng-show='submitted && acceptEmail.lastName.$invalid') Please enter the last name
         .email-holder
           label Email
-          input(type='email', name='email', ng-model='applicant.email', ng-required)
-          .error(ng-show='submitted && acceptEmail.email.$error') Please enter a valid email address
+          input(type='email', name='email', ng-model='applicant.email', required)
+          .error(ng-show='submitted && acceptEmail.email.$invalid') Please enter a valid email address
     .rental-terms
       h3 Rental Terms
       .form-row
         .input-holder
           label Tenancy Terms
-          select(name='terms', ng-model='applicant.terms', ng-required)
+          select(name='terms', ng-model='applicant.terms', required)
             option(value='6', selected) 6 Months
             option(value='12') 12 Months
             option(value='24') 24 Months
-          .error(ng-show='submitted && acceptEmail.terms.$error') Please select the terms
+          .error(ng-show='submitted && acceptEmail.terms.$invalid') Please select the terms
         .input-holder
           label Proposed Moving in Date
-          input(type='date', name='movingInDate', ng-model='applicant.movingInDate', ng-required)
-          .error(ng-show='submitted && acceptEmail.movingInDate.$error') Please enter the moving in date
+          input(type='date', name='movingInDate', ng-model='applicant.movingInDate', required)
+          .error(ng-show='submitted && acceptEmail.movingInDate.$invalid') Please enter the moving in date
         .input-holder
           label Agreed Monthly Rent
-          input(type='text', name='rent', ng-model='applicant.rent', ng-required)
-          .error(ng-show='submitted && acceptEmail.rent.$error') Please enter the rent
+          input(type='text', name='rent', ng-model='applicant.rent', required)
+          .error(ng-show='submitted && acceptEmail.rent.$invalid') Please enter the rent
     .employment
       h3 Employment Status
       .input-holder
         ul.radio
           li
-            input#employed(type='radio', name='employment', ng-modal='applicant.employment', value='Employed', ng-required)
+            input#employed(type='radio', name='employment', ng-modal='applicant.employment', value='Employed', required)
             label(for='employed') Employed
           li
-            input#selfemployed(type='radio', name='employment', ng-modal='applicant.employment', value='Self Employed', ng-required)
+            input#selfemployed(type='radio', name='employment', ng-modal='applicant.employment', value='Self Employed', required)
             label(for='selfemployed') Self-Employed
-        .error(ng-show='submitted && acceptEmail.email.$error') Please select an employment status
+        .error(ng-show='submitted && acceptEmail.email.$invalid') Please select an employment status
     .controls.right
       button(type='button', ng-click='cancel()') Cancel
       input(type='submit', value='Submit')
