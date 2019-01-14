@@ -10,7 +10,7 @@ module.exports = (ndx) ->
       , (res) ->
         if res and res.length
           contacts.push
-             email: res[0].email or res[0].local.email
+            email: res[0].email or res[0].local.email
     else
       for contact in action.to
         console.log 'contact', contact
