@@ -13,19 +13,19 @@ module.exports = (ndx) ->
       requre res.end 'No email package'
     Object.assign template, req.body
     template.toFirstName = template.toName.substr 0, template.toName.indexOf(' ')
-    template.refFirstName = template.refFirstName.substr 0, template.refName.indexOf(' ')
+    template.refFirstName = template.refName.substr 0, template.refName.indexOf(' ')
     template.to = req.body.toMail
-    template.text = marked template.text
+    #template.text = marked template.text
     ndx.email.send template
     req.body.property.notes = req.body.property.notes or []
     req.body.property.notes.push
       date: new Date()
       text: """
-        # Request #{req.body.to}
+        # Request #{req.body.type}
         ### Date
         #### #{new Date().toDateString()}
         ### Requested by
-        #### #{ndx.user.displayName}
+        #### #{ndx.user.displayName or ndx.user.local.email}
         ### #{req.body.type} Name
         #### #{req.body.toName}
         ### Regarding
