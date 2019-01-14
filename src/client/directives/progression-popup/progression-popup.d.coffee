@@ -35,6 +35,7 @@ angular.module 'vs-agency'
       {id:'allagency',name:'All agency users'}
       {id:'alladmin',name:'All admin users'}
     ]
+    scope.users = scope.list 'users'
     templateDeref = scope.$watch ->
       scope.auth.getUser()
     , (n) ->
@@ -78,8 +79,7 @@ angular.module 'vs-agency'
       addingNote = false
     scope.cancelAddNote = ->
       scope.note = ''
-      addingNote = false
-      
+      addingNote = false  
     scope.getMilestones = (progression) ->
       output = []
       for branch in progression.milestones

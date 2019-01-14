@@ -4,6 +4,14 @@ superagent = require 'superagent'
 module.exports = (ndx) ->
   fetchContacts = (action, property) ->
     contacts = []
+    if action.specificUser
+      ndx.database.select 'users', null, (res) ->
+        if res and res.length
+          for user in res
+            contacts.push
+              name: user.displayName
+              email: user.email or user.local.email
+    else
     for contact in action.to
       console.log 'contact', contact
       if contact.indexOf('all') is 0
