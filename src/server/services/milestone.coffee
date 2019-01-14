@@ -5,51 +5,51 @@ module.exports = (ndx) ->
   fetchContacts = (action, property) ->
     contacts = []
     if action.specificUser
-      ndx.database.select 'users', null, (res) ->
+      ndx.database.select 'users',
+        _id: action.specificUser
+      , (res) ->
         if res and res.length
-          for user in res
-            contacts.push
-              name: user.displayName
-              email: user.email or user.local.email
+          contacts.push
+             email: res[0].email or res[0].local.email
     else
-    for contact in action.to
-      console.log 'contact', contact
-      if contact.indexOf('all') is 0
-        if contact is 'negotiator'
-          negotiator = property.case.offer.Negotiators[0]
-          contacts.push 
-            name: negotiator.ContactName
-            role: negotiator.JobTitle
-            email: negotiator.PrimaryEmail.Value
-            telephone: negotiator.PrimaryTelephone.Value
-        if contact is 'allagency'
-          ndx.database.select 'users', null, (res) ->
-            if res and res.length
-              for user in res
-                if user.roles and user.roles.agency
-                  contacts.push
-                    name: user.displayName or user.local.email
-                    role: 'Agency'
-                    email: user.email or user.local.email
-                    telephone: user.telephone
-        if contact is 'alladmin'
-          ndx.database.select 'users', null, (res) ->
-            if res and res.length
-              for user in res
-                console.log 'checking', user
-                if user.roles and user.roles.admin
-                  contacts.push
-                    name: user.displayName or user.local.email
-                    role: 'Admin'
-                    email: user.email or user.local.email
-                    telephone: user.telephone
-      else
-        if property.case[contact]
-          contacts.push property.case[contact]
+      for contact in action.to
+        console.log 'contact', contact
+        if contact.indexOf('all') is 0
+          if contact is 'negotiator'
+            negotiator = property.case.offer.Negotiators[0]
+            contacts.push 
+              name: negotiator.ContactName
+              role: negotiator.JobTitle
+              email: negotiator.PrimaryEmail.Value
+              telephone: negotiator.PrimaryTelephone.Value
+          if contact is 'allagency'
+            ndx.database.select 'users', null, (res) ->
+              if res and res.length
+                for user in res
+                  if user.roles and user.roles.agency
+                    contacts.push
+                      name: user.displayName or user.local.email
+                      role: 'Agency'
+                      email: user.email or user.local.email
+                      telephone: user.telephone
+          if contact is 'alladmin'
+            ndx.database.select 'users', null, (res) ->
+              if res and res.length
+                for user in res
+                  console.log 'checking', user
+                  if user.roles and user.roles.admin
+                    contacts.push
+                      name: user.displayName or user.local.email
+                      role: 'Admin'
+                      email: user.email or user.local.email
+                      telephone: user.telephone
         else
-          console.log 'could not find contact', contact
-      console.log 'contacts', contacts
-    contacts
+          if property.case[contact]
+            contacts.push property.case[contact]
+          else
+            console.log 'could not find contact', contact
+        console.log 'contacts', contacts
+      contacts
   processActions = (actionOn, actions, roleId, property) ->
     if actions and actions.length
       if not property

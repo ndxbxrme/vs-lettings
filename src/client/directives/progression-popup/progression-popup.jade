@@ -117,7 +117,7 @@
               multi-check-item(ng-repeat='contact in contactOptions', value='{{contact.id}}') {{contact.name}}
             label.large Specific User
             select(ng-model='action.specificUser')
-              option(ng-repeat='user in myusers = (users.items | filter:"!superadmin" | filter:"!cors")', value='{{user.local.email}}') {{user.displayName}}
+              option(ng-repeat='user in myusers = (users.items | filter:"!superadmin" | filter:"!cors")', value='{{user._id}}') {{user.displayName}}
             label.large Template
             select(ng-model='action.template')
               option(ng-repeat='template in emailTemplates.items', value='{{template._id}}') {{template.name}}
