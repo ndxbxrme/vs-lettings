@@ -16,8 +16,6 @@ angular.module 'vs-agency'
   
   $scope.submit = ->
     $scope.submitted = true
-    console.log $scope.property
-    return
     if $scope.acceptForm.$valid
       $http.post '/api/properites/send-accept-email',
         property: $scope.property
