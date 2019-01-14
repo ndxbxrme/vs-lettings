@@ -1,7 +1,7 @@
 .accept
   h1 Acceptance Confirmation Email
   
-  form(name='acceptEmail', novalidate, ng-submit='submit()')
+  form(name='acceptEmail', novalidate, ng-submit='submit()', ng-hide='emailSent')
     .property
       h3 Property
       select(name='property', ng-model='property', required)
@@ -62,4 +62,6 @@
     .controls.right
       button(type='button', ng-click='cancel()') Cancel
       input(type='submit', value='Submit')
+  .success(ng-show='emailSent')
+    h2 Form Submitted Successfully
       
