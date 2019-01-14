@@ -43,13 +43,13 @@ module.exports = (ndx) ->
     if ndx.email
       user = ndx.user
       ndx.database.select 'emailtemplates',
-        name: 'Application Accepted - ' + req.body.applicant.employmentStatus
+        name: 'Application Accepted - ' + req.body.applicant.employment
       , (templates) ->
         if templates and templates.length
           templates[0].applicant = req.body.applicant
           templates[0].property = req.body.property
           templates[0].user = user
-          templates[0].to = 'fill@inthisemail.address'
+          templates[0].to = req.body.applicant.email
           ndx.email.send templates[0]
     res.end 'OK'
   ndx.app.get '/api/properties/reset-progressions', ndx.authenticate(['admin','superadmin']), (req, res, next) ->

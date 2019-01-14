@@ -53,10 +53,10 @@
       .input-holder
         ul.radio
           li
-            input#employed(type='radio', name='employment', ng-modal='applicant.employment', value='Employed', required)
+            input#employed(type='radio', name='employment', ng-model='applicant.employment', value='Employed', required)
             label(for='employed') Employed
           li
-            input#selfemployed(type='radio', name='employment', ng-modal='applicant.employment', value='Self Employed', required)
+            input#selfemployed(type='radio', name='employment', ng-model='applicant.employment', value='Self Employed', required)
             label(for='selfemployed') Self-Employed
         .error(ng-show='submitted && acceptEmail.email.$invalid') Please select an employment status
     .controls.right
