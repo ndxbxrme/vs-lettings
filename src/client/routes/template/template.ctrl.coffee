@@ -23,6 +23,13 @@ angular.module 'vs-agency'
     displayAddress: "26 Chervil Close, Fallowfield, Manchester, M14 7DP"
     text: marked "## Advance Progression Request  \n#### Milestone  \n`Searches Completed`  \n#### Advance to  \n`Wed May 24 2017`  \n#### Requested by  \n`Dawn Wetherill`  \n#### Reason  \nA reason  \n"
     link: "https://lettings.vitalspace.co.uk/case/10993717"
+    applicant:
+      title: "Mr"
+      firstName: "Richard"
+      lastName: "Antrobus"
+      terms: "12"
+      movingInDate: "2019-01-15T00:00:00.000Z"
+      rent: "1000"
   fetchDefaultProp = ->
     $http.post "#{env.PROPERTY_URL}/search",
       RoleStatus: 'OfferAccepted'

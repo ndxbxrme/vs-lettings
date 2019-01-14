@@ -13,10 +13,10 @@
         .input-holder
           label Title
           select(name='title', ng-model='applicant.title', required)
-            option(value='mr') Mr.
-            option(value='mrs') Mrs.
-            option(value='miss') Miss.
-            option(value='dr') Dr.
+            option(value='Mr') Mr.
+            option(value='Mrs') Mrs.
+            option(value='Miss') Miss.
+            option(value='Dr') Dr.
           .error(ng-show='submitted && acceptEmail.title.$invalid') Please select a title
         .input-holder
           label First Name
