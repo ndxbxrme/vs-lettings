@@ -49,7 +49,7 @@ module.exports = (ndx) ->
           else
             console.log 'could not find contact', contact
         console.log 'contacts', contacts
-      contacts
+    contacts
   processActions = (actionOn, actions, roleId, property) ->
     if actions and actions.length
       if not property
