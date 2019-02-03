@@ -27,7 +27,6 @@ angular.module 'vs-agency'
     property.$case = $scope.single 'properties', property.RoleId + '_' + new Date(property.AvailableDate).valueOf(), (item) ->
       item.parent.search = "#{item.parent.displayAddress}||#{item.vendor}||#{item.purchaser}"
       item.item.proposedMoving = new Date(item.item.proposedMoving)
-      console.log item
     property.$case.parent = property
     Property.set property
   $scope.progressions = $scope.list 'progressions',

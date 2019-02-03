@@ -23,7 +23,6 @@ angular.module 'vs-agency'
   , (properties) ->
     for property in properties.items
       property.$case = $scope.single 'properties', property.RoleId + '_' + new Date(property.AvailableDate).valueOf(), (item) ->
-        console.log item
         item.$parent.search = "#{item.item.displayAddress}||#{item.item.TenantName}||#{item.item.LandlordName}"
         item.$parent.milestoneStatus = item.item.milestoneStatus
         if item.item.progressions and item.item.progressions.length

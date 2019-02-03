@@ -40,11 +40,14 @@ module.exports = (ndx) ->
       _id: req.body.property._id
     res.end('OK')
   ndx.app.post '/api/properties/send-accept-email', ndx.authenticate(), (req, res, next) ->
+    console.log 'sae'
     if ndx.email
+      console.log 'em'
       user = ndx.user
       ndx.database.select 'emailtemplates',
         name: 'Application Accepted - ' + req.body.applicant.employment
       , (templates) ->
+        console.log 'tm', templates
         if templates and templates.length
           templates[0].applicant = req.body.applicant
           templates[0].property = req.body.property

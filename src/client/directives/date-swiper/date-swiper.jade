@@ -7,8 +7,8 @@
             .left
               .prev(tap='monthPrev()') &lt;
             .month-name
-              | {{::m.monthName}} 
-              span.month-year {{::m.year}}
+              | {{m.monthName}} 
+              span.month-year {{m.year}}
             .right
               .next(tap='monthNext()') &gt;
           ul.day-names
