@@ -47,6 +47,7 @@ angular.module 'vs-agency'
       windowcard: "Yes"
       epc: "Yes"
       gas: "Yes"
+      cfp: "Yes"
   fetchDefaultProp = ->
     $http.post "#{env.PROPERTY_URL}/search",
       RoleStatus: 'OfferAccepted'

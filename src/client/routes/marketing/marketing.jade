@@ -97,6 +97,16 @@
             input#gasno(type='radio', name='gas', ng-model='marketing.gas', value='No', required)
             label(for='gasno') No
         .error(ng-show='submitted && marketingEmail.gas.$invalid') Please select an Gas Cert status
+      .input-holder.half
+        h3 Property added on CFP
+        ul.radio
+          li
+            input#cfpyes(type='radio', name='cfp', ng-model='marketing.cfp', value='Yes', required)
+            label(for='cfpyes') Yes
+          li
+            input#cfpno(type='radio', name='cfp', ng-model='marketing.cfp', value='No', required)
+            label(for='cfpno') No
+        .error(ng-show='submitted && marketingEmail.gas.$invalid') Please select an CFP status
     .row
       .controls.right
         button(type='button', ng-click='cancel()') Cancel
