@@ -30,6 +30,23 @@ angular.module 'vs-agency'
       terms: "12"
       movingInDate: "2019-01-15T00:00:00.000Z"
       rent: "1000"
+    marketing:
+      address: "67 Little Bolton Terrace, Salford"
+      availableDate: "2019-01-15T00:00:00.000Z"
+      tendDate: "2019-01-15T00:00:00.000Z"
+      rent: "1000"
+      terms: "12"
+      pStatus: "Furnished"
+      access: "A load of text about the access details"
+      repairs: "A load of text about repairs"
+      lfees: "Managed"
+      tfamount: "200"
+      mamount: "200"
+      ma: "5"
+      board: "Yes"
+      windowcard: "Yes"
+      epc: "Yes"
+      gas: "Yes"
   fetchDefaultProp = ->
     $http.post "#{env.PROPERTY_URL}/search",
       RoleStatus: 'OfferAccepted'

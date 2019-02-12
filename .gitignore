@@ -13,3 +13,4 @@ env.bat
 env.sh
 key.pem
 cert.pem
+data.zip
