@@ -1,0 +1,116 @@
+.marketing
+  h1 Marketing Form
+  form(name='marketingEmail', novalidate, ng-submit='submit()', ng-hide='emailSent')
+    .row
+      .input-holder
+        label Property Address
+        textarea(name='address', ng-model='marketing.address')
+    .row
+      .input-holder.third
+        label Available Date
+        input(type='date', name='availableDate', ng-model='marketing.availableDate', required)
+        .error(ng-show='submitted && marketingEmail.availableDate.$invalid') Please enter the available date
+      .input-holder.third
+        label Tenancy End Date
+        input(type='date', name='tendDate', ng-model='marketing.tendDate', required)
+        .error(ng-show='submitted && marketingEmail.tendDate.$invalid') Please enter the tenancy end date
+      .input-holder.third
+        label Current Rental Amount
+        input(type='text', name='rent', ng-model='marketing.rent', required)
+        .error(ng-show='submitted && marketingEmail.rent.$invalid') Please enter the rent
+    .row
+      .input-holder.half
+        label Requested Tenancy Length
+        select(name='terms', ng-model='marketing.terms', required)
+          option(value='6', selected) 6 Months
+          option(value='12') 12 Months
+          option(value='24') 24 Months
+        .error(ng-show='submitted && marketingEmail.terms.$invalid') Please select the terms
+      .input-holder.half
+        label Property Status
+        select(name='terms', ng-model='marketing.pStatus', required)
+          option(value='Furnished', selected) Furnished
+          option(value='Unfurnished') Unfurnished
+          option(value='Part-Furnished') Part-Furnished
+        .error(ng-show='submitted && marketingEmail.pStatus.$invalid') Please select the property status
+    .row
+      .input-holder
+        label Access Details
+        textarea(name='access', ng-model='marketing.access')
+    .row
+      .input-holder
+        label Repairs/Cleaning Required (if known)
+        textarea(name='repairs', ng-model='marketing.repairs')
+    .row
+      .input-holder.half
+        label Landlord Fees
+        select(name='lfees', ng-model='marketing.lfees', required)
+          option(value='Tenant Find', selected) Tenant Find
+          option(value='Managed') Managed
+        .error(ng-show='submitted && marketingEmail.lfees.$invalid') Please select the fees type
+      .feesbox(ng-if='marketing.lfees === "Tenant Find"')
+        .input-holder.half
+          input(type='text', name='tfamount', ng-model='marketing.tfamount', placeholder='£ tenant find')
+      .feesbox(ng-if='marketing.lfees === "Managed"')
+        .input-holder.half
+          input(type='text', name='mamount', ng-model='marketing.mamount', placeholder='£ managed')
+        .input-holder.half
+          input(type='text', name='ma', ng-model='marketing.ma', placeholder='% managed')
+    .row
+      .input-holder.half
+        h3 To Let Board
+        ul.radio
+          li
+            input#letboardyes(type='radio', name='board', ng-model='marketing.board', value='Yes', required)
+            label(for='boardyes') Yes
+          li
+            input#letboardno(type='radio', name='board', ng-model='marketing.board', value='No', required)
+            label(for='boardno') No
+        .error(ng-show='submitted && marketingEmail.board.$invalid') Please select an Let Board status
+      .input-holder.half
+        h3 Window Card
+        ul.radio
+          li
+            input#windowyes(type='radio', name='window', ng-model='marketing.windowcard', value='Yes', required)
+            label(for='windowyes') Yes
+          li
+            input#windowno(type='radio', name='window', ng-model='marketing.windowcard', value='No', required)
+            label(for='windowno') No
+        .error(ng-show='submitted && marketingEmail.windowcard.$invalid') Please select an Window card status
+      .input-holder.half
+        h3 Valid EPC Certificate
+        ul.radio
+          li
+            input#epcyes(type='radio', name='epc', ng-model='marketing.epc', value='Yes', required)
+            label(for='epcyes') Yes
+          li
+            input#epcno(type='radio', name='epc', ng-model='marketing.epc', value='No', required)
+            label(for='epcno') No
+        .error(ng-show='submitted && marketingEmail.epc.$invalid') Please select an EPC status
+      .input-holder.half
+        h3 Valid Gas Certificate
+        ul.radio
+          li
+            input#gasyes(type='radio', name='gas', ng-model='marketing.gas', value='Yes', required)
+            label(for='gasyes') Yes
+          li
+            input#gasno(type='radio', name='gas', ng-model='marketing.gas', value='No', required)
+            label(for='gasno') No
+        .error(ng-show='submitted && marketingEmail.gas.$invalid') Please select an Gas Cert status
+      .input-holder.half
+        h3 Property added on CFP
+        ul.radio
+          li
+            input#cfpyes(type='radio', name='cfp', ng-model='marketing.cfp', value='Yes', required)
+            label(for='cfpyes') Yes
+          li
+            input#cfpno(type='radio', name='cfp', ng-model='marketing.cfp', value='No', required)
+            label(for='cfpno') No
+        .error(ng-show='submitted && marketingEmail.gas.$invalid') Please select an CFP status
+    .row
+      .controls.right
+        button(type='button', ng-click='cancel()') Cancel
+        input(type='submit', value='Submit')
+  .success(ng-show='emailSent')
+    h2 Form Submitted Successfully
+      

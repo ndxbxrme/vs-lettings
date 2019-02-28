@@ -20,6 +20,9 @@
         li(ng-class="{selected:state('accept')}")
           a(ui-sref='accept')
             span Accept
+        li(ng-class="{selected:state('marketing')}")
+          a(ui-sref='marketing')
+            span Marketing
         li(ng-class="{selected:state('setup')}", ng-show="auth.checkRoles(['admin', 'superadmin'])")
           a(ui-sref='setup')
             span Setup

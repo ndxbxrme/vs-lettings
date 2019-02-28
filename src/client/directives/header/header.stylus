@@ -20,7 +20,7 @@
       img
         width 195px
     nav.main-menu 
-      margin-left 9rem
+      margin-left 6rem
       flex 1
       ul.menu
         display flex

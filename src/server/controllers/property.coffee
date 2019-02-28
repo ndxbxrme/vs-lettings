@@ -55,6 +55,18 @@ module.exports = (ndx) ->
           templates[0].to = req.body.applicant.email
           ndx.email.send templates[0]
     res.end 'OK'
+  ndx.app.post '/api/properties/send-marketing-email', ndx.authenticate(), (req, res, next) ->
+    if ndx.email
+      user = ndx.user
+      ndx.database.select 'emailtemplates',
+        name: 'Marketing Email'
+      , (templates) ->
+        if templates and templates.length
+          templates[0].marketing = req.body.marketing
+          templates[0].user = user
+          templates[0].to = 'richard@vitalspace.co.uk'
+          ndx.email.send templates[0]
+    res.end 'OK'
   ndx.app.get '/api/properties/reset-progressions', ndx.authenticate(['admin','superadmin']), (req, res, next) ->
     ndx.database.select 'properties', null, (properties) ->
       if properties and properties.length

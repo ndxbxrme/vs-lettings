@@ -1,0 +1,53 @@
+@import '../../variables'
+
+.marketing
+  h1 
+    color vs-grey
+  .row
+    display flex
+    align-items center
+    margin-bottom 30px
+    padding-bottom 20px
+    border-bottom 1px solid #f1f1f1
+    label
+      font-size 1.2em
+      font-weight bold
+      margin-right 10px
+    select
+      width 200px
+      height 37px
+    .input-holder
+      width 100%
+      &.half
+        width 50%
+      &.third
+        width 33%
+      ul
+        list-style-type none
+        padding-left: 0;
+        li
+          display inline-block
+          padding 0 10px 0 20px
+          input[type=radio]
+            -webkit-appearance radio
+          label
+            font-weight 500
+    .feesbox
+      width 100%
+      display flex
+      input[type=text]
+        width 98%
+      
+  .controls.right
+    float right
+  input[type=text], input[type=email], input[type=date], textarea
+    vs-input()
+    height 37px
+  textarea
+    width 100%
+    height 80px
+  input[type=submit], button
+    vs-button()
+  input[type=submit]
+    background vs-orange
+    color white
