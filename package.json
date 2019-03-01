@@ -1,6 +1,6 @@
 {
   "name": "vs-lettings",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "description": "",
   "main": "server/app.js",
   "scripts": {
@@ -53,7 +53,7 @@
     "ndx-rest": "^0.6.5",
     "ndx-server": "^0.15.18",
     "ndx-short-token": "0.0.6",
-    "ndx-sms24x": "0.0.3",
+    "ndx-sms24x": "0.0.4",
     "ndx-socket": "0.0.14",
     "ndx-static-routes": "0.0.13",
     "ndx-superadmin": "^0.1.6",
