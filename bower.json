@@ -49,6 +49,6 @@
     "interpret-date": "^0.0.3",
     "angular-multi-check": "^0.4.1",
     "angular-timeago": "^0.4.6",
-    "flipclock": "FlipClock#~0.7.7"
+    "flipclock": "0.7.7"
   }
 }
