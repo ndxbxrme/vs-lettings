@@ -10,6 +10,7 @@ angular.module 'vs-agency'
     transform:
       items: 'Collection'
       total: 'TotalCount'
+  $scope.clockStarted = false
   $scope.properties = $scope.list
     route: "#{env.PROPERTY_URL}/search"
   , $scope.propsOpts
@@ -27,10 +28,31 @@ angular.module 'vs-agency'
     property.$case = $scope.single 'properties', property.RoleId + '_' + new Date(property.AvailableDate).valueOf(), (item) ->
       item.parent.search = "#{item.parent.displayAddress}||#{item.vendor}||#{item.purchaser}"
       item.item.proposedMoving = new Date(item.item.proposedMoving)
+      for progression in property.$case.item.progressions
+        for branch in progression.milestones
+          for milestone in branch
+            if milestone.title.toLowerCase() is 'holding deposit'
+              if milestone.completed
+                timeLeft = (milestone.completedTime + (15 * 24 * 60 * 60 * 1000) - new Date().valueOf()) / 1000
+                $scope.showClock = true
+                if timeLeft > 0
+                  $scope.setTime timeLeft
+                  $scope.setCountdown true
+                else
+                  $scope.setTime -timeLeft
+                  $scope.setCountdown false
+                $scope.start() if not $scope.clockStarted
+                $scope.clockStarted = true
     property.$case.parent = property
     Property.set property
   $scope.progressions = $scope.list 'progressions',
     sort: 'i'
+  $scope.stopCallback = ->
+    $timeout ->
+      if $scope.getTime().time is 0
+        $scope.depositOverdue = true
+        $scope.setCountdown false
+        $scope.start()
   $scope.config =
     prefix: 'swiper'
     modifier: 1.5

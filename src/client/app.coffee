@@ -9,6 +9,7 @@ angular.module 'vs-lettings', [
   'vs-agency'
   'date-swiper'
   'yaru22.angular-timeago'
+  'angular-flipclock'
 ]
 .config ($locationProvider, $urlRouterProvider, gravatarServiceProvider) ->
   $urlRouterProvider.otherwise '/'

@@ -2,6 +2,15 @@
 .case
   *
     box-sizing border-box
+  .countdown
+    zoom 0.5
+    moz-transform scale(0.5)
+    .flip-clock-wrapper
+      display flex
+      justify-content flex-end
+    &.overdue .inn
+      color #bc1f03
+    
   sup
     background vs-orange
     border-radius 50%
