@@ -43,6 +43,12 @@ angular.module 'vs-agency'
                   $scope.setCountdown false
                 $scope.start() if not $scope.clockStarted
                 $scope.clockStarted = true
+            else if milestone.title.toLowerCase() is 'rental complete'
+              if milestone.completed
+                $scope.showClock = false
+                if $scope.clockStarted
+                  $scope.clockStarted = false
+                  $scope.stop()
     property.$case.parent = property
     Property.set property
   $scope.progressions = $scope.list 'progressions',
