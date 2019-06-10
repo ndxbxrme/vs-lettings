@@ -11,8 +11,6 @@
     .admin-request(ng-show='auth.checkRoles(["superadmin", "admin"])')
       button(ng-click='applyRequest(request)') Apply
       button(ng-click='request.dismissed=true;property.item.$case.save()') Dismiss
-  .countdown(ng-show='showClock', ng-class='{overdue:depositOverdue}')
-    flip-clock(time='345600000', clock-face='DailyCounter', countdown='true', show-seconds='false', autostart='false', stop='stopCallback()')
   progression(ng-repeat='progression in property.item.$case.item.progressions', data='progression')
   button.has-dropdown(ng-focus='progBtnFocussed=true', ng-blur='hideDropdown("progBtnFocussed")', ng-show='auth.checkRoles(["superadmin", "admin"])') Add Progression
   ul.dropdown(ng-show='progBtnFocussed')
@@ -22,6 +20,8 @@
   //button(ng-show='auth.checkRoles(["superadmin", "admin"])', ng-click='fallenThrough()') Fallen through
   button(ng-click='requestEmail("Landlord")') Landlord Request
   button(ng-click='requestEmail("Employer")') Employer Request
+  .countdown(ng-show='showClock', ng-class='{overdue:depositOverdue}')
+    flip-clock(time='345600000', clock-face='DailyCounter', countdown='true', show-seconds='false', autostart='false', stop='stopCallback()')
   .rental-terms  
     h2 Rental Terms
     form(name='rentalTerms', ng-submit='submitRT()')
