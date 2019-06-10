@@ -5,6 +5,7 @@
   .countdown
     zoom 0.5
     moz-transform scale(0.5)
+    margin-top 2.4rem
     .flip-clock-wrapper
       display flex
       justify-content flex-start
