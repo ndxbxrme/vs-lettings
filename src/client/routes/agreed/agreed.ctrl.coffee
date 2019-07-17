@@ -67,8 +67,6 @@ angular.module 'vs-agency'
                 roleId: property.roleId
                 delisted: property.delisted
                 completeBeforeDelisted: completeBeforeDelisted
-              console.log property.Fees
-              
             break
   $scope.targets = $scope.list 'targets',
     where:
