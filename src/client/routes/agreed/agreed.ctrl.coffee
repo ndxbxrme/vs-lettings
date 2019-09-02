@@ -58,11 +58,11 @@ angular.module 'vs-agency'
               completeBeforeDelisted = (not milestone[0].completed && property.delisted) || not property.delisted
             property.override = property.override or {}
             if not property.override.deleted
-              month.commission += +property.override.commission or property.Fees.DefaultValue
+              month.commission += +property.override.commission or +property.Fees[0]?.Name?.replace('£','') or 0
               month.properties.push
                 _id: property._id
                 address: property.override.address or property.displayAddress
-                commission: property.override.commission or property.Fees.DefaultValue
+                commission: property.override.commission or +property.Fees[0]?.Name?.replace('£','') or 0
                 date: property.override.date or property.proposedMoving
                 roleId: property.roleId
                 delisted: property.delisted

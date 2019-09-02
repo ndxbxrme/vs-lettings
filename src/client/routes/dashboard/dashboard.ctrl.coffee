@@ -38,7 +38,7 @@ angular.module 'vs-lettings'
   $scope.buyerProgression = null
   $scope.progressions = $scope.list 'progressions', null, (progressions) ->
     for progression in progressions.items
-      if progression.side is 'Buyer'
+      if progression.side is 'Tenant'
         $scope.buyerProgression = progression
   $scope.count = (di, list) ->
     output = []
