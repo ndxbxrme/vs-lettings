@@ -33,21 +33,25 @@
     .rental-terms
       h3 Rental Terms
       .form-row
-        .input-holder
+        .input-holder-four
           label Tenancy Terms
           select(name='terms', ng-model='applicant.terms', required)
             option(value='6', selected) 6 Months
             option(value='12') 12 Months
             option(value='24') 24 Months
           .error(ng-show='submitted && acceptEmail.terms.$invalid') Please select the terms
-        .input-holder
+        .input-holder-four
           label Proposed Moving in Date
           input(type='date', name='movingInDate', ng-model='applicant.movingInDate', required)
           .error(ng-show='submitted && acceptEmail.movingInDate.$invalid') Please enter the moving in date
-        .input-holder
+        .input-holder-four
           label Agreed Monthly Rent
           input(type='text', name='rent', ng-model='applicant.rent', required)
           .error(ng-show='submitted && acceptEmail.rent.$invalid') Please enter the rent
+        .input-holder-four
+          label Holding Deposit
+          input(type='text', name='holdingDeposit', ng-model='applicant.deposit', required)
+          .error(ng-show='submitted && acceptEmail.deposit.$invalid') Please enter the Deposit Value
     .employment
       h3 Employment Status
       .input-holder

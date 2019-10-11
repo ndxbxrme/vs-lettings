@@ -30,6 +30,7 @@ angular.module 'vs-agency'
       terms: "12"
       movingInDate: "2019-01-15T00:00:00.000Z"
       rent: "1000"
+      deposit: "1000"
     marketing:
       address: "67 Little Bolton Terrace, Salford"
       availableDate: "2019-01-15T00:00:00.000Z"
