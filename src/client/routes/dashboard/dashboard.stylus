@@ -43,23 +43,23 @@
         .td 
           font-weight 600
 	.summary
-		border-spacing 0
-		border-collapse collapse
-		margin-bottom 30px
-    width 100%
-		th 
-			text-align left
-			vertical-align bottom
-			font-size 1.2rem
-			line-height 1rem
-			background vs-grey
-			color white
-			padding 10px
-			height 150px
-			white-space nowrap
-			&:last-of-type
+    width: 100%
+    border-spacing 0
+    border-collapse collapse
+    margin-bottom 30px
+    th
+      text-align left
+      vertical-align bottom
+      font-size 1.2rem
+      line-height 1rem
+      background vs-grey
+      color white
+      padding 10px
+      height 150px
+      white-space nowrap
+      &:last-of-type
         width 40px
-		tr td
+    tr td
       border 1px solid vs-lightgrey
       text-align center
       vertical-align middle
@@ -71,61 +71,61 @@
         text-align left
         font-weight 600
         padding 0 5px
-      a 
-        color vs-orange
-        line-height 1.6rem
-      p.service-level
-        position absolute
-        top -3px
-        right -4px
-        color white
-        background vs-grey
-        border-radius 50%
-        display flex
-        align-items center
-        justify-content center
-        height 15px
-        width 17px
-        padding-top 2px
-        font-size 10px
+    a 
+      color vs-orange
+      line-height 1.6rem
+    p.service-level
+      position absolute
+      top -3px
+      right -4px
+      color white
+      background vs-grey
+      border-radius 50%
+      display flex
+      align-items center
+      justify-content center
+      height 15px
+      width 17px
+      padding-top 2px
+      font-size 10px
     a.sort
-			color vs-orange
-			display block
-			padding 10px 0
-			&.rotate
-				transform rotate(-65deg)
-				width 20px
-		.rotate
-			transform rotate(-65deg)
-			width 20px
-  i.fa-times
-    background-color vs-red
-    color white
-    line-height 1
-    padding 7px 10px
-    border-radius 5px
-  i.fa-check
-    background-color vs-green
-    color white
-    line-height 1
-    padding 7px 8px
-    border-radius 5px
-    
-  @media screen and (max-width:720px)
-    .income
-      .tr
-        flex-direction column
-        &.head-two
-          display none
-        .td, .th
-          width 100%
-          .inner
-            display flex
-            label
-              display block
-              flex 1
-              text-align left
-              color vs-grey
+      color vs-orange
+      display block
+      padding 10px 0
+      &.rotate
+        transform rotate(-65deg)
+        width 20px
+    .rotate
+      transform rotate(-65deg)
+      width 20px
+    i.fa-times
+      background-color vs-red
+      color white
+      line-height 1
+      padding 7px 10px
+      border-radius 5px
+    i.fa-check
+      background-color vs-green
+      color white
+      line-height 1
+      padding 7px 8px
+      border-radius 5px
+
+@media screen and (max-width:720px)
+  .income
+    .tr
+      flex-direction column
+      &.head-two
+        display none
+      .td, .th
+        width 100%
+        .inner
+          display flex
+          label
+            display block
+            flex 1
+            text-align left
+            color vs-grey
             span
               flex 1
               text-align right
