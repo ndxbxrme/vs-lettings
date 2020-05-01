@@ -32,6 +32,9 @@
         .deposit.fifth
           label Deposit
           input(type='text', ng-model='property.item.$case.item.deposit')
+        .holding-deposit.fifth
+          label Holding Deposit
+          input(type='text', ng-model='property.item.$case.item.hDeposit')
         .tenancy-terms.fifth
           label Tenancy Terms
           select(ng-model='property.item.$case.item.tenancyTerms')
@@ -41,11 +44,6 @@
         .proposed-moving.fifth
           label Proposed Moving in Date
           input(type='date', ng-model='property.item.$case.item.proposedMoving')
-        .pet-deposit.fifth
-          label Pet Deposit
-          select(ng-model='property.item.$case.item.petDeposit')
-            option(value='no', selected) No
-            option(value='yes') Yes
       .row
         .agent-request.fifth
           label Landlord/Agent Request
@@ -62,9 +60,9 @@
           select(ng-model='property.item.$case.item.selfEmployed')
             option(value='no', selected) No
             option(value='yes') Yes
-        .guarantor.fifth
-          label Guarantor Required
-          select(ng-model='property.item.$case.item.guarantor')
+        .pet-deposit.fifth
+          label Pet Deposit
+          select(ng-model='property.item.$case.item.petDeposit')
             option(value='no', selected) No
             option(value='yes') Yes
         .special.fifth
