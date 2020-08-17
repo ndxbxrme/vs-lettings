@@ -28,7 +28,7 @@
     "grunt-filerev": "^2.3.1",
     "grunt-injector": "^1.1.0",
     "grunt-keepalive": "^1.0.0",
-    "grunt-ndx-script-inject": "0.0.9",
+    "grunt-ndx-script-inject": "git+https://github.com/ndxbxrme/grunt-ndx-script-inject.git",
     "grunt-ndxmin": "0.0.18",
     "grunt-ngmin": "0.0.3",
     "grunt-usemin": "^3.1.1",
