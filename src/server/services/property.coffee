@@ -215,11 +215,11 @@ module.exports = (ndx) ->
           ]
           delisted: false
       for prop in allProps
-        console.log prop._id, Object.values(prop.Address).filter((prop) -> typeof(prop) is 'string' and prop isnt "").join(', ').slice(0,30), prop.Status
         foundit = false
         for cProp in currentProps
           if cProp.RoleId is prop.RoleId
-            console.log 'found it'
+            if prop._id is '603c29ac9917122c7c0e6ba3'
+              console.log JSON.stringify(prop, null, '  ')
             foundit = true
             break
         if not foundit
