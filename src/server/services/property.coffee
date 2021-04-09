@@ -2,6 +2,7 @@
 superagent = require 'superagent'
 objtrans = require 'objtrans'
 putError = require '../puterror.js'
+fs = require 'fs'
 
 module.exports = (ndx) ->
   getDefaultProgressions = (property) ->
@@ -219,6 +220,7 @@ module.exports = (ndx) ->
         for cProp in currentProps
           if cProp.RoleId is prop.RoleId
             if prop._id is '603c29ac9917122c7c0e6ba3'
+              fs.writeFileSync('logs/prop.json', JSON.stringify(cProp, null, '  '), 'utf-8');
               console.log JSON.stringify(cProp, null, '  ')
             foundit = true
             break
