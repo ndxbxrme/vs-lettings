@@ -183,6 +183,7 @@ module.exports = (ndx) ->
       currentProps = await fetchCurrentProps()
       for prop in currentProps
         prop.uId = prop.RoleId + '_' + new Date(prop.AvailableDate).valueOf()
+        console.log prop.uId, JSON.stringify(prop.Address)
         dbProperty = await ndx.property.fetch prop.uId
         if dbProperty
           #if prop.LastUpdated isnt dbProperty.LastUpdated
