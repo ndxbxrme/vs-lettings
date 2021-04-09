@@ -183,7 +183,6 @@ module.exports = (ndx) ->
       currentProps = await fetchCurrentProps()
       for prop in currentProps
         prop.uId = prop.RoleId + '_' + new Date(prop.AvailableDate).valueOf()
-        console.log prop.uId, Object.values(prop.Address).filter((prop) -> typeof(prop) is 'string' and prop isnt "").join(', '), prop.RoleStatus.SystemName
         dbProperty = await ndx.property.fetch prop.uId
         if dbProperty
           #if prop.LastUpdated isnt dbProperty.LastUpdated
@@ -216,9 +215,11 @@ module.exports = (ndx) ->
           ]
           delisted: false
       for prop in allProps
+        console.log prop._id, Object.values(prop.Address).filter((prop) -> typeof(prop) is 'string' and prop isnt "").join(', ').slice(0,30), prop.Status
         foundit = false
         for cProp in currentProps
           if cProp.RoleId is prop.RoleId
+            console.log 'found it'
             foundit = true
             break
         if not foundit
@@ -226,6 +227,7 @@ module.exports = (ndx) ->
           Object.assign prop, property
           calculateMilestones prop
           prop.delisted = true
+          console.log 'delisting', prop._id
           ndx.database.update 'properties', prop,
             _id: prop._id
     catch e
