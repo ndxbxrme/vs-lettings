@@ -219,7 +219,7 @@ module.exports = (ndx) ->
         for cProp in currentProps
           if cProp.RoleId is prop.RoleId
             if prop._id is '603c29ac9917122c7c0e6ba3'
-              console.log JSON.stringify(prop, null, '  ')
+              console.log JSON.stringify(cProp, null, '  ')
             foundit = true
             break
         if not foundit
