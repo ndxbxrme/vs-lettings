@@ -182,7 +182,9 @@ module.exports = (ndx) ->
   checkNew = ->
     try
       currentProps = await fetchCurrentProps()
+      console.log '\n\nDEZREZ - ' + (new Date().toString()) + '\n'
       for prop in currentProps
+        console.log Object.values(prop.Address).filter((prop) -> typeof(prop) is 'string' and prop isnt "").join(', ').slice(0,30), (prop.RoleStatus or {}).SystemName
         prop.uId = prop.RoleId + '_' + new Date(prop.AvailableDate).valueOf()
         dbProperty = await ndx.property.fetch prop.uId
         if dbProperty
@@ -219,9 +221,6 @@ module.exports = (ndx) ->
         foundit = false
         for cProp in currentProps
           if cProp.RoleId is prop.RoleId
-            if prop._id is '603c29ac9917122c7c0e6ba3'
-              fs.writeFileSync('logs/prop.json', JSON.stringify(cProp, null, '  '), 'utf-8');
-              console.log JSON.stringify(cProp, null, '  ')
             foundit = true
             break
         if not foundit
