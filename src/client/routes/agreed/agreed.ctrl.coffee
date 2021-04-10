@@ -8,6 +8,7 @@ angular.module 'vs-agency'
   while y-- > 2017
     $scope.years.push y
   updateMonths = ->
+    return
     $scope.months = []
     testDate = new Date($scope.startDate['startDate'])
     while testDate < $scope.endDate['startDate']
@@ -42,32 +43,11 @@ angular.module 'vs-agency'
             month.target = target
             break
   updateProperties = ->
-    for month in $scope.months
-      month.properties = []
-      month.commission = 0
-    if $scope.properties and $scope.properties.items
-      for property in $scope.properties.items
-        i = $scope.months.length
-        while i-- > 0
-          month = $scope.months[i]
-          if $scope.endDate.startDate > new Date(property.proposedMoving) > month.date
-            completeBeforeDelisted = false
-            if property.progressions and property.progressions.length
-              progression = property.progressions[0]
-              milestone = progression.milestones[progression.milestones.length-1]
-              completeBeforeDelisted = (not milestone[0].completed && property.delisted) || not property.delisted
-            property.override = property.override or {}
-            if not property.override.deleted
-              month.commission += +property.override.commission or +property.Fees?[0]?.Name?.replace('£','') or 0
-              month.properties.push
-                _id: property._id
-                address: property.override.address or property.displayAddress
-                commission: property.override.commission or +property.Fees?[0]?.Name?.replace('£','') or 0
-                date: property.override.date or property.proposedMoving
-                roleId: property.roleId
-                delisted: property.delisted
-                completeBeforeDelisted: completeBeforeDelisted
-            break
+    res = await $http.post "/api/agreed/search",
+      startDate: $scope.startDate.startDate
+      endDate: $scope.endDate.startDate
+    $timeout ->
+      $scope.months = res.data
   $scope.targets = $scope.list 'targets',
     where:
       type: 'salesAgreed'
@@ -75,8 +55,9 @@ angular.module 'vs-agency'
   $scope.properties = $scope.list 'properties',
     sort: 'proposedMoving'
     sortDir: 'ASC'
-  , updateProperties
-  console.log $scope.properties.args
+    pageSize: 1
+  , () ->
+    updateProperties()
   $scope.open = (selectedMonth) ->
     open = selectedMonth.open
     for month in $scope.months

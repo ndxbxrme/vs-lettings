@@ -171,6 +171,52 @@ module.exports = (ndx) ->
       else
         res.json []
   #startup
+  ndx.app.post '/api/agreed/search', ndx.authenticate(), (req, res, next) ->
+    properties = await ndx.database.select 'properties'
+    startDate = req.body.startDate
+    endDate = req.body.endDate
+    months = []
+    testDate = new Date(startDate)
+    while testDate < endDate
+      month =
+        date: testDate
+        month: ''
+        properties: []
+        target:
+          type: 'letAgreed'
+          value: 0
+          date: testDate
+        search: ''
+      months.push month
+      testDate = new Date(testDate.getFullYear(), testDate.getMonth() + 1, testDate.getDate())
+
+    for month in months
+      month.properties = []
+      month.commission = 0
+    if properties
+      for property in properties
+        i = months.length
+        while i-- > 0
+          month = months[i]
+          if endDate > new Date(property.proposedMoving) > month.date
+            completeBeforeDelisted = false
+            if property.progressions and property.progressions.length
+              progression = property.progressions[0]
+              milestone = progression.milestones[progression.milestones.length-1]
+              completeBeforeDelisted = (not milestone[0].completed && property.delisted) || not property.delisted
+            property.override = property.override or {}
+            if not property.override.deleted
+              month.commission += +property.override.commission or +property.Fees?[0]?.Name?.replace('£','') or 0
+              month.properties.push
+                _id: property._id
+                address: property.override.address or property.displayAddress
+                commission: property.override.commission or +property.Fees?[0]?.Name?.replace('£','') or 0
+                date: property.override.date or property.proposedMoving
+                roleId: property.roleId
+                delisted: property.delisted
+                completeBeforeDelisted: completeBeforeDelisted
+            break
+    res.end JSON.stringify(months)
   ndx.database.on 'ready', ->
     if not ndx.database.count 'properties'
       console.log 'building database'
