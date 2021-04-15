@@ -48,6 +48,8 @@ angular.module 'vs-agency'
       endDate: $scope.endDate.startDate
     $timeout ->
       $scope.months = res.data
+      $scope.months.forEach (month) ->
+        month.month = $filter('date')(month.date, 'MMMM')
   $scope.targets = $scope.list 'targets',
     where:
       type: 'salesAgreed'
