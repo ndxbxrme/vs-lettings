@@ -8,7 +8,6 @@ angular.module 'vs-lettings'
   $scope.properties = $scope.list 'properties', 
     where:
       Status: 'OfferAccepted'
-      delisted: false
   , (properties) ->
     i = properties.items.length
     while i-- > 0
