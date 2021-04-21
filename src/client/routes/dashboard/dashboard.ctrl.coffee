@@ -8,7 +8,6 @@ angular.module 'vs-lettings'
   $scope.properties = $scope.list 'properties', 
     where:
       Status: 'OfferAccepted'
-      IncludeStc: true
       delisted: false
   , (properties) ->
     i = properties.items.length
