@@ -7,9 +7,8 @@ angular.module 'vs-lettings'
       delisted: false
   $scope.properties = $scope.list 'properties', 
     where:
-      RoleStatus: 'OfferAccepted'
-      RoleType: 'Letting'
-      IncludeStc: true
+      Status: 'OfferAccepted'
+      delisted: false
   , (properties) ->
     i = properties.items.length
     while i-- > 0
