@@ -24,6 +24,7 @@ angular.module 'vs-agency'
   , $stateParams.roleId
   , (res) ->
     property = res.item
+    property.AvailableDate = if property.AvailableDate.endsWith('Z') then property.AvailableDate else property.AvailableDate + 'Z'
     property.displayAddress = "#{property.Address.Number} #{property.Address.Street }, #{property.Address.Locality }, #{property.Address.Town}, #{property.Address.Postcode}"
     property.$case = $scope.single 'properties', property.RoleId + '_' + new Date(property.AvailableDate).valueOf(), (item) ->
       item.parent.search = "#{item.parent.displayAddress}||#{item.vendor}||#{item.purchaser}"

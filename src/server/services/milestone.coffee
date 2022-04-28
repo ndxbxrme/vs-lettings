@@ -66,6 +66,7 @@ module.exports = (ndx) ->
           .end (err, res) ->
             if not err
               property = res.body
+              property.AvailableDate = if property.AvailableDate.endsWith('Z') then property.AvailableDate else property.AvailableDate + 'Z'
               uId = property.RoleId + '_' + new Date(property.AvailableDate).valueOf()
               mycase = await ndx.property.fetch uId
               property.case = mycase

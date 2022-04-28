@@ -22,6 +22,7 @@ angular.module 'vs-agency'
   , $scope.propsOpts
   , (properties) ->
     for property in properties.items
+      property.AvailableDate = if property.AvailableDate.endsWith('Z') then property.AvailableDate else property.AvailableDate + 'Z'
       property.$case = $scope.single 'properties', property.RoleId + '_' + new Date(property.AvailableDate).valueOf(), (item) ->
         console.log item
         item.$parent.search = "#{item.item.displayAddress}||#{item.item.TenantName}||#{item.item.LandlordName}"

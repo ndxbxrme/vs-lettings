@@ -185,6 +185,7 @@ module.exports = (ndx) ->
       console.log '\n\nDEZREZ - ' + (new Date().toString()) + '\n'
       for prop in currentProps
         console.log Object.values(prop.Address).filter((prop) -> typeof(prop) is 'string' and prop isnt "").join(', ').slice(0,30), (prop.RoleStatus or {}).SystemName
+        prop.AvailableDate = if prop.AvailableDate.endsWith('Z') then prop.AvailableDate else prop.AvailableDate + 'Z'
         prop.uId = prop.RoleId + '_' + new Date(prop.AvailableDate).valueOf()
         dbProperty = await ndx.property.fetch prop.uId
         if dbProperty
@@ -234,8 +235,8 @@ module.exports = (ndx) ->
     catch e
       putError 'vslettings', e
   ndx.database.on 'ready', ->
-    setInterval checkNew, 10 * 60 * 1000
-    checkNew()
+    #setInterval checkNew, 10 * 60 * 1000
+    #checkNew()
   
   ndx.property = 
     getDefaultProgressions: 'getDefaultProgressions'
