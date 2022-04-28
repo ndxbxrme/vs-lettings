@@ -235,8 +235,8 @@ module.exports = (ndx) ->
     catch e
       putError 'vslettings', e
   ndx.database.on 'ready', ->
-    #setInterval checkNew, 10 * 60 * 1000
-    #checkNew()
+    setInterval checkNew, 10 * 60 * 1000
+    checkNew()
   
   ndx.property = 
     getDefaultProgressions: 'getDefaultProgressions'
