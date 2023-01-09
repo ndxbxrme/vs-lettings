@@ -237,6 +237,9 @@ module.exports = (ndx) ->
   ndx.database.on 'ready', ->
     #setInterval checkNew, 10 * 60 * 1000
     #checkNew()
+  ndx.app.post '/api/webhook', (req, res, next) ->
+    checkNew()
+    res.end 'ok'
   
   ndx.property = 
     getDefaultProgressions: 'getDefaultProgressions'

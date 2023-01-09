@@ -6,14 +6,14 @@ module.exports = (ndx) ->
   if process.env.REZI_ID and process.env.REZI_SECRET
     envUrls =
       dev:
-        auth: 'https://dezrez-core-auth-uat.dezrez.com/Dezrez.Core.Api/oauth/token/'
-        api: 'https://core-api-uat.dezrez.com/api/'
+        auth: 'http://localhost:4007/token/'
+        api: 'http://localhost:4007/'
       production:
-        auth: 'https://auth.dezrez.com/Dezrez.Core.Api/oauth/token/'
-        api: 'https://api.dezrez.com/api/'
+        auth: 'http://localhost:4007/token/'
+        api: 'http://localhost:4007/'
       live:
-        auth: 'https://auth.dezrez.com/Dezrez.Core.Api/oauth/token/'
-        api: 'https://api.dezrez.com/api/'
+        auth: 'http://localhost:4007/token/'
+        api: 'http://localhost:4007/'
     urls = envUrls[process.env.NODE_ENV or 'dev']
     accessToken = null
     tokenExpires = 0
