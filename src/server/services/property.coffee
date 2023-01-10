@@ -237,7 +237,8 @@ module.exports = (ndx) ->
   ndx.database.on 'ready', ->
     #setInterval checkNew, 10 * 60 * 1000
     #checkNew()
-  ndx.app.post '/api/webhook', (req, res, next) ->
+  ndx.app.post '/webhook', (req, res, next) ->
+    console.log 'WEBHOOK CALLED'
     checkNew()
     res.end 'ok'
   
