@@ -55,7 +55,6 @@
     "ndx-short-token": "0.0.6",
     "ndx-sms24x": "0.0.4",
     "ndx-socket": "0.0.14",
-    "ndx-static-routes": "0.0.13",
     "ndx-superadmin": "^0.1.6",
     "ndx-user-roles": "^0.4.0",
     "ndxdb": "^1.10.9",
