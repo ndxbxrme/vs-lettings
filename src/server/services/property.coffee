@@ -244,7 +244,7 @@ module.exports = (ndx) ->
     checkNew()
     res.end 'ok'
   ndx.app.get '/status', (req, res, next) ->
-    res.end
+    res.json
       webhookCalls: webhookCalls
   
   ndx.property = 
