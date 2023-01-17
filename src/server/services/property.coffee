@@ -237,10 +237,15 @@ module.exports = (ndx) ->
   ndx.database.on 'ready', ->
     #setInterval checkNew, 10 * 60 * 1000
     #checkNew()
+  webhookCalls = 0
   ndx.app.post '/webhook', (req, res, next) ->
     console.log 'WEBHOOK CALLED'
+    webhookCalls++
     checkNew()
     res.end 'ok'
+  ndx.app.get '/status', (req, res, next) ->
+    res.end
+      webhookCalls: webhookCalls
   
   ndx.property = 
     getDefaultProgressions: 'getDefaultProgressions'
