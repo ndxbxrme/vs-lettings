@@ -6,14 +6,14 @@ module.exports = (ndx) ->
   if process.env.REZI_ID and process.env.REZI_SECRET
     envUrls =
       dev:
-        auth: 'http://localhost:4007/token/'
-        api: 'http://localhost:4007/'
+        auth: 'https://server.vitalspace.com/dezrez/token/'
+        api: 'https://server.vitalspace.com/dezrez/'
       production:
-        auth: 'http://localhost:4007/token/'
-        api: 'http://localhost:4007/'
+        auth: 'https://server.vitalspace.com/dezrez/token/'
+        api: 'https://server.vitalspace.com/dezrez/'
       live:
-        auth: 'http://localhost:4007/token/'
-        api: 'http://localhost:4007/'
+        auth: 'https://server.vitalspace.com/dezrez/token/'
+        api: 'https://server.vitalspace.com/dezrez/'
     urls = envUrls[process.env.NODE_ENV or 'dev']
     accessToken = null
     tokenExpires = 0
