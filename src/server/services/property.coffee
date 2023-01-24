@@ -124,7 +124,11 @@ module.exports = (ndx) ->
     new Promise (resolve, reject) ->
       try
         prop.lettingData = await ndx.dezrez.get 'role/{id}', null, id:prop.RoleId
-        prop.tenantData = await ndx.dezrez.get 'role/{id}', null, id:prop.lettingData.TenantRoleId
+        if prop.lettingData and prop.lettingData.TenantRoleId
+          prop.tenantData = await ndx.dezrez.get 'role/{id}', null, id:prop.lettingData.TenantRoleId
+        else
+          prop.tenantData =
+            TenantInfo: [{}]
         prop.viewings = await ndx.dezrez.get 'role/{id}/viewingsbasic', null, id:prop.RoleId
         prop.extendedData = await ndx.dezrez.get 'property/{id}', null, id:prop.PropertyId
         property = objtrans prop,
