@@ -5,6 +5,7 @@ putError = require '../puterror.js'
 fs = require 'fs'
 
 module.exports = (ndx) ->
+  debugInfo = {}
   getDefaultProgressions = (property) ->
     property.progressions = []
     ndx.database.select 'progressions',
@@ -105,6 +106,7 @@ module.exports = (ndx) ->
     catch e
       putError 'vslettings', e
   fetchCurrentProps = (status) ->
+    debugInfo.url = "#{process.env.PROPERTY_URL}/search"
     new Promise (resolve, reject) ->
       try
         opts = 
@@ -115,11 +117,13 @@ module.exports = (ndx) ->
         .send opts
         .end (err, res) ->
           if not err and res.body.Collection
+            debugInfo.count = res.body.Collection.length
             resolve res.body.Collection
           else
             reject err      
       catch e
         putError 'vslettings', e
+        debugInfo.error = e
   fetchPropertyData = (prop) ->
     new Promise (resolve, reject) ->
       try
@@ -184,6 +188,8 @@ module.exports = (ndx) ->
       catch e
         putError 'vslettings', e
   checkNew = ->
+    debugInfo =
+      time: new Date()
     try
       currentProps = await fetchCurrentProps()
       console.log '\n\nDEZREZ - ' + (new Date().toString()) + '\n'
