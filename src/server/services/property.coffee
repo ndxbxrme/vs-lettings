@@ -169,18 +169,18 @@ module.exports = (ndx) ->
           purchasersContact: (input) ->
             if input.tenantData?.TenantInfo
               role: ''
-              name: input.tenantData.TenantInfo[0]?.Person.ContactName
-              email: input.tenantData.TenantInfo[0]?.Person.PrimaryEmail?.Value
-              telephone: input.tenantData.TenantInfo[0]?.Person.PrimaryTelephone?.Value
+              name: input.tenantData.TenantInfo[0]?.Person?.ContactName
+              email: input.tenantData.TenantInfo[0]?.Person?.PrimaryEmail?.Value
+              telephone: input.tenantData.TenantInfo[0]?.Person?.PrimaryTelephone?.Value
             else
               #console.log 'BAD PROP T', input.displayAddress
               {}
           vendorsContact: (input) ->
             if input.lettingData?.LandlordInfo
               role: ''
-              name: input.lettingData.LandlordInfo[0]?.Person.ContactName
-              email: input.lettingData.LandlordInfo[0]?.Person.PrimaryEmail?.Value
-              telephone: input.lettingData.LandlordInfo[0]?.Person.PrimaryTelephone?.Value
+              name: input.lettingData.LandlordInfo[0]?.Person?.ContactName
+              email: input.lettingData.LandlordInfo[0]?.Person?.PrimaryEmail?.Value
+              telephone: input.lettingData.LandlordInfo[0]?.Person?.PrimaryTelephone?.Value
             else
               #console.log 'BAD PROP L', input.displayAddress
               {}
