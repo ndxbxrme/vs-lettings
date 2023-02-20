@@ -25,7 +25,7 @@ module.exports = (ndx) ->
                 email: negotiator.PrimaryEmail.Value
                 telephone: negotiator.PrimaryTelephone.Value
             if contact is 'allagency'
-              ndx.database.select 'users', null, (res) ->
+              ndx.database.select 'users', {sendEmail:true}, (res) ->
                 if res and res.length
                   for user in res
                     if user.roles and user.roles.agency
@@ -35,7 +35,7 @@ module.exports = (ndx) ->
                         email: user.email or user.local.email
                         telephone: user.telephone
             if contact is 'alladmin'
-              ndx.database.select 'users', null, (res) ->
+              ndx.database.select 'users', {sendEmail:true}, (res) ->
                 if res and res.length
                   for user in res
                     console.log 'checking', user

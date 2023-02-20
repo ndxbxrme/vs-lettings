@@ -136,6 +136,7 @@ module.exports = (ndx) ->
           console.log 'got template'
           if templates and templates.length
             ndx.database.select 'users',
+              sendEmail: true
               roles:
                 admin:
                   $nnull: true
