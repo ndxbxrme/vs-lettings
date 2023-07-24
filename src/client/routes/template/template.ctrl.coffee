@@ -36,6 +36,7 @@ angular.module 'vs-agency'
       availableDate: "2019-01-15T00:00:00.000Z"
       tendDate: "2019-01-15T00:00:00.000Z"
       rent: "1000"
+      historicRent: "800"
       terms: "12"
       pStatus: "Furnished"
       access: "A load of text about the access details"
@@ -49,6 +50,7 @@ angular.module 'vs-agency'
       epc: "Yes"
       gas: "Yes"
       cfp: "Yes"
+      eicr: "Yes"
   fetchDefaultProp = ->
     $http.post "#{env.PROPERTY_URL}/search",
       RoleStatus: 'OfferAccepted'

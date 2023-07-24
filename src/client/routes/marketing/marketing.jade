@@ -15,24 +15,28 @@
         input(type='date', name='tendDate', ng-model='marketing.tendDate', required)
         .error(ng-show='submitted && marketingEmail.tendDate.$invalid') Please enter the tenancy end date
       .input-holder.third
-        label Current Rental Amount
-        input(type='text', name='rent', ng-model='marketing.rent', required)
-        .error(ng-show='submitted && marketingEmail.rent.$invalid') Please enter the rent
-    .row
-      .input-holder.half
-        label Requested Tenancy Length
-        select(name='terms', ng-model='marketing.terms', required)
-          option(value='6', selected) 6 Months
-          option(value='12') 12 Months
-          option(value='24') 24 Months
-        .error(ng-show='submitted && marketingEmail.terms.$invalid') Please select the terms
-      .input-holder.half
         label Property Status
         select(name='terms', ng-model='marketing.pStatus', required)
           option(value='Furnished', selected) Furnished
           option(value='Unfurnished') Unfurnished
           option(value='Part-Furnished') Part-Furnished
         .error(ng-show='submitted && marketingEmail.pStatus.$invalid') Please select the property status
+    .row
+      .input-holder.third
+        label Requested Tenancy Length
+        select(name='terms', ng-model='marketing.terms', required)
+          option(value='6', selected) 6 Months
+          option(value='12') 12 Months
+          option(value='24') 24 Months
+        .error(ng-show='submitted && marketingEmail.terms.$invalid') Please select the terms
+      .input-holder.third
+        label Historic Rental Amount
+        input(type='text', name='historicRent', ng-model='marketing.historicRent', required)
+        .error(ng-show='submitted && marketingEmail.historicRent.$invalid') Please enter the historic rent
+      .input-holder.third
+        label New Rental Amount
+        input(type='text', name='rent', ng-model='marketing.rent', required)
+        .error(ng-show='submitted && marketingEmail.rent.$invalid') Please enter the rent
     .row
       .input-holder
         label Access Details
@@ -98,7 +102,17 @@
             label(for='gasno') No
         .error(ng-show='submitted && marketingEmail.gas.$invalid') Please select an Gas Cert status
       .input-holder.half
-        h3 Property added on CFP
+        h3 EICR
+        ul.radio
+          li
+            input#eicryes(type='radio', name='eicr', ng-model='marketing.eicr', value='Yes', required)
+            label(for='eicryes') Yes
+          li
+            input#eicrno(type='radio', name='eicr', ng-model='marketing.eicr', value='No', required)
+            label(for='eicrno') No
+        .error(ng-show='submitted && marketingEmail.eicr.$invalid') Please select an EICR status
+      .input-holder.half
+        h3 Property added on SME
         ul.radio
           li
             input#cfpyes(type='radio', name='cfp', ng-model='marketing.cfp', value='Yes', required)
@@ -106,7 +120,7 @@
           li
             input#cfpno(type='radio', name='cfp', ng-model='marketing.cfp', value='No', required)
             label(for='cfpno') No
-        .error(ng-show='submitted && marketingEmail.gas.$invalid') Please select an CFP status
+        .error(ng-show='submitted && marketingEmail.cfp.$invalid') Please select an SME status
     .row
       .controls.right
         button(type='button', ng-click='cancel()') Cancel
