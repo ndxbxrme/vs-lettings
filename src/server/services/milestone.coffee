@@ -28,7 +28,7 @@ module.exports = (ndx) ->
               ndx.database.select 'users', {sendEmail:true}, (res) ->
                 if res and res.length
                   for user in res
-                    if user.roles and user.roles.agency
+                    if not user.deleted and user.local and user.local.sites and user.local.sites.main and user.local.sites.main.role and user.local.sites.main.role is 'agency'
                       contacts.push
                         name: user.displayName or user.local.email
                         role: 'Agency'
@@ -39,7 +39,7 @@ module.exports = (ndx) ->
                 if res and res.length
                   for user in res
                     console.log 'checking', user
-                    if user.roles and user.roles.admin
+                    if not user.deleted and user.local and user.local.sites and user.local.sites.main and user.local.sites.main.role and ['superadmin', 'admin'].includes(user.local.sites.main.role) and user.local.email and user.local.email isnt 'superadmin@admin.com'
                       contacts.push
                         name: user.displayName or user.local.email
                         role: 'Admin'
