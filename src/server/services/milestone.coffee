@@ -28,23 +28,29 @@ module.exports = (ndx) ->
               ndx.database.select 'users', {sendEmail:true}, (res) ->
                 if res and res.length
                   for user in res
-                    if not user.deleted and user.local and user.local.sites and user.local.sites.main and user.local.sites.main.role and user.local.sites.main.role is 'agency'
-                      contacts.push
-                        name: user.displayName or user.local.email
-                        role: 'Agency'
-                        email: user.email or user.local.email
-                        telephone: user.telephone
+                    if not user.deleted
+                      if user.local and user.local.sites and user.local.sites.main and user.local.sites.main.role
+                        if user.local.sites.main.role is 'agency'
+                          contacts.push
+                            name: user.displayName or user.local.email
+                            role: 'Agency'
+                            email: user.email or user.local.email
+                            telephone: user.telephone
             if contact is 'alladmin'
               ndx.database.select 'users', {sendEmail:true}, (res) ->
                 if res and res.length
                   for user in res
                     console.log 'checking', user
-                    if not user.deleted and user.local and user.local.sites and user.local.sites.main and user.local.sites.main.role and ['superadmin', 'admin'].includes(user.local.sites.main.role) and user.local.email and user.local.email isnt 'superadmin@admin.com'
-                      contacts.push
-                        name: user.displayName or user.local.email
-                        role: 'Admin'
-                        email: user.email or user.local.email
-                        telephone: user.telephone
+                    if not user.deleted
+                      if user.local and user.local.sites and user.local.sites.main
+                        if user.local.sites.main.role and ['superadmin', 'admin'].includes(user.local.sites.main.role)
+                          if user.local.email
+                            if user.local.email isnt 'superadmin@admin.com'
+                              contacts.push
+                                name: user.displayName or user.local.email
+                                role: 'Admin'
+                                email: user.email or user.local.email
+                                telephone: user.telephone
           else
             if property.case[contact]
               contacts.push property.case[contact]
