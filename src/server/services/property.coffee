@@ -12,6 +12,8 @@ module.exports = (ndx) ->
       isdefault: true
     , (progressions) ->
       for progression in progressions
+        if progression.deleted
+          continue
         property.progressions.push JSON.parse JSON.stringify progression
   calculateMilestones = (property) ->
     try
