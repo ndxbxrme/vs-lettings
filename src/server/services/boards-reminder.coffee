@@ -1,23 +1,17 @@
 { zonedTimeToUtc, utcToZonedTime, format } = require 'date-fns-tz'
 
-millisecondsUntil10am = ->
+millisecondsUntilNextWednesdayAt10am = ->
   now = new Date
   timeZone = 'Europe/London'
   # Time zone for the United Kingdom
   # Convert the current time to the UK time zone
   nowInUKTimeZone = utcToZonedTime(now, timeZone)
-  tenAM = new Date(nowInUKTimeZone)
-  tenAM.setHours 10, 0, 0, 0
-  if nowInUKTimeZone.getHours() >= 10 or nowInUKTimeZone.getTime() > tenAM.getTime()
-    tenAM.setDate tenAM.getDate() + 1
-  # Format the dates for display
-  formatOptions = 
-    timeZone: timeZone
-    hour: '2-digit'
-    minute: '2-digit'
-  tenAMString = format(tenAM, 'HH:mm', formatOptions)
-  nowString = format(nowInUKTimeZone, 'HH:mm', formatOptions)
-  tenAM.getTime() - nowInUKTimeZone.getTime()
+  nextWednesday = new Date(nowInUKTimeZone)
+  nextWednesday.setHours 10, 0, 0, 0
+  # Determine the day difference to next Wednesday
+  daysUntilWednesday = (10 - nowInUKTimeZone.getDay()) % 7 or 7
+  nextWednesday.setDate nextWednesday.getDate() + daysUntilWednesday
+  nextWednesday.getTime() - nowInUKTimeZone.getTime()
 
 module.exports = (ndx) ->
   ndx.database.on 'ready', ->
@@ -32,5 +26,5 @@ module.exports = (ndx) ->
                 for user in users
                   templates[0].to = user.local.email
                   ndx.email.send templates[0]
-      setTimeout sendEmail, millisecondsUntil10am()
-    setTimeout sendEmail, millisecondsUntil10am()   
+      setTimeout sendEmail, millisecondsUntilNextWednesdayAt10am()
+    setTimeout sendEmail, millisecondsUntilNextWednesdayAt10am()   
