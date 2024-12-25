@@ -26,7 +26,10 @@ module.exports = (ndx) ->
                 for user in users
                   if user.deleted or user.local.email is 'superadmin@admin.com'
                     continue
-                  templates[0].to = user.local.email
-                  ndx.email.send templates[0]
+                  try
+                    templates[0].to = user.local.email
+                    ndx.email.send templates[0]
+                  catch e
+                    console.log e
       setTimeout sendEmail, millisecondsUntilNextWednesdayAt10am()
     setTimeout sendEmail, millisecondsUntilNextWednesdayAt10am()   
