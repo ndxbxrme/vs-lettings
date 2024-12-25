@@ -24,7 +24,7 @@ module.exports = (ndx) ->
             ndx.database.select 'users', null, (users) ->
               if users and users.length
                 for user in users
-                  if user.local.email is 'superadmin@admin.com'
+                  if user.deleted or user.local.email is 'superadmin@admin.com'
                     continue
                   templates[0].to = user.local.email
                   ndx.email.send templates[0]
