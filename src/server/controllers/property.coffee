@@ -74,6 +74,8 @@ module.exports = (ndx) ->
             templates[0].user = user
             templates[0].to = 'richard@vitalspace.co.uk'
             ndx.email.send templates[0]
+            marketing.user = user
+            ndx.database.insert 'marketing', marketing
     catch e
       putError 'vslettings', e
     res.end 'OK'
