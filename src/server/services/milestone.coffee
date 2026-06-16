@@ -135,15 +135,15 @@ module.exports = (ndx) ->
                   ndx.database.select 'smstemplates',
                     _id: action.template
                   , (res) ->
-                    if res and res.length
-                      for contact in contacts
-                        ndx.sms.send
-                          originator: 'VitalSpace'
-                          numbers: [contact.telephone]
-                          body: res[0].body
-                        ,
-                          contact: contact
-                          property: property
+                    # if res and res.length
+                    #   for contact in contacts
+                    #     ndx.sms.send
+                    #       originator: 'VitalSpace'
+                    #       numbers: [contact.telephone]
+                    #       body: res[0].body
+                    #     ,
+                    #       contact: contact
+                    #       property: property
     catch e
       putError 'vslettings', e
   ndx.milestone =
